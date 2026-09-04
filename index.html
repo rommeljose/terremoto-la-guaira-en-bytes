@@ -148,6 +148,17 @@
   figcaption{color:var(--muted); font-size:.86rem; margin:12px 2px 0; max-width:96ch}
   figcaption b{color:var(--ink); font-weight:600}
   figure{margin:0}
+  .simframe{border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:var(--shadow); background:#fff}
+  .simframe iframe{display:block; width:100%; height:900px; border:0; background:#fff}
+  @media (max-width:640px){ .simframe iframe{height:1180px} }
+  .pubnote{display:inline-flex; align-items:center; gap:10px; margin:18px auto 0;
+    padding:8px 18px; border:1.5px solid var(--orange); border-radius:22px;
+    background:var(--panel); font-size:.9rem; color:var(--muted); font-weight:600}
+  .pubnote b{color:var(--orange); font-weight:800}
+  .pn-dot{width:9px; height:9px; border-radius:50%; background:var(--orange); flex:none;
+    animation:pn 1.9s ease-out infinite}
+  @keyframes pn{0%{box-shadow:0 0 0 0 rgba(232,84,31,.55)}70%{box-shadow:0 0 0 9px rgba(232,84,31,0)}100%{box-shadow:0 0 0 0 rgba(232,84,31,0)}}
+  @media (prefers-reduced-motion:reduce){ .pn-dot{animation:none} }
 
   .footer{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;
     margin-top:40px; padding-top:18px; border-top:2px solid var(--ink)}
@@ -172,6 +183,7 @@
     <h1>Análisis del Terremoto de La Guaira en cifras</h1>
     <p class="dek">Todo el análisis telesísmico de la fuente del <b>doblete del 24-jun-2026</b> —la imagen de las dos rupturas, la inversión de la tasa de momento y las pruebas de robustez— corrido de principio a fin en <b>una sola APU de escritorio de consumo</b>.</p>
     <p class="disamb">Estas son cifras del <b>análisis y el cómputo</b> de la fuente sísmica —datos, sismogramas y modelado de la ruptura—. <b>No</b> son cifras de víctimas ni de daños.</p>
+    <div class="pubnote"><span class="pn-dot"></span><span><b>Artículos científicos en preparación</b> · publicación próxima</span></div>
   </header>
 
   <div class="plate">
@@ -184,10 +196,10 @@
     </div>
   </div>
 
-  <div class="callout">Sin clúster, sin HPC: <b>un PC doméstico</b> reproduce todo el <i>pipeline</i> —descarga → ensamblaje → inversión → figuras— en horas.</div>
+  <div class="callout">Sin clúster, sin HPC: <b>un PC doméstico</b> resolvió todo el <i>pipeline</i> —descarga → ensamblaje → inversión → figuras— en <b>una noche de cómputo (~5 h continuas)</b>.</div>
 
   <div class="nums">
-    <div><div class="n">5 465</div><div class="k">sismogramas sintéticos (Green)</div></div>
+    <div><div class="n">5 465</div><div class="k">sismogramas sintéticos (Green)</div></div>
     <div><div class="n">~150</div><div class="k">estaciones sismológicas</div></div>
     <div><div class="n">18</div><div class="k">redes FDSN · 3 continentes</div></div>
     <div><div class="n">68<span class="u"> M</span></div><div class="k">coeficientes ensamblados</div></div>
@@ -242,9 +254,9 @@
     <div class="sh"><span class="n">03</span><h2>Funciones de Green</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Sismogramas sintéticos de <b>Syngine / AxiSEM</b> (modelo <span class="mono">ak135f_2s</span>), con física completa <span class="mono">P + pP + sP</span>; cada uno pedido al servicio de EarthScope.</p>
     <div class="grid2">
-      <div class="box o"><div class="big">5 465</div><h3>Green en total</h3><p>Cada una de <b>450 muestras</b> (180 s a 0,4 s). ~22 MB en disco.</p></div>
-      <div class="box o"><div class="big">4 313 <span class="u">/ 79 min</span></div><h3>barrido de profundidad</h3><p>5 profundidades nuevas · <b>7 fallos</b> → <b>99,8 %</b> de éxito.</p></div>
-      <div class="box o"><div class="big">~1,9<span class="u"> M</span></div><h3>muestras sintéticas</h3><p>Solo en la prueba de profundidad (4 313 × 450 muestras).</p></div>
+      <div class="box o"><div class="big">5 465</div><h3>Green en total</h3><p>Cada una de <b>450 muestras</b> (180 s a 0,4 s). ~22 MB en disco.</p></div>
+      <div class="box o"><div class="big">~5 h</div><h3>barrido de profundidad</h3><p><b>4 313 Green</b> a 5 profundidades · <b>99,8 %</b> de éxito · una noche continua de descarga.</p></div>
+      <div class="box o"><div class="big">~1,9<span class="u"> M</span></div><h3>muestras sintéticas</h3><p>Solo en la prueba de profundidad (4 313 × 450 muestras).</p></div>
       <div class="box o"><div class="big">288</div><h3>malla extendida</h3><p>Green extra para la prueba de <i>padding</i> de bordes.</p></div>
     </div>
   </section>
@@ -252,10 +264,10 @@
   <section>
     <div class="sh"><span class="n">04</span><h2>El operador de inversión</h2><span class="rule"></span></div>
     <div class="grid2">
-      <div class="box b"><div class="big">7 200 × 2 187</div><h3>matriz G por profundidad</h3><p><b>15,7 millones</b> de elementos · <b>11,4 millones</b> no nulos.</p></div>
+      <div class="box b"><div class="big">7 200 × 2 187</div><h3>matriz G por profundidad</h3><p><b>15,7 millones</b> de elementos · <b>11,4 millones</b> no nulos.</p></div>
       <div class="box b"><div class="big">×6</div><h3>ensamblajes</h3><p>Una matriz por profundidad → <b>~68 millones</b> de coeficientes.</p></div>
-      <div class="box b"><div class="big">30 <span class="u">/ 4,9 min</span></div><h3>inversiones no-negativas</h3><p>6 profundidades × 5 desfases · <b>~10 s</b> cada una.</p></div>
-      <div class="box b"><div class="big">7 200</div><h3>muestras ajustadas</h3><p>Formas de onda observadas ajustadas <b>en simultáneo</b>.</p></div>
+      <div class="box b"><div class="big">30 <span class="u">/ ~19 min</span></div><h3>inversiones no-negativas</h3><p>6 profundidades × 5 desfases · <b>~38 s</b> cada una.</p></div>
+      <div class="box b"><div class="big">7 200</div><h3>muestras ajustadas</h3><p>Formas de onda observadas ajustadas <b>en simultáneo</b>.</p></div>
     </div>
   </section>
 
@@ -270,12 +282,12 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">06</span><h2>La física, en una lámina</h2><span class="rule"></span></div>
-    <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puede enseñarse con las manos. La <b>directividad</b> (por qué La Guaira, al frente de la ruptura, recibe un pulso comprimido y grande) y la <b>polarización de la onda S</b> se demuestran con <b>una cuerda y un dedo</b>:</p>
-    <figure>
-      <div class="figplate"><img src="assets/lamina_directividad.png" alt="Lámina: simulación mecánica de la directividad Doppler y la polarización de la S con una cuerda y un dedo"></div>
-      <figcaption>Al deslizar el dedo a lo largo de la cuerda a velocidad V<sub>r</sub>, los pulsos se <b>apilan hacia adelante</b> (directividad; máximo cuando V<sub>r</sub> ≈ V<sub>s</sub>, y cono de Mach si V<sub>r</sub> &gt; V<sub>s</sub> = <i>supershear</i>), mientras el movimiento del suelo es siempre <b>⊥ a la falla</b> (la polarización N–S de la S). Lámina divulgativa AGHES.</figcaption>
-    </figure>
+    <div class="sh"><span class="n">06</span><h2>La física, interactiva</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y altísimo que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
+    <div class="simframe">
+      <iframe src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
+    </div>
+    <figcaption>Simulación interactiva (SVG, sin dependencias): <b>adelante</b> la S es un pulso corto y de gran amplitud (PGA máximo); <b>atrás</b>, un tren largo y débil —la misma energía repartida distinto—; con β &gt; 1 aparece el <i>supershear</i>. Las flechas rojas marcan la polarización N–S de la S. También disponible como <a href="assets/lamina_directividad.png">lámina estática</a>. <b>Lcdo. Físico Rommel Contreras (AGHES)</b>.</figcaption>
   </section>
 
   <div class="footer">

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulación 02 · ¿A dónde va la energía? (balance y directividad)</title>
+<style>
+  :root{ color-scheme: light dark; }
+  body{ font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+        max-width:1040px; margin:24px auto; padding:0 16px; line-height:1.5;
+        background:#fbfcfe; color:#16212e; }
+  @media (prefers-color-scheme:dark){ body{ background:#0b1219; color:#e7edf3; } }
+  h1{ font-size:20px; margin:0 0 4px; }
+  p.lead{ color:#5b6b7d; margin:0 0 18px; }
+  @media (prefers-color-scheme:dark){ p.lead{ color:#9fb0c0; } }
+  .controls{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+             gap:12px 22px; margin:18px 0; padding:14px; border:1px solid #d5dde6; border-radius:10px; }
+  @media (prefers-color-scheme:dark){ .controls{ border-color:#2a3a4b; } }
+  label{ font-size:12px; font-weight:600; display:block; }
+  .val{ font-weight:700; color:#e4572e; }
+  input[type=range]{ width:100%; }
+  .btns{ display:flex; gap:8px; align-items:end; }
+  button{ font:inherit; padding:7px 14px; border-radius:8px; border:1px solid #d5dde6;
+          background:#e4572e; color:#fff; cursor:pointer; }
+  button.sec{ background:transparent; color:inherit; }
+  small.note{ color:#5b6b7d; }
+</style>
+</head>
+<body>
+  <h1>Simulación 02 — Balance energético y directividad hacia adelante/atrás</h1>
+  <p class="lead">La ruptura rompe hacia el Este. En cada sismograma llegan
+    <b>dos ondas</b>: primero la <b style="color:#2d6ebe">P</b> (azul, rápida y
+    pequeña) y luego la <b style="color:#e4572e">S</b> (roja, lenta y grande — la
+    que domina). <b>Adelante</b> la S es un pulso corto y altísimo (PGA máximo);
+    <b>atrás</b>, un tren largo y débil — <b>la misma energía</b>, repartida
+    distinto. Abajo, a dónde va toda la energía del sismo.</p>
+
+  <div id="sim"></div>
+
+  <div class="controls">
+    <div>
+      <label>β = V<sub>r</sub>/c <span class="val" id="v-beta">0.80</span></label>
+      <input id="beta" type="range" min="0.1" max="1.5" step="0.02" value="0.8">
+      <small class="note">Más β → más contraste adelante/atrás</small>
+    </div>
+    <div><label>Longitud de falla <span class="val" id="v-L">240</span></label>
+      <input id="L" type="range" min="60" max="300" step="10" value="240"></div>
+    <div><label>Longitud de onda λ <span class="val" id="v-lambda">30</span></label>
+      <input id="lambda" type="range" min="16" max="54" step="2" value="30"></div>
+    <div><label>Subfuentes <span class="val" id="v-nSources">20</span></label>
+      <input id="nSources" type="range" min="6" max="30" step="1" value="20"></div>
+    <div>
+      <label>Energía radiada Eₛ/E₀ <span class="val" id="v-esRad">20%</span></label>
+      <input id="esRad" type="range" min="0.10" max="0.30" step="0.01" value="0.20">
+      <small class="note">El resto → fractura + calor</small>
+    </div>
+    <div><label>Velocidad animación <span class="val" id="v-speed">1.0</span></label>
+      <input id="speed" type="range" min="0.2" max="3" step="0.1" value="1.0"></div>
+    <div class="btns">
+      <button id="toggle">⏸ Pausa</button>
+      <button id="reset" class="sec">↺ Reiniciar</button>
+    </div>
+  </div>
+
+  <p class="credito" style="margin:-4px 0 14px;font-size:13px;font-weight:700;color:#8a4a28;">
+    Lcdo. Físico Rommel Contreras (AGHES)</p>
+
+  <p><small class="note">Compara los <b>PGA</b> (junto a cada traza): el de
+    <b>Adelante</b> puede ser varias veces el de <b>Atrás</b>, aunque la energía
+    total (área) sea parecida. Con β&gt;1 el contraste se dispara (supershear).
+    Las <b style="color:#e4572e">flechas rojas</b> en el mapa son la
+    <b>polarización de la S</b> (dirección de cizalla, ⊥ al rayo): <b>N–S</b>
+    adelante/atrás y <b>E–O</b> al lado — el marcador oscila en esa dirección al
+    pasar la onda.</small></p>
+
+  <script src="sim_balance_energetico.js"></script>
+  <script>
+    var sim = SimBalanceEnergetico.crear(document.getElementById('sim'), { beta:0.8 });
+    function bind(id, fmt){
+      var i=document.getElementById(id), o=document.getElementById('v-'+id);
+      i.addEventListener('input', function(){ sim.setParam(id,i.value);
+        o.textContent = fmt?fmt(i.value):i.value; });
+    }
+    bind('beta', function(v){return (+v).toFixed(2);});
+    bind('L'); bind('lambda'); bind('nSources');
+    bind('esRad', function(v){return Math.round(+v*100)+'%';});
+    bind('speed', function(v){return (+v).toFixed(1);});
+    var tb=document.getElementById('toggle');
+    tb.addEventListener('click', function(){ tb.textContent = sim.toggle()?'⏸ Pausa':'▶ Reproducir'; });
+    document.getElementById('reset').addEventListener('click', function(){ sim.reset(); });
+  </script>
+</body>
+</html>
