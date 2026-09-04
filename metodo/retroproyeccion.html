@@ -1,0 +1,168 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retroproyección telesísmica — método</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<script>
+  window.MathJax = { tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},
+    svg:{fontCache:'global'}, options:{renderActions:{addMenu:[]}} };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  .paperimg{width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:var(--shadow)}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← Análisis del terremoto de La Guaira en cifras</a>
+  <header>
+    <p class="eyebrow">Método · retroproyección telesísmica — La Guaira, 24-jun-2026</p>
+    <h1>Retroproyección: dónde y cuándo radía la ruptura</h1>
+    <p class="sub">Un arreglo lejano de estaciones, usado como un <em class="term">telescopio sísmico</em>: alineando y apilando sus registros se ilumina, en el mapa y en el tiempo, de dónde sale la energía de alta frecuencia.</p>
+  </header>
+
+  <p class="lead">La retroproyección (<em>back-projection</em>) no necesita un modelo de fuente: <strong>sigue la energía</strong>. Se toman decenas de estaciones telesísmicas, se alinean sus ondas $P$ y, para cada punto candidato del mapa, se apilan desplazadas por el tiempo de viaje predicho. Donde el apilado es <strong>coherente</strong>, hay una fuente radiando. Barriendo en el tiempo se obtiene una película de <em>dónde</em> se radia la alta frecuencia — y así se ven <strong>los dos núcleos del doblete y el hueco entre ellos</strong>.</p>
+
+  <h2><span class="no">1</span> El principio: alinear y apilar</h2>
+  <p>Para un punto del mapa $\mathbf{x}$ y un instante $t$, el <em class="term">apilado</em> de las $N$ estaciones es</p>
+  $$ S(\mathbf{x},t) \;=\; \frac{1}{N}\sum_{j=1}^{N} w_j\; u_j\!\big(t + T_j(\mathbf{x}) + \Delta\tau_j\big), $$
+  <p>donde $u_j$ es la traza filtrada de la estación $j$, $T_j(\mathbf{x})$ el <strong>tiempo de viaje $P$ predicho</strong> desde $\mathbf{x}$, y $\Delta\tau_j$ una <strong>corrección empírica por estación</strong>. Si $\mathbf{x}$ es la fuente real, todas las trazas se suman <strong>en fase</strong> y $S$ es grande; si no, se cancelan.</p>
+  <p>Para suprimir el ruido incoherente se usa el <strong>apilado de raíz enésima</strong> (aquí $n=4$), que castiga la falta de coherencia antes de sumar:</p>
+  $$ v_j=\operatorname{sgn}(u_j)\,|u_j|^{1/n}, \qquad S_n(\mathbf{x},t)=\Big|\tfrac{1}{N}\textstyle\sum_j v_j\Big|^{\,n}, \qquad E(\mathbf{x},t)=\big\langle S_n^2\big\rangle_{\text{ventana}}. $$
+  <p>$E(\mathbf{x},t)$ es la <strong>imagen de energía</strong>: su máximo marca la posición de la fuente en cada instante.</p>
+
+  <figure>
+    <div class="fig">
+      <svg viewBox="0 0 720 250" role="img" aria-label="Alinear y apilar">
+        <style>.tr{fill:none;stroke:var(--blue);stroke-width:1.6}.lb{font-family:'IBM Plex Sans',sans-serif;font-size:12px;fill:var(--muted)}</style>
+        <!-- trazas crudas, P escalonada -->
+        <text x="20" y="30" class="lb" style="font-weight:600;fill:var(--strong)">trazas (P escalonada)</text>
+        <path class="tr" d="M20,60 h40 q6,-20 12,0 q6,18 12,0 h96"/>
+        <path class="tr" d="M20,95 h64 q6,-20 12,0 q6,18 12,0 h72"/>
+        <path class="tr" d="M20,130 h30 q6,-20 12,0 q6,18 12,0 h106"/>
+        <path class="tr" d="M20,165 h80 q6,-20 12,0 q6,18 12,0 h56"/>
+        <!-- flecha desplazar -->
+        <text x="300" y="115" text-anchor="middle" class="lb">desplazar por</text>
+        <text x="300" y="131" text-anchor="middle" class="lb">T_j(x) + Δτ_j</text>
+        <path d="M250,115 h110" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#rp)"/>
+        <defs><marker id="rp" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+        <!-- trazas alineadas -->
+        <text x="410" y="30" class="lb" style="font-weight:600;fill:var(--strong)">alineadas</text>
+        <g style="stroke:var(--blue)">
+          <path class="tr" d="M410,60 h70 q6,-20 12,0 q6,18 12,0 h76"/>
+          <path class="tr" d="M410,95 h70 q6,-20 12,0 q6,18 12,0 h76"/>
+          <path class="tr" d="M410,130 h70 q6,-20 12,0 q6,18 12,0 h76"/>
+          <path class="tr" d="M410,165 h70 q6,-20 12,0 q6,18 12,0 h76"/>
+        </g>
+        <line x1="488" y1="45" x2="488" y2="185" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3"/>
+        <!-- suma coherente -->
+        <text x="565" y="222" text-anchor="middle" class="lb" style="fill:var(--amber)">apilado coherente</text>
+        <path d="M410,215 h70 q6,-46 12,0 q6,44 12,0 h76" fill="none" stroke="var(--amber)" stroke-width="2.4"/>
+      </svg>
+    </div>
+    <figcaption><b>Figura 1.</b> <em>Delay-and-stack.</em> Las trazas llegan con la $P$ en instantes distintos (izq.); al desplazar cada una por el tiempo de viaje al punto candidato quedan alineadas (der.) y su suma es un <b>pulso coherente</b>. Barriendo el punto candidato por el mapa y el tiempo se construye la imagen de energía.</figcaption>
+  </figure>
+
+  <h2><span class="no">2</span> El contexto y el arreglo</h2>
+  <p>El terremoto ocurrió en el sistema dextral Caribe–Sudamérica, en el enlace de las fallas de Boconó, Morón y San Sebastián:</p>
+  <figure>
+    <img class="paperimg" src="img/mapa_regional.png" alt="Mapa tectónico regional: fallas de Boconó, Morón y San Sebastián con los dos epicentros del doblete">
+    <figcaption><b>Figura 2.</b> Marco tectónico regional: el nudo de transferencia Boconó–Morón–San Sebastián y los dos epicentros del USGS (M 7,2 al oeste, M 7,5 al este), separados ~149 km. El recuadro sitúa la zona en el Caribe norte.</figcaption>
+  </figure>
+  <p>La retroproyección se hace con un <strong>arreglo telesísmico</strong> a 30°–90° de distancia. Lo decisivo es su <strong>cobertura azimutal</strong>: cuanto más rodean las estaciones al epicentro, mejor la resolución y menores los lóbulos laterales. Nuestro arreglo mira sobre todo desde el N–NE, lo que se corrige con las correcciones empíricas por estación:</p>
+  <figure>
+    <img class="paperimg" src="img/cobertura_azimutal.png" alt="Cobertura azimutal de las estaciones y polaridad de la primera llegada">
+    <figcaption><b>Figura 3.</b> <b>Distribución azimutal</b> de las estaciones (azimut frente a distancia epicentral), coloreadas por la polaridad observada de la $P$. El inserto proyecta esas polaridades sobre la esfera focal del mecanismo del USGS: coinciden en 28 de 32 estaciones — el mecanismo queda verificado con dato propio.</figcaption>
+  </figure>
+
+  <h2><span class="no">3</span> El modelo, sólo en relativo</h2>
+  <p>Los tiempos de viaje $T_j(\mathbf{x})$ se calculan con un modelo de Tierra global (IASP91). A 1 Hz, <strong>un segundo de error es un ciclo entero</strong> y arruinaría el apilado; por eso el modelo <strong>no se usa en absoluto, sino en relativo</strong>: las trazas se alinean por correlación cruzada sobre la $P$ del M 7,2, y el desfase resultante en cada estación se guarda como <strong>corrección empírica $\Delta\tau_j$</strong>. Esa corrección absorbe la estructura 3-D bajo cada estación y la mayor parte del sesgo de trayecto. Se conservan las estaciones con $CC\ge 0{,}6$.</p>
+  <div class="callout"><span class="k">Consecuencia importante</span> Como las correcciones se calibran sobre el M 7,2, la energía inicial cae sobre él <em>por construcción</em>: ese primer instante no es evidencia independiente. Lo que sí es una medida es la <strong>segunda fuente</strong>, que aparece 149 km al este y ~32 s después — y la respaldan los controles.</p>
+
+  <h2><span class="no">4</span> El resultado: el doblete</h2>
+  <figure>
+    <img class="paperimg" src="img/retroproyeccion.png" alt="Imagen de retroproyección del doblete: dos fuentes, controles y energía en tiempo y distancia">
+    <figcaption><b>Figura 4.</b> Imagen de retroproyección. (a) primeros 15 s: la energía cae sobre el epicentro occidental (circular por construcción); (b) 20–45 s: la fuente tardía aparece a 149 km al este; (c) energía en el plano tiempo–distancia a lo largo del rumbo (dos estallidos, no una rampa); (d) control con dos fuentes separadas y (e) control nulo con ambas en el mismo sitio, que confirman que el salto al este <b>no es artefacto</b>; (f)/geometría.</figcaption>
+  </figure>
+
+  <h2><span class="no">5</span> Resolución, controles y límites</h2>
+  <ul>
+    <li><strong>Controles sintéticos:</strong> se generan dos fuentes separadas (se recuperan) y un <em>control nulo</em> con ambas colocadas (no aparece la segunda) → el salto al este es real, no un lóbulo lateral.</li>
+    <li><strong>Jackknife</strong> <em>leave-one-out</em> y prueba de <strong>ruido</strong>: la separación de 149 km es estable (σ ≈ 8 km) y sobrevive a SNR muy bajas; no depende de ninguna estación.</li>
+    <li><strong>Qué ve y qué no:</strong> la retroproyección ilumina <strong>radiadores de alta frecuencia</strong> (inicios, paradas, bordes de asperezas), <em>no</em> el frente de deslizamiento. Acota la extensión de la radiación (≲35 km para el M 7,2), no la longitud total de ruptura. Resuelve bien <em>posición</em> y <em>tiempo</em>, no la <em>amplitud absoluta</em> (por eso el momento lo mide la <a href="inversion.html">inversión</a>).</li>
+  </ul>
+  <div class="callout blue"><span class="k">En una frase</span> La retroproyección usa un arreglo lejano como telescopio: alineando y apilando la $P$ de alta frecuencia, mapea <strong>dónde y cuándo</strong> radía la ruptura — y muestra, con controles, que La Guaira vivió <strong>dos rupturas sucesivas separadas por un hueco</strong>, no un frente único.</div>
+
+  <h2><span class="no">6</span> Referencias</h2>
+  <ul class="refs">
+    <li>Ishii, M., Shearer, P. M., Houston, H., &amp; Vidale, J. E. (2005). Extent, duration and speed of the 2004 Sumatra–Andaman earthquake imaged by the Hi-Net array. <em>Nature</em>, 435, 933–936.</li>
+    <li>Xu, Y., Koper, K. D., Sufri, O., Zhu, L., &amp; Hutko, A. R. (2009). Rupture imaging of the Mw 7.9 12 May 2008 Wenchuan earthquake from back projection. <em>G-cubed</em>, 10, Q04006.</li>
+    <li>Kiser, E., &amp; Ishii, M. (2017). Back-projection imaging of earthquakes. <em>Annual Review of Earth and Planetary Sciences</em>, 45, 271–299.</li>
+    <li>Kennett, B. L. N., &amp; Engdahl, E. R. (1991). Traveltimes for global earthquake location and phase identification. <em>Geophys. J. Int.</em>, 105, 429–465. (IASP91).</li>
+  </ul>
+
+  <div class="foot">
+    <span>Método · retroproyección telesísmica · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>
