@@ -98,6 +98,11 @@
   .spec .l{font-size:.75rem; color:var(--muted); margin-top:3px}
   .note{margin:15px 0 0; color:var(--muted); font-size:.95rem; max-width:74ch}
   .note b{color:var(--ink); font-weight:600}
+  .metodo-link{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.95rem;
+    color:#fff; background:var(--orange); text-decoration:none; padding:11px 20px; border-radius:8px;
+    box-shadow:var(--shadow)}
+  .metodo-link:hover{filter:brightness(1.07)}
+  .metodo-link:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
 
   .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px;
     border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--panel)}
@@ -272,7 +277,13 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">05</span><h2>Rigor</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">05</span><h2>Relocalización de réplicas · próximo paso</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">El siguiente salto de precisión: <b>relocalización relativa</b> de la secuencia con <b>hypoDD</b> (doble diferencia, en su Fortran nativo). Cancela los errores comunes de trayecto y resuelve la posición <b>relativa</b> de cada réplica con precisión de decenas a centenas de metros — apretando el doblete y el hueco. La maquinaria ya está <b>montada y validada</b> (test sintético: horizontal ×7 → ~0,5 km); falta el insumo real: los picks P/S de FUNVISIS.</p>
+    <a class="metodo-link" href="metodo/relocalizacion.html">Leer el método completo — fundamento, diagramas y paso a paso →</a>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">06</span><h2>Rigor</h2><span class="rule"></span></div>
     <div class="badges">
       <div class="badge"><span class="dot">✓</span><div><h4>Validación byte a byte</h4><p>El ensamblaje reproduce el resultado publicado con <span class="mono">|m − m_l| = 0</span> y <span class="mono">VR 21,15 %</span> exacta.</p></div></div>
       <div class="badge"><span class="dot">3</span><div><h4>Robustez en 3 ejes independientes</h4><p>El doblete con hueco sobrevive a variar la <b>malla</b>, la <b>longitud de ventana</b> y la <b>profundidad</b>.</p></div></div>
@@ -282,7 +293,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">06</span><h2>La física, interactiva</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">07</span><h2>La física, interactiva</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y altísimo que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
     <div class="simframe">
       <iframe src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
