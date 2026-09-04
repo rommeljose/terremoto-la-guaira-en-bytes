@@ -1,0 +1,350 @@
+<title>Análisis del Terremoto de La Guaira en cifras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  /* Lámina AGHES — tema claro (plancha impresa) y oscuro (observatorio de noche) */
+  :root{
+    --ground:#e7eaef; --paper:#ffffff; --panel:#fbfbfa; --ink:#161616; --strong:#0b0b0b; --muted:#6a6a6a;
+    --line:#e2e2df; --grid:rgba(0,0,0,.035);
+    --orange:#e8541f; --orange-d:#c1272d; --blue:#3b7dd8; --blue-d:#2c62ad;
+    --green:#1b7a3d; --green-ink:#ffffff;
+    --shadow:0 2px 8px rgba(0,0,0,.05),0 20px 50px rgba(0,0,0,.07);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#080d15; --paper:#131c2b; --panel:#0f1826; --ink:#e6edf6; --strong:#f6f9fd; --muted:#93a4bc;
+      --line:#26324a; --grid:rgba(255,255,255,.04);
+      --orange:#f2814a; --orange-d:#f07a5f; --blue:#63b6dc; --blue-d:#8ecbe8;
+      --green:#26935a; --green-ink:#ffffff;
+      --shadow:0 2px 10px rgba(0,0,0,.5),0 24px 60px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#080d15; --paper:#131c2b; --panel:#0f1826; --ink:#e6edf6; --strong:#f6f9fd; --muted:#93a4bc;
+    --line:#26324a; --grid:rgba(255,255,255,.04);
+    --orange:#f2814a; --orange-d:#f07a5f; --blue:#63b6dc; --blue-d:#8ecbe8;
+    --green:#26935a; --green-ink:#ffffff;
+    --shadow:0 2px 10px rgba(0,0,0,.5),0 24px 60px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"Archivo","Segoe UI",system-ui,sans-serif; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1120px; margin:22px auto; background:var(--paper);
+    border:1px solid var(--line); box-shadow:var(--shadow);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:40px 40px;
+    padding:clamp(22px,4.5vw,52px) clamp(18px,4vw,56px) 34px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+
+  header{text-align:center; border-bottom:2px solid var(--ink); padding-bottom:20px}
+  .kicker{font-size:.76rem; letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
+    font-weight:700; margin:0 0 10px}
+  h1{font-size:clamp(1.7rem,4.6vw,3.05rem); font-weight:800; letter-spacing:-.02em; line-height:1.04;
+    margin:0 auto; color:var(--strong); text-wrap:balance; max-width:20ch}
+  .dek{margin:14px auto 0; max-width:70ch; color:var(--muted); font-size:clamp(1rem,2vw,1.14rem)}
+  .dek b{color:var(--ink); font-weight:600}
+  .brand{display:flex; justify-content:center; margin:0 0 16px}
+  .logo-chip{background:#fff; border:1px solid var(--line); border-radius:12px; padding:8px;
+    box-shadow:var(--shadow); display:inline-grid; place-items:center}
+  .logo-chip img{display:block}
+  .disamb{margin:16px auto 0; max-width:74ch; font-size:.9rem; color:var(--muted); text-align:center;
+    background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 18px}
+  .disamb b{color:var(--ink); font-weight:700}
+  .credit-wrap{display:flex; align-items:center; gap:13px}
+  .credit-wrap .logo-chip{padding:5px; border-radius:9px}
+  .credit em{font-style:normal; display:block; font-weight:600; color:var(--muted); font-size:.79rem; margin-top:1px}
+  .credit em span{color:var(--orange)}
+
+  .plate{margin:26px 0 0}
+  .plate-top{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    font-size:.74rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+  canvas{display:block; width:100%; height:150px}
+  .plate-legend{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-top:6px;
+    font-size:.82rem; color:var(--muted)}
+  .plate-legend b{color:var(--orange); font-weight:700}
+  .plate-legend .g{color:var(--blue-d); font-weight:600}
+
+  .callout{background:var(--green); color:var(--green-ink); border-radius:10px; text-align:center;
+    padding:18px 26px; margin:26px auto 0; max-width:840px; font-weight:600; font-size:clamp(1.02rem,2.2vw,1.24rem);
+    box-shadow:0 6px 18px rgba(27,122,61,.22)}
+  .callout b{font-weight:800}
+
+  .nums{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0;
+    margin:30px 0 4px; border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+  .nums>div{padding:20px 16px; text-align:center; border-right:1px solid var(--line)}
+  .nums>div:last-child{border-right:none}
+  .nums .n{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:clamp(1.8rem,4.3vw,2.6rem);
+    color:var(--orange); line-height:1; letter-spacing:-.02em}
+  .nums .n .u{font-size:.82rem; color:var(--muted); font-weight:500}
+  .nums .k{font-size:.8rem; color:var(--muted); margin-top:7px; line-height:1.3}
+
+  section{margin-top:42px}
+  .sh{display:flex; align-items:center; gap:12px; margin:0 0 18px}
+  .sh h2{font-size:1.3rem; font-weight:800; color:var(--strong); margin:0; letter-spacing:-.01em; white-space:nowrap}
+  .sh .n{font-family:"IBM Plex Mono",monospace; color:var(--orange); font-weight:600; font-size:.82rem;
+    border:1.5px solid var(--orange); border-radius:5px; padding:1px 7px}
+  .sh .rule{flex:1; height:2px; background:var(--ink); opacity:.12}
+
+  .spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:0;
+    border:1px solid var(--line); border-radius:8px; overflow:hidden}
+  .spec div{padding:15px 16px; border-right:1px solid var(--line); background:var(--panel)}
+  .spec div:last-child{border-right:none}
+  .spec .v{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--strong); font-size:1.02rem}
+  .spec .l{font-size:.75rem; color:var(--muted); margin-top:3px}
+  .note{margin:15px 0 0; color:var(--muted); font-size:.95rem; max-width:74ch}
+  .note b{color:var(--ink); font-weight:600}
+
+  .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px;
+    border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--panel)}
+  .aside .tag{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.72rem;
+    letter-spacing:.06em; color:#fff; background:var(--blue); border-radius:5px; padding:4px 8px; margin-top:2px}
+  .aside h4{margin:0 0 5px; font-size:1.02rem; font-weight:700; color:var(--strong)}
+  .aside p{margin:0; font-size:.9rem; color:var(--muted)}
+  .aside b{color:var(--ink); font-weight:600}
+  .aside a{color:var(--blue-d); font-weight:600; text-decoration:none;
+    border-bottom:1px solid var(--blue); word-break:break-word}
+  .aside a:hover{color:var(--orange); border-color:var(--orange)}
+  .aside a:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px}
+  table{border-collapse:collapse; width:100%; min-width:540px}
+  th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line)}
+  thead th{font-size:.71rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+    font-weight:700; background:var(--panel)}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--orange);
+    font-size:1.18rem; white-space:nowrap}
+  td .sub{display:block; font-size:.75rem; color:var(--muted); font-weight:400}
+  .nets{font-family:"IBM Plex Mono",monospace; font-size:.79rem; color:var(--blue-d)}
+
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px}
+  .box{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--panel)}
+  .box.o{border-top:3px solid var(--orange)} .box.b{border-top:3px solid var(--blue)}
+  .box .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.75rem; color:var(--strong);
+    letter-spacing:-.02em; line-height:1.05}
+  .box .big .u{font-size:.8rem; color:var(--orange); font-weight:500}
+  .box h3{margin:2px 0 0; font-size:.92rem; font-weight:700; color:var(--ink)}
+  .box p{margin:7px 0 0; font-size:.85rem; color:var(--muted)}
+  .box p b{color:var(--ink); font-weight:600}
+
+  .badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:13px}
+  .badge{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line);
+    border-left:4px solid var(--green); border-radius:8px; padding:15px 17px; background:var(--panel)}
+  .badge.b{border-left-color:var(--blue)}
+  .badge .dot{flex:none; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.85rem}
+  .badge.b .dot{background:var(--blue)}
+  .badge h4{margin:0 0 3px; font-size:.9rem; color:var(--ink); font-weight:700}
+  .badge p{margin:0; font-size:.83rem; color:var(--muted)}
+  .badge .mono{color:var(--strong)}
+
+  .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#ffffff; box-shadow:var(--shadow)}
+  .figplate img{display:block; width:100%; height:auto}
+  figcaption{color:var(--muted); font-size:.86rem; margin:12px 2px 0; max-width:96ch}
+  figcaption b{color:var(--ink); font-weight:600}
+  figure{margin:0}
+
+  .footer{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;
+    margin-top:40px; padding-top:18px; border-top:2px solid var(--ink)}
+  .footer .credit{font-weight:700; color:var(--strong); font-size:1rem}
+  .footer .credit span{color:var(--orange)}
+  .footer .meta{font-family:"IBM Plex Mono",monospace; font-size:.76rem; color:var(--muted); text-align:right}
+  .closing{margin:18px 0 0; font-style:italic; color:var(--muted); font-size:.9rem; max-width:96ch}
+
+  .toggle{position:fixed; top:14px; right:14px; z-index:20; background:var(--paper); color:var(--ink);
+    border:1px solid var(--line); border-radius:20px; padding:7px 13px; box-shadow:var(--shadow);
+    font-family:"IBM Plex Mono",monospace; font-size:.74rem; cursor:pointer}
+  .toggle:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+  @media (max-width:560px){ .toggle{position:absolute; top:8px; right:8px} }
+</style>
+
+<button class="toggle mono" id="tg" aria-label="Cambiar tema claro / oscuro">◐ tema</button>
+
+<div class="sheet">
+  <header>
+    <div class="brand"><span class="logo-chip"><img src="assets/logo_aghes.png" alt="Academia de Geohistoria del Estado Sucre (AGHES)" width="54" height="54"></span></div>
+    <p class="kicker">Estudio de fuente · retroproyección + inversión + profundidad</p>
+    <h1>Análisis del Terremoto de La Guaira en cifras</h1>
+    <p class="dek">Todo el análisis telesísmico de la fuente del <b>doblete del 24-jun-2026</b> —la imagen de las dos rupturas, la inversión de la tasa de momento y las pruebas de robustez— corrido de principio a fin en <b>una sola APU de escritorio de consumo</b>.</p>
+    <p class="disamb">Estas son cifras del <b>análisis y el cómputo</b> de la fuente sísmica —datos, sismogramas y modelado de la ruptura—. <b>No</b> son cifras de víctimas ni de daños.</p>
+  </header>
+
+  <div class="plate">
+    <div class="plate-top"><span>Traza de fuente · componente vertical</span><span>Δt ≈ 32 s entre estallidos</span></div>
+    <canvas id="seis" width="1040" height="150" aria-hidden="true"></canvas>
+    <div class="plate-legend">
+      <span><b>▲ M 7,2</b> · ruptura occidental</span>
+      <span class="g">— hueco (20–32 s): sin liberación rápida de momento —</span>
+      <span><b>M 7,5 ▲</b> · ruptura oriental</span>
+    </div>
+  </div>
+
+  <div class="callout">Sin clúster, sin HPC: <b>un PC doméstico</b> reproduce todo el <i>pipeline</i> —descarga → ensamblaje → inversión → figuras— en horas.</div>
+
+  <div class="nums">
+    <div><div class="n">5 465</div><div class="k">sismogramas sintéticos (Green)</div></div>
+    <div><div class="n">~150</div><div class="k">estaciones sismológicas</div></div>
+    <div><div class="n">18</div><div class="k">redes FDSN · 3 continentes</div></div>
+    <div><div class="n">68<span class="u"> M</span></div><div class="k">coeficientes ensamblados</div></div>
+    <div><div class="n">1</div><div class="k">APU de escritorio</div></div>
+  </div>
+
+  <section>
+    <div class="sh"><span class="n">01</span><h2>La máquina</h2><span class="rule"></span></div>
+    <div class="spec">
+      <div><div class="v">Ryzen 5 3400G</div><div class="l">AMD · APU de escritorio (2019)</div></div>
+      <div><div class="v">6 hilos</div><div class="l">3 núcleos × 2</div></div>
+      <div><div class="v">31 GB</div><div class="l">memoria RAM</div></div>
+      <div><div class="v">WSL2</div><div class="l">Linux sobre Windows</div></div>
+      <div><div class="v">450 USD</div><div class="l">costo del equipo (2019)</div></div>
+    </div>
+    <p class="note">Es, en esencia, un <b>PC doméstico</b>: el mismo tipo de máquina con la que cualquiera edita fotos o juega.</p>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">02</span><h2>Estaciones y redes</h2><span class="rule"></span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Análisis</th><th>Estaciones</th><th>Cobertura</th><th>Redes</th></tr></thead>
+        <tbody>
+          <tr><td>Inversión de tasa de momento<span class="sub">tasa de momento m(ξ, t)</span></td>
+            <td class="num">32</td><td class="mono">Δ 31°–90°<span class="sub">azimut 1°–356° (casi completo)</span></td><td class="nets">CI · II · IM · IU</td></tr>
+          <tr><td>Retroproyección<span class="sub">imagen de las dos fuentes</span></td>
+            <td class="num">24<span class="sub">18 Norteamérica + 6 Europa</span></td><td class="mono">Δ 31°–78°</td><td class="nets">BK · CI · II · IM · IU</td></tr>
+          <tr><td>Velocidad de ruptura<span class="sub">arreglo denso, ventana fina</span></td>
+            <td class="num">127</td><td class="mono">Δ 31°–86°</td><td class="nets">17 redes: AK AT AV CC CI CN II IM IU IW LD MX OO SC TX US UU</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="box b"><div class="big">3</div><h3>continentes</h3><p>Norteamérica, Europa y el Atlántico/Sudamérica aportan cobertura azimutal.</p></div>
+      <div class="box b"><div class="big">1°–356°</div><h3>azimut cubierto</h3><p>Prácticamente el círculo completo alrededor del epicentro.</p></div>
+      <div class="box" style="border-top:3px solid var(--orange-d)"><div class="big">C1 <span class="u" style="color:var(--orange-d)">excluido</span></div><h3>arreglo del sur (Chile)</h3><p>Evaluado <b>y descartado con criterio</b>: 0 estaciones alinean y solo 3/31 pasan S/N ≥ 3. <b>No entra</b> en los cálculos.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="aside">
+      <span class="tag">FDSN</span>
+      <div>
+        <h4>¿Qué es la API FDSN?</h4>
+        <p>Un <b>estándar web</b> que permite el acceso uniforme a datos sismológicos —catálogos de terremotos y formas de onda— desde centros de datos de todo el mundo. Por FDSN se obtuvieron los registros telesísmicos y el catálogo de réplicas de esta secuencia. Venezuela cuenta con su <b>propio servicio FDSN, diseñado por Rommel Contreras</b>: <a href="https://catalogosismicovenezuela.sigeos.org/" target="_blank" rel="noopener">catalogosismicovenezuela.sigeos.org</a> — con su <a href="https://catalogosismicovenezuela.sigeos.org/api.html" target="_blank" rel="noopener">API documentada</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">03</span><h2>Funciones de Green</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Sismogramas sintéticos de <b>Syngine / AxiSEM</b> (modelo <span class="mono">ak135f_2s</span>), con física completa <span class="mono">P + pP + sP</span>; cada uno pedido al servicio de EarthScope.</p>
+    <div class="grid2">
+      <div class="box o"><div class="big">5 465</div><h3>Green en total</h3><p>Cada una de <b>450 muestras</b> (180 s a 0,4 s). ~22 MB en disco.</p></div>
+      <div class="box o"><div class="big">4 313 <span class="u">/ 79 min</span></div><h3>barrido de profundidad</h3><p>5 profundidades nuevas · <b>7 fallos</b> → <b>99,8 %</b> de éxito.</p></div>
+      <div class="box o"><div class="big">~1,9<span class="u"> M</span></div><h3>muestras sintéticas</h3><p>Solo en la prueba de profundidad (4 313 × 450 muestras).</p></div>
+      <div class="box o"><div class="big">288</div><h3>malla extendida</h3><p>Green extra para la prueba de <i>padding</i> de bordes.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">04</span><h2>El operador de inversión</h2><span class="rule"></span></div>
+    <div class="grid2">
+      <div class="box b"><div class="big">7 200 × 2 187</div><h3>matriz G por profundidad</h3><p><b>15,7 millones</b> de elementos · <b>11,4 millones</b> no nulos.</p></div>
+      <div class="box b"><div class="big">×6</div><h3>ensamblajes</h3><p>Una matriz por profundidad → <b>~68 millones</b> de coeficientes.</p></div>
+      <div class="box b"><div class="big">30 <span class="u">/ 4,9 min</span></div><h3>inversiones no-negativas</h3><p>6 profundidades × 5 desfases · <b>~10 s</b> cada una.</p></div>
+      <div class="box b"><div class="big">7 200</div><h3>muestras ajustadas</h3><p>Formas de onda observadas ajustadas <b>en simultáneo</b>.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">05</span><h2>Rigor</h2><span class="rule"></span></div>
+    <div class="badges">
+      <div class="badge"><span class="dot">✓</span><div><h4>Validación byte a byte</h4><p>El ensamblaje reproduce el resultado publicado con <span class="mono">|m − m_l| = 0</span> y <span class="mono">VR 21,15 %</span> exacta.</p></div></div>
+      <div class="badge"><span class="dot">3</span><div><h4>Robustez en 3 ejes independientes</h4><p>El doblete con hueco sobrevive a variar la <b>malla</b>, la <b>longitud de ventana</b> y la <b>profundidad</b>.</p></div></div>
+      <div class="badge"><span class="dot">↓</span><div><h4>Fuente somera, confirmada</h4><p>VR máxima en <span class="mono">5–10 km</span>; el hueco es insensible a la profundidad (<span class="mono">f = 0,13–0,85 %</span>).</p></div></div>
+      <div class="badge b"><span class="dot">⌀</span><div><h4>Descartes con criterio</h4><p>El arreglo del sur (Chile) se probó y <b>se excluyó</b> por S/N y geometría — el conteo no se infla.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">06</span><h2>La física, en una lámina</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puede enseñarse con las manos. La <b>directividad</b> (por qué La Guaira, al frente de la ruptura, recibe un pulso comprimido y grande) y la <b>polarización de la onda S</b> se demuestran con <b>una cuerda y un dedo</b>:</p>
+    <figure>
+      <div class="figplate"><img src="assets/lamina_directividad.png" alt="Lámina: simulación mecánica de la directividad Doppler y la polarización de la S con una cuerda y un dedo"></div>
+      <figcaption>Al deslizar el dedo a lo largo de la cuerda a velocidad V<sub>r</sub>, los pulsos se <b>apilan hacia adelante</b> (directividad; máximo cuando V<sub>r</sub> ≈ V<sub>s</sub>, y cono de Mach si V<sub>r</sub> &gt; V<sub>s</sub> = <i>supershear</i>), mientras el movimiento del suelo es siempre <b>⊥ a la falla</b> (la polarización N–S de la S). Lámina divulgativa AGHES.</figcaption>
+    </figure>
+  </section>
+
+  <div class="footer">
+    <div class="credit-wrap">
+      <span class="logo-chip"><img src="assets/logo_aghes.png" alt="AGHES" width="42" height="42"></span>
+      <span class="credit">Lcdo. Físico Rommel Contreras<em>Academia de Geohistoria del Estado Sucre — <span>AGHES</span></em></span>
+    </div>
+    <div class="meta">Terremoto de La Guaira · doblete M 7,2 + M 7,5 · 24-jun-2026<br>retroproyección · inversión de momento · barrido de profundidad</div>
+  </div>
+  <p class="closing">Un estudio telesísmico completo de la fuente —imagen de las dos rupturas, inversión de la tasa de momento y su validación en profundidad, ventana y bordes— resuelto con datos abiertos (FDSN / EarthScope) y sintéticos de Syngine, íntegramente en una máquina de consumo.</p>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, tg=document.getElementById('tg');
+  try{var s=localStorage.getItem('lg-theme'); if(s)root.setAttribute('data-theme',s);}catch(e){}
+  function redraw(){ if(window._seisDraw){resize(); window._seisDraw(1);} }
+  tg.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    var mq=window.matchMedia('(prefers-color-scheme:dark)').matches;
+    var next=cur? (cur==='dark'?'light':'dark') : (mq?'light':'dark');
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('lg-theme',next);}catch(e){}
+    setTimeout(redraw,30);
+  });
+
+  var cv=document.getElementById('seis'), ctx=cv.getContext('2d'), LW=1040, LH=150;
+  function cvar(n,f){var v=getComputedStyle(root).getPropertyValue(n).trim(); return v||f;}
+  function draw(prog){
+    var W=LW, H=LH, mid=H*0.54;
+    var orange=cvar('--orange','#e8541f'), blue=cvar('--blue','#3b7dd8'), line=cvar('--line','#ddd');
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle=line; ctx.lineWidth=1; ctx.setLineDash([3,4]);
+    ctx.beginPath(); ctx.moveTo(0,mid); ctx.lineTo(W,mid); ctx.stroke(); ctx.setLineDash([]);
+    var gx0=W*0.44, gx1=W*0.56;
+    ctx.fillStyle=blue; ctx.globalAlpha=0.10; ctx.fillRect(gx0,8,gx1-gx0,H-16); ctx.globalAlpha=1;
+    var seed=7; function rnd(){seed=(seed*9301+49297)%233280; return seed/233280-0.5;}
+    var N=Math.floor(W*prog);
+    function env(x,c,w,amp){var d=(x-c)/w; return amp*Math.exp(-d*d);}
+    ctx.lineWidth=1.8; ctx.strokeStyle=orange; ctx.lineJoin='round'; ctx.beginPath();
+    for(var x=0;x<N;x++){
+      var e=env(x,W*0.24,W*0.085,1.0)+env(x,W*0.76,W*0.10,1.42), base=0.05;
+      var hf=Math.sin(x*0.5)+0.6*Math.sin(x*1.13+1)+0.4*rnd();
+      var y=mid-(hf*(e*46+base*6))-rnd()*base*4;
+      if(x===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.globalAlpha=Math.min(1,prog*1.4); ctx.fillStyle=orange;
+    function tri(cx){ctx.beginPath();ctx.moveTo(cx,15);ctx.lineTo(cx-5,4);ctx.lineTo(cx+5,4);ctx.closePath();ctx.fill();}
+    if(N>W*0.24)tri(W*0.24); if(N>W*0.76)tri(W*0.76); ctx.globalAlpha=1;
+  }
+  window._seisDraw=draw;
+  function resize(){
+    var r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    LW=Math.max(320,Math.round(r.width)); LH=150;
+    cv.width=Math.round(LW*dpr); cv.height=Math.round(LH*dpr); cv.style.height=LH+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  window.resize=resize;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  resize();
+  if(reduce){ draw(1); }
+  else{
+    var t0=null;
+    requestAnimationFrame(function step(ts){
+      if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/1100); draw(p);
+      if(p<1)requestAnimationFrame(step);
+    });
+  }
+  window.addEventListener('resize',function(){resize();draw(1);});
+})();
+</script>
