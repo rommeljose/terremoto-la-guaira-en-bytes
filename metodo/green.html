@@ -1,0 +1,202 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funciones de Green — método</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+    svg: { fontCache: 'global' }, options: { renderActions: { addMenu: [] } }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  td.n{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--blue); white-space:nowrap}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← Análisis del terremoto de La Guaira en cifras</a>
+  <header>
+    <p class="eyebrow">Método · funciones de Green — La Guaira, 24-jun-2026</p>
+    <h1>Funciones de Green: los sismogramas sintéticos</h1>
+    <p class="sub">La <em class="term">respuesta impulsional</em> de la Tierra entre cada punto de la falla y cada estación — el ingrediente que convierte "cuánto momento" en "qué forma de onda".</p>
+  </header>
+
+  <p class="lead">Para invertir formas de onda (o retroproyectarlas) necesitamos saber qué registraría una estación si en un punto de la falla ocurriera un impulso unitario de fuente. Esa <strong>respuesta impulsional del medio</strong> es la <em class="term">función de Green</em>. No la observamos: la <strong>calculamos</strong> con un método de ondas completo (AxiSEM, vía el servicio Syngine de EarthScope) sobre un modelo de Tierra, una por cada par <strong>punto de falla — estación</strong>.</p>
+
+  <h2><span class="no">1</span> Qué es una función de Green</h2>
+  <p>Formalmente, la función de Green $G(\mathbf{x},t;\boldsymbol{\xi},t')$ es el desplazamiento en el receptor $\mathbf{x}$ en el instante $t$ producido por una <strong>fuente impulsiva unitaria</strong> aplicada en $\boldsymbol{\xi}$ en $t'$. Cualquier fuente real se obtiene <strong>convolucionando</strong> su historia temporal con la Green:</p>
+  $$ u(\mathbf{x},t) \;=\; G(\mathbf{x},t;\boldsymbol{\xi})\,*\,\dot{M}(\boldsymbol{\xi},t). $$
+  <p>La Green <strong>contiene toda la física del camino</strong>: la propagación por el modelo de Tierra, el patrón de radiación del mecanismo, el esparcimiento geométrico, las reflexiones y la atenuación. Por eso, una vez que la tenemos, el problema de fuente se vuelve <strong>lineal</strong> (véase la página de la <a href="inversion.html">inversión</a>).</p>
+
+  <h2><span class="no">2</span> Por qué sintéticas: AxiSEM + Syngine</h2>
+  <p>Necesitamos <strong>miles</strong> de Green (una por cada punto de la malla de falla y cada estación), a distancias telesísmicas y con las fases correctas. Se calculan con <strong>AxiSEM</strong> —un método de <em class="term">elementos espectrales axisimétrico</em> que resuelve el campo de ondas completo en un modelo de Tierra esférico 1-D— y se sirven ya listas por el <strong>webservice Syngine</strong> de EarthScope. Usamos el modelo <code>ak135f_2s</code> (ak135 con un período mínimo de 2 s) y un doble par de fuerzas con el mecanismo del USGS.</p>
+
+  <figure>
+    <div class="fig">
+      <svg viewBox="0 0 720 230" role="img" aria-label="Receta de la función de Green">
+        <defs><marker id="ga" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+        <style>
+          .bx{fill:var(--card); stroke:var(--line); stroke-width:1.5}
+          .lb{font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; fill:var(--strong); font-weight:600}
+          .sm{font-family:"IBM Plex Mono",monospace; font-size:10px; fill:var(--muted)}
+          .fl{stroke:var(--muted); stroke-width:1.6; fill:none; marker-end:url(#ga)}
+        </style>
+        <!-- entradas -->
+        <rect class="bx" x="12" y="40" width="150" height="150" rx="9"/>
+        <text x="87" y="62" text-anchor="middle" class="lb">fuente</text>
+        <text x="87" y="84" text-anchor="middle" class="sm">mecanismo (81,78,−175)</text>
+        <text x="87" y="100" text-anchor="middle" class="sm">M₀ · profundidad h</text>
+        <line x1="60" y1="120" x2="114" y2="120" stroke="var(--line)"/>
+        <text x="87" y="150" text-anchor="middle" class="lb">modelo</text>
+        <text x="87" y="170" text-anchor="middle" class="sm">ak135f_2s (1-D)</text>
+        <!-- AxiSEM -->
+        <rect class="bx" x="252" y="76" width="150" height="78" rx="10" style="fill:var(--blue-soft);stroke:var(--blue)"/>
+        <text x="327" y="106" text-anchor="middle" class="lb" style="fill:var(--blue)">AxiSEM</text>
+        <text x="327" y="126" text-anchor="middle" class="sm">campo de ondas</text>
+        <text x="327" y="140" text-anchor="middle" class="sm">axisimétrico completo</text>
+        <!-- salida green -->
+        <rect class="bx" x="500" y="76" width="200" height="78" rx="10" style="fill:var(--amber-soft);stroke:var(--amber)"/>
+        <text x="600" y="104" text-anchor="middle" class="lb" style="fill:var(--amber)">función de Green g_j(ξ,t)</text>
+        <text x="600" y="126" text-anchor="middle" class="sm">P + pP + sP · radiación</text>
+        <text x="600" y="140" text-anchor="middle" class="sm">esparcimiento · atenuación t*</text>
+        <line class="fl" x1="162" y1="115" x2="250" y2="115"/>
+        <line class="fl" x1="402" y1="115" x2="498" y2="115"/>
+        <text x="470" y="205" text-anchor="middle" class="sm" style="font-size:11px">servidas por el webservice Syngine (EarthScope)</text>
+      </svg>
+    </div>
+    <figcaption><b>Figura 1.</b> Receta de una función de Green: el <b>mecanismo + profundidad</b> de la fuente y el <b>modelo 1-D</b> alimentan a <b>AxiSEM</b>, que resuelve el campo de ondas completo; el resultado es la respuesta elemental $g_j(\boldsymbol{\xi},t)$ para la estación $j$, con toda la física del camino incluida.</figcaption>
+  </figure>
+
+  <h2><span class="no">3</span> Anatomía: P, pP, sP y la profundidad</h2>
+  <p>Una Green telesísmica de onda $P$ no es un solo pulso: llega la $P$ directa y, poco después, sus <strong>fases de profundidad</strong> —la $pP$ (sube como $P$, rebota en la superficie sobre la fuente y baja como $P$) y la $sP$—. El retardo de la $pP$ respecto a la $P$ depende <strong>directamente de la profundidad</strong> $h$:</p>
+  $$ \tau_{pP} \;\approx\; \frac{2h}{\alpha}\,\cos i_h , $$
+  <p>con $\alpha$ la velocidad $P$ e $i_h$ el ángulo de salida. Por eso las Green completas <strong>resuelven la profundidad</strong>: es la separación $pP-P$ la que la fija (véase el <a href="relocalizacion.html">barrido de profundidad</a> del análisis). Una Green "de rayo directo" que ignorara $pP/sP$ perdería esa sensibilidad.</p>
+
+  <figure>
+    <div class="fig">
+      <svg viewBox="0 0 720 250" role="img" aria-label="Anatomía P pP sP">
+        <!-- inset fuente/superficie -->
+        <line x1="30" y1="60" x2="180" y2="60" stroke="var(--muted)" stroke-width="1.3"/>
+        <text x="34" y="52" class="san" font-size="10.5" fill="var(--muted)">superficie</text>
+        <path d="M95,96 l6,-11 l6,11 z" fill="var(--amber)"/>
+        <text x="101" y="120" text-anchor="middle" class="san" font-size="10.5" fill="var(--amber)">fuente (h)</text>
+        <line x1="101" y1="90" x2="168" y2="66" stroke="var(--blue)" stroke-width="1.5"/>
+        <path d="M101,90 L130,60 L168,72" fill="none" stroke="var(--blue)" stroke-width="1.3" stroke-dasharray="4 3"/>
+        <text x="150" y="52" class="san" font-size="10" fill="var(--blue)">pP</text>
+        <!-- traza sintética -->
+        <line x1="250" y1="150" x2="700" y2="150" stroke="var(--line)" stroke-width="1"/>
+        <text x="250" y="230" class="san" font-size="11" fill="var(--muted)">tiempo →</text>
+        <!-- P -->
+        <path d="M300,150 q6,-42 12,0 q6,40 12,0" fill="none" stroke="var(--blue)" stroke-width="2"/>
+        <line x1="306" y1="150" x2="306" y2="96" stroke="var(--blue)" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="306" y="88" text-anchor="middle" class="san" font-size="12" fill="var(--blue)" font-weight="700">P</text>
+        <!-- pP -->
+        <path d="M388,150 q5,-30 10,0 q5,28 10,0" fill="none" stroke="var(--amber)" stroke-width="2"/>
+        <text x="398" y="108" text-anchor="middle" class="san" font-size="12" fill="var(--amber)" font-weight="700">pP</text>
+        <!-- sP -->
+        <path d="M436,150 q5,-22 10,0 q5,20 10,0" fill="none" stroke="var(--amber)" stroke-width="1.6" opacity="0.8"/>
+        <text x="446" y="120" text-anchor="middle" class="san" font-size="11" fill="var(--amber)">sP</text>
+        <!-- delay bracket -->
+        <line x1="306" y1="178" x2="398" y2="178" stroke="var(--strong)" stroke-width="1"/>
+        <line x1="306" y1="173" x2="306" y2="183" stroke="var(--strong)"/><line x1="398" y1="173" x2="398" y2="183" stroke="var(--strong)"/>
+        <text x="352" y="198" text-anchor="middle" class="san" font-size="11.5" fill="var(--strong)">τ_pP ≈ 2h·cos i / α</text>
+        <text x="352" y="214" text-anchor="middle" class="san" font-size="11" fill="var(--muted)">(fija la profundidad)</text>
+      </svg>
+    </div>
+    <figcaption><b>Figura 2.</b> Anatomía de una Green telesísmica: la $P$ directa seguida de las fases de profundidad $pP$ y $sP$, que rebotan en la superficie sobre la fuente. El <b>retardo $pP-P$</b> es proporcional a la profundidad; de ahí que las Green completas la resuelvan.</figcaption>
+  </figure>
+
+  <h2><span class="no">4</span> En números</h2>
+  <p>Para este estudio se calcularon y descargaron:</p>
+  <table>
+    <thead><tr><th>Concepto</th><th>Cantidad</th></tr></thead>
+    <tbody>
+      <tr><td>Sismogramas sintéticos (Green) en total</td><td class="n">5 465</td></tr>
+      <tr><td>Muestras por Green (180 s a 0,4 s)</td><td class="n">450</td></tr>
+      <tr><td>Barrido de profundidad (5 profundidades)</td><td class="n">4 313</td></tr>
+      <tr><td>Modelo · componente · magnitud</td><td class="n">ak135f_2s · Z · desplaz.</td></tr>
+    </tbody>
+  </table>
+  <p>Cada Green se pidió individualmente al servicio, con la ventana centrada en la $P$ ($-30$ a $+150$ s). Apiladas en columnas, forman el operador $\mathbf{G}$ de la inversión.</p>
+
+  <h2><span class="no">5</span> Por qué importan tanto</h2>
+  <div class="callout blue"><span class="k">Resumen</span> La función de Green es el "traductor" entre la fuente y el sismograma. Usarlas <strong>completas</strong> —con $P+pP+sP$ y física de ondas, no un rayo simplificado— es lo que permite (i) que la <a href="inversion.html">inversión</a> sea físicamente fiel, (ii) que la profundidad quede resuelta por las fases $pP/sP$, y (iii) que los controles sintéticos usen exactamente el mismo operador que el dato. Son abiertas y reproducibles: se regeneran con un script contra el webservice.</div>
+
+  <h2><span class="no">6</span> Referencias</h2>
+  <ul class="refs">
+    <li>Nissen-Meyer, T., van Driel, M., Stähler, S. C., Hosseini, K., Hempel, S., Auer, L., Colombi, A., &amp; Fournier, A. (2014). AxiSEM: broadband 3-D seismic wavefields in axisymmetric media. <em>Solid Earth</em>, 5, 425–445.</li>
+    <li>van Driel, M., Krischer, L., Stähler, S. C., Hosseini, K., &amp; Nissen-Meyer, T. (2015). Instaseis: instant global seismograms based on a broadband waveform database. <em>Solid Earth</em>, 6, 701–717. (motor tras Syngine).</li>
+    <li>Kennett, B. L. N., Engdahl, E. R., &amp; Buland, R. (1995). Constraints on seismic velocities in the Earth from traveltimes. <em>Geophys. J. Int.</em>, 122, 108–124. (modelo ak135).</li>
+    <li>IRIS DMC (2015). <em>Syngine</em> (EarthScope/IRIS). https://doi.org/10.17611/DP/SYNGINE.1</li>
+  </ul>
+
+  <div class="foot">
+    <span>Método · funciones de Green · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>
