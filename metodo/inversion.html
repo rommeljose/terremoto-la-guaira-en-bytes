@@ -89,7 +89,7 @@
   <header>
     <p class="eyebrow">Método · inversión de la tasa de momento — La Guaira, 24-jun-2026</p>
     <h1>Inversión lineal de la tasa de momento</h1>
-    <p class="sub">Del <em class="term">teorema de representación</em> (Aki &amp; Richards) al sistema lineal $\mathbf{d}=\mathbf{G}\mathbf{m}$ con no-negatividad: cómo se lee <em>cuándo</em> se libera el momento y cómo se prueba el hueco del doblete.</p>
+    <p class="sub">Del <em class="term">teorema de representación</em> (Aki &amp; Richards) al sistema lineal $\mathbf{d}=\mathbf{G}\mathbf{m}$ con no-negatividad: cómo se lee <em>cuándo</em> se libera el momento y cómo se prueba el hueco entre las dos acumulaciones.</p>
   </header>
 
   <p class="lead">La retroproyección resuelve <em>dónde</em> se radia la alta frecuencia. La inversión de la tasa de momento responde lo complementario: <strong><em>cuándo</em> se libera el momento sísmico</strong>. Si la ruptura fue un frente único, en la ventana entre los dos orígenes tiene que haber liberación; si fueron dos rupturas separadas, no debe haber nada. La pregunta se contesta con una <strong>inversión lineal de formas de onda telesísmicas</strong>, con un diseño <strong>pre-registrado</strong>.</p>
@@ -151,7 +151,7 @@
           <line x1="60" y1="95" x2="330" y2="95"/><line x1="60" y1="130" x2="330" y2="130"/><line x1="60" y1="165" x2="330" y2="165"/>
           <line x1="127" y1="60" x2="127" y2="200"/><line x1="195" y1="60" x2="195" y2="200"/><line x1="262" y1="60" x2="262" y2="200"/>
         </g>
-        <!-- dos "manchas" de momento (doblete) con hueco -->
+        <!-- dos "manchas" de momento con hueco -->
         <rect x="61" y="131" width="65" height="68" fill="var(--amber)" opacity="0.5"/>
         <rect x="263" y="61" width="66" height="68" fill="var(--amber)" opacity="0.7"/>
         <text x="93" y="220" text-anchor="middle" class="san" font-size="10.5" fill="var(--amber)">M 7,2</text>
@@ -171,7 +171,7 @@
         <text x="625" y="196" text-anchor="middle" class="san" font-size="12" fill="var(--amber)" font-weight="700">m</text>
       </svg>
     </div>
-    <figcaption><b>Figura 2.</b> La fuente se parametriza como una malla <b>rumbo × tiempo</b> $m(\xi,\tau)\ge 0$. Cada celda radia su Green a todas las estaciones; apilando todo se obtiene el sistema lineal $\mathbf{d}=\mathbf{G}\,\mathbf{m}$. Un doblete con hueco corresponde a <b>dos concentraciones de momento separadas por un vacío</b> en la malla.</figcaption>
+    <figcaption><b>Figura 2.</b> La fuente se parametriza como una malla <b>rumbo × tiempo</b> $m(\xi,\tau)\ge 0$. Cada celda radia su Green a todas las estaciones; apilando todo se obtiene el sistema lineal $\mathbf{d}=\mathbf{G}\,\mathbf{m}$. Una ruptura en dos acumulaciones corresponde a <b>dos concentraciones de momento separadas por un vacío</b> en la malla.</figcaption>
   </figure>
 
   <h2><span class="no">3</span> La inversión: mínimos cuadrados no-negativos regularizados</h2>
@@ -185,7 +185,7 @@
   <h2><span class="no">4</span> El estadístico de decisión y el control nulo</h2>
   <p>La pregunta física —¿hubo momento en el tramo intermedio?— se convierte en un <strong>estadístico escalar</strong> fijado <strong>antes</strong> de ver el dato (pre-registro con huella SHA-256):</p>
   $$ f \;=\; \frac{\displaystyle\int_{20}^{32}\dot{M}(t)\,dt}{\displaystyle\int_{0}^{T}\dot{M}(t)\,dt}, \qquad \dot{M}(t)=\sum_{a} m(\xi_a,t), $$
-  <p>la fracción del momento total que cae en la <strong>ventana del hueco</strong> (20–32 s). Sobre el dato real, $f=0{,}4\,\%$, y <strong>forzarlo a cero no empeora el ajuste</strong>. Para que la comparación sea legítima pese a una VR modesta, las dos hipótesis —doblete con hueco y frente continuo— se <strong>remiden con el mismo operador y la misma dificultad</strong> (sumándoles el residuo real del dato), y se calcula un <strong>índice de separación</strong> $S$ frente a sus distribuciones de referencia. Resultado: el dato es <strong>compatible con el doblete con hueco e incompatible con el frente continuo a 3,6 σ</strong>.</p>
+  <p>la fracción del momento total que cae en la <strong>ventana del hueco</strong> (20–32 s). Sobre el dato real, $f=0{,}4\,\%$, y <strong>forzarlo a cero no empeora el ajuste</strong>. Para que la comparación sea legítima pese a una VR modesta, las dos hipótesis —dos acumulaciones con hueco y frente continuo— se <strong>remiden con el mismo operador y la misma dificultad</strong> (sumándoles el residuo real del dato), y se calcula un <strong>índice de separación</strong> $S$ frente a sus distribuciones de referencia. Resultado: el dato es <strong>compatible con dos acumulaciones separadas por un hueco e incompatible con el frente continuo a 3,6 σ</strong>.</p>
   <div class="callout"><span class="k">Control calibrado, no fe en el ajuste</span> No se afirma "el modelo ajusta bien". Se afirma: <em>bajo el mismo operador y el mismo error de modelo</em>, la historia de "frente continuo" produciría un $f$ mucho mayor que el observado. Es una <strong>prueba de incompatibilidad</strong>, no una estimación puntual.</div>
 
   <h2><span class="no">5</span> Incertidumbre y reservas</h2>
@@ -196,7 +196,7 @@
   </ul>
 
   <h2><span class="no">6</span> En una frase</h2>
-  <div class="callout blue"><span class="k">Resumen</span> El sismograma telesísmico es <strong>lineal en la tasa de momento</strong> (Aki &amp; Richards). Invirtiéndolo con Green completas ($P+pP+sP$), no-negatividad y un estadístico pre-registrado, se demuestra que <strong>entre los dos núcleos no hubo liberación rápida de momento</strong>: el hueco del doblete no es un artefacto, sino una característica del dato.</div>
+  <div class="callout blue"><span class="k">Resumen</span> El sismograma telesísmico es <strong>lineal en la tasa de momento</strong> (Aki &amp; Richards). Invirtiéndolo con Green completas ($P+pP+sP$), no-negatividad y un estadístico pre-registrado, se demuestra que <strong>entre los dos núcleos no hubo liberación rápida de momento</strong>: el hueco entre las dos acumulaciones no es un artefacto, sino una característica del dato.</div>
 
   <h2><span class="no">7</span> Referencias</h2>
   <ul class="refs">

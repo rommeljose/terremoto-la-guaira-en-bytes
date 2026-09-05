@@ -81,7 +81,7 @@
     <p class="sub">Un arreglo lejano de estaciones, usado como un <em class="term">telescopio sísmico</em>: alineando y apilando sus registros se ilumina, en el mapa y en el tiempo, de dónde sale la energía de alta frecuencia.</p>
   </header>
 
-  <p class="lead">La retroproyección (<em>back-projection</em>) no necesita un modelo de fuente: <strong>sigue la energía</strong>. Se toman decenas de estaciones telesísmicas, se alinean sus ondas $P$ y, para cada punto candidato del mapa, se apilan desplazadas por el tiempo de viaje predicho. Donde el apilado es <strong>coherente</strong>, hay una fuente radiando. Barriendo en el tiempo se obtiene una película de <em>dónde</em> se radia la alta frecuencia — y así se ven <strong>los dos núcleos del doblete y el hueco entre ellos</strong>.</p>
+  <p class="lead">La retroproyección (<em>back-projection</em>) no necesita un modelo de fuente: <strong>sigue la energía</strong>. Se toman decenas de estaciones telesísmicas, se alinean sus ondas $P$ y, para cada punto candidato del mapa, se apilan desplazadas por el tiempo de viaje predicho. Donde el apilado es <strong>coherente</strong>, hay una fuente radiando. Barriendo en el tiempo se obtiene una película de <em>dónde</em> se radia la alta frecuencia — y así se ven <strong>las dos acumulaciones de energía y el hueco entre ellas</strong>.</p>
 
   <h2><span class="no">1</span> El principio: alinear y apilar</h2>
   <p>Para un punto del mapa $\mathbf{x}$ y un instante $t$, el <em class="term">apilado</em> de las $N$ estaciones es</p>
@@ -126,7 +126,7 @@
   <h2><span class="no">2</span> El contexto y el arreglo</h2>
   <p>El terremoto ocurrió en el sistema dextral Caribe–Sudamérica, en el enlace de las fallas de Boconó, Morón y San Sebastián:</p>
   <figure>
-    <img class="paperimg" src="img/mapa_regional.png" alt="Mapa tectónico regional: fallas de Boconó, Morón y San Sebastián con los dos epicentros del doblete">
+    <img class="paperimg" src="img/mapa_regional.png" alt="Mapa tectónico regional: fallas de Boconó, Morón y San Sebastián con los dos epicentros del evento">
     <figcaption><b>Figura 2.</b> Marco tectónico regional: el nudo de transferencia Boconó–Morón–San Sebastián y los dos epicentros del USGS (M 7,2 al oeste, M 7,5 al este), separados ~149 km. El recuadro sitúa la zona en el Caribe norte.</figcaption>
   </figure>
   <p>La retroproyección se hace con un <strong>arreglo telesísmico</strong> a 30°–90° de distancia. Lo decisivo es su <strong>cobertura azimutal</strong>: cuanto más rodean las estaciones al epicentro, mejor la resolución y menores los lóbulos laterales. Nuestro arreglo mira sobre todo desde el N–NE, lo que se corrige con las correcciones empíricas por estación:</p>
@@ -139,10 +139,10 @@
   <p>Los tiempos de viaje $T_j(\mathbf{x})$ se calculan con un modelo de Tierra global (IASP91). A 1 Hz, <strong>un segundo de error es un ciclo entero</strong> y arruinaría el apilado; por eso el modelo <strong>no se usa en absoluto, sino en relativo</strong>: las trazas se alinean por correlación cruzada sobre la $P$ del M 7,2, y el desfase resultante en cada estación se guarda como <strong>corrección empírica $\Delta\tau_j$</strong>. Esa corrección absorbe la estructura 3-D bajo cada estación y la mayor parte del sesgo de trayecto. Se conservan las estaciones con $CC\ge 0{,}6$.</p>
   <div class="callout"><span class="k">Consecuencia importante</span> Como las correcciones se calibran sobre el M 7,2, la energía inicial cae sobre él <em>por construcción</em>: ese primer instante no es evidencia independiente. Lo que sí es una medida es la <strong>segunda fuente</strong>, que aparece 149 km al este y ~32 s después — y la respaldan los controles.</p>
 
-  <h2><span class="no">4</span> El resultado: el doblete</h2>
+  <h2><span class="no">4</span> El resultado: dos rupturas y un hueco</h2>
   <figure>
-    <img class="paperimg" src="img/retroproyeccion.png" alt="Imagen de retroproyección del doblete: dos fuentes, controles y energía en tiempo y distancia">
-    <figcaption><b>Figura 4.</b> Imagen de retroproyección. (a) primeros 15 s: la energía cae sobre el epicentro occidental (circular por construcción); (b) 20–45 s: la fuente tardía aparece a 149 km al este; (c) energía en el plano tiempo–distancia a lo largo del rumbo (dos estallidos, no una rampa); (d) control con dos fuentes separadas y (e) control nulo con ambas en el mismo sitio, que confirman que el salto al este <b>no es artefacto</b>; (f)/geometría.</figcaption>
+    <img class="paperimg" src="img/retroproyeccion.png" alt="Imagen de retroproyección del evento complejo: dos fuentes, controles y energía en tiempo y distancia">
+    <figcaption><b>Figura 4.</b> Imagen de retroproyección. (a) primeros 15 s: la energía cae sobre el epicentro occidental (circular por construcción); (b) 20–45 s: la fuente tardía aparece a 149 km al este; (c) energía en el plano tiempo–distancia a lo largo del rumbo (dos estallidos, no una rampa); (d) control con dos fuentes separadas y (e) control nulo con ambas en el mismo sitio, que confirman que el salto al este <b>no es artefacto</b>.</figcaption>
   </figure>
 
   <h2><span class="no">5</span> Resolución, controles y límites</h2>

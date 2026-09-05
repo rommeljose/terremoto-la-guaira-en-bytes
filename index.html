@@ -186,7 +186,7 @@
     <div class="brand"><span class="logo-chip"><img src="assets/logo_aghes.png" alt="Academia de Geohistoria del Estado Sucre (AGHES)" width="54" height="54"></span></div>
     <p class="kicker">Estudio de fuente · retroproyección + inversión + profundidad</p>
     <h1>Análisis del Terremoto de La Guaira en cifras</h1>
-    <p class="dek">Todo el análisis telesísmico de la fuente del <b>doblete del 24-jun-2026</b> —la imagen de las dos rupturas, la inversión de la tasa de momento y las pruebas de robustez— corrido de principio a fin en <b>una sola APU de escritorio de consumo</b>.</p>
+    <p class="dek">Todo el análisis telesísmico de la fuente del <b>evento complejo del 24-jun-2026</b> —la imagen de las dos rupturas, la inversión de la tasa de momento y las pruebas de robustez— corrido de principio a fin en <b>una sola APU de escritorio de consumo</b>.</p>
     <p class="disamb">Estas son cifras del <b>análisis y el cómputo</b> de la fuente sísmica —datos, sismogramas y modelado de la ruptura—. <b>No</b> son cifras de víctimas ni de daños.</p>
     <div class="pubnote"><span class="pn-dot"></span><span><b>Artículos científicos en preparación</b> · publicación próxima</span></div>
   </header>
@@ -243,7 +243,6 @@
       <div class="box b"><div class="big">1°–356°</div><h3>azimut cubierto</h3><p>Prácticamente el círculo completo alrededor del epicentro.</p></div>
       <div class="box" style="border-top:3px solid var(--orange-d)"><div class="big">C1 <span class="u" style="color:var(--orange-d)">excluido</span></div><h3>arreglo del sur (Chile)</h3><p>Evaluado <b>y descartado con criterio</b>: 0 estaciones alinean y solo 3/31 pasan S/N ≥ 3. <b>No entra</b> en los cálculos.</p></div>
     </div>
-    <a class="metodo-link" href="metodo/retroproyeccion.html" style="margin-top:16px">Leer el método completo — retroproyección (delay-and-stack) →</a>
   </section>
 
   <section>
@@ -257,7 +256,13 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">03</span><h2>Funciones de Green</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">03</span><h2>Retroproyección · imagen de las dos fuentes</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Un arreglo telesísmico lejano, usado como <b>telescopio sísmico</b>: alineando y apilando la onda P de decenas de estaciones se mapea <b>dónde y cuándo</b> radía la ruptura. Así aparecen las <b>dos acumulaciones de energía</b> —M 7,2 al oeste y M 7,5 al este, separadas ~149 km y ~32 s— y el <b>hueco</b> entre ellas, con controles sintéticos que descartan que sea un artefacto.</p>
+    <a class="metodo-link" href="metodo/retroproyeccion.html">Leer el método completo — retroproyección (delay-and-stack) →</a>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">04</span><h2>Funciones de Green</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Sismogramas sintéticos de <b>Syngine / AxiSEM</b> (modelo <span class="mono">ak135f_2s</span>), con física completa <span class="mono">P + pP + sP</span>; cada uno pedido al servicio de EarthScope.</p>
     <div class="grid2">
       <div class="box o"><div class="big">5 465</div><h3>Green en total</h3><p>Cada una de <b>450 muestras</b> (180 s a 0,4 s). ~22 MB en disco.</p></div>
@@ -269,7 +274,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">04</span><h2>El operador de inversión</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">05</span><h2>El operador de inversión</h2><span class="rule"></span></div>
     <div class="grid2">
       <div class="box b"><div class="big">7 200 × 2 187</div><h3>matriz G por profundidad</h3><p><b>15,7 millones</b> de elementos · <b>11,4 millones</b> no nulos.</p></div>
       <div class="box b"><div class="big">×6</div><h3>ensamblajes</h3><p>Una matriz por profundidad → <b>~68 millones</b> de coeficientes.</p></div>
@@ -280,23 +285,23 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">05</span><h2>Relocalización de réplicas · próximo paso</h2><span class="rule"></span></div>
-    <p class="note" style="margin:0 0 16px">El siguiente salto de precisión: <b>relocalización relativa</b> de la secuencia con <b>hypoDD</b> (doble diferencia, en su Fortran nativo). Cancela los errores comunes de trayecto y resuelve la posición <b>relativa</b> de cada réplica con precisión de decenas a centenas de metros — apretando el doblete y el hueco. La maquinaria ya está <b>montada y validada</b> (test sintético: horizontal ×7 → ~0,5 km); falta el insumo real: los picks P/S de FUNVISIS.</p>
+    <div class="sh"><span class="n">06</span><h2>Relocalización de réplicas · próximo paso</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">El siguiente salto de precisión: <b>relocalización relativa</b> de la secuencia con <b>hypoDD</b> (doble diferencia, en su Fortran nativo). Cancela los errores comunes de trayecto y resuelve la posición <b>relativa</b> de cada réplica con precisión de decenas a centenas de metros — apretando las dos acumulaciones y el hueco. La maquinaria ya está <b>montada y validada</b> (test sintético: horizontal ×7 → ~0,5 km); falta el insumo real: los picks P/S de FUNVISIS.</p>
     <a class="metodo-link" href="metodo/relocalizacion.html">Leer el método completo — fundamento, diagramas y paso a paso →</a>
   </section>
 
   <section>
-    <div class="sh"><span class="n">06</span><h2>Rigor</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">07</span><h2>Rigor</h2><span class="rule"></span></div>
     <div class="badges">
       <div class="badge"><span class="dot">✓</span><div><h4>Validación byte a byte</h4><p>El ensamblaje reproduce el resultado publicado con <span class="mono">|m − m_l| = 0</span> y <span class="mono">VR 21,15 %</span> exacta.</p></div></div>
-      <div class="badge"><span class="dot">3</span><div><h4>Robustez en 3 ejes independientes</h4><p>El doblete con hueco sobrevive a variar la <b>malla</b>, la <b>longitud de ventana</b> y la <b>profundidad</b>.</p></div></div>
+      <div class="badge"><span class="dot">3</span><div><h4>Robustez en 3 ejes independientes</h4><p>La ruptura en dos acumulaciones con hueco sobrevive a variar la <b>malla</b>, la <b>longitud de ventana</b> y la <b>profundidad</b>.</p></div></div>
       <div class="badge"><span class="dot">↓</span><div><h4>Fuente somera, confirmada</h4><p>VR máxima en <span class="mono">5–10 km</span>; el hueco es insensible a la profundidad (<span class="mono">f = 0,13–0,85 %</span>).</p></div></div>
       <div class="badge b"><span class="dot">⌀</span><div><h4>Descartes con criterio</h4><p>El arreglo del sur (Chile) se probó y <b>se excluyó</b> por S/N y geometría — el conteo no se infla.</p></div></div>
     </div>
   </section>
 
   <section>
-    <div class="sh"><span class="n">07</span><h2>La física, interactiva</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">08</span><h2>La física, interactiva</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y altísimo que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
     <div class="simframe">
       <iframe src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
@@ -309,7 +314,7 @@
       <span class="logo-chip"><img src="assets/logo_aghes.png" alt="AGHES" width="42" height="42"></span>
       <span class="credit">Lcdo. Físico Rommel Contreras<em>Academia de Geohistoria del Estado Sucre — <span>AGHES</span></em></span>
     </div>
-    <div class="meta">Terremoto de La Guaira · doblete M 7,2 + M 7,5 · 24-jun-2026<br>retroproyección · inversión de momento · barrido de profundidad</div>
+    <div class="meta">Terremoto de La Guaira · evento complejo (M 7,2 + M 7,5) · 24-jun-2026<br>retroproyección · inversión de momento · barrido de profundidad</div>
   </div>
   <p class="closing">Un estudio telesísmico completo de la fuente —imagen de las dos rupturas, inversión de la tasa de momento y su validación en profundidad, ventana y bordes— resuelto con datos abiertos (FDSN / EarthScope) y sintéticos de Syngine, íntegramente en una máquina de consumo.</p>
 </div>
