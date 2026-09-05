@@ -58,10 +58,20 @@
       "  --fault:#e4572e;--fwd:#e4572e;--lat:#e9b949;--bwd:#2a9d8f;",
       "  --es:#e4572e;--eg:#e9b949;--ed:#6b7c8f;",
       "  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);}",
-      "@media (prefers-color-scheme:dark){.simbe{--bg:#0f1720;--card:#16212e;--ink:#e7edf3;",
+      /* Paleta oscura: se declara dos veces, igual que en la página madre —
+         por preferencia del sistema (salvo data-theme="light" explícito) y
+         por data-theme="dark", que es lo que fija el botón de tema del blog.
+         Con sólo la media query el inserto se quedaba claro dentro de una
+         página en modo oscuro. */
+      "@media (prefers-color-scheme:dark){:root:not([data-theme=\"light\"]) .simbe{",
+      "  --bg:#0f1720;--card:#16212e;--ink:#e7edf3;",
       "  --muted:#9fb0c0;--edge:#2a3a4b;--wave:#3b5b74;--waveP:#5fa0e6;--waveS:#ff7a54;",
       "  --fault:#ff7a54;--fwd:#ff7a54;--lat:#f2c94c;--bwd:#3fc9b5;",
       "  --es:#ff7a54;--eg:#f2c94c;--ed:#8394a5;}}",
+      ":root[data-theme=\"dark\"] .simbe{--bg:#0f1720;--card:#16212e;--ink:#e7edf3;",
+      "  --muted:#9fb0c0;--edge:#2a3a4b;--wave:#3b5b74;--waveP:#5fa0e6;--waveS:#ff7a54;",
+      "  --fault:#ff7a54;--fwd:#ff7a54;--lat:#f2c94c;--bwd:#3fc9b5;",
+      "  --es:#ff7a54;--eg:#f2c94c;--ed:#8394a5;}",
       ".simbe .fig{display:flex;flex-wrap:wrap;gap:12px;}",
       ".simbe .map{flex:1 1 300px;min-width:280px;background:var(--card);",
       "  border:1px solid var(--edge);border-radius:10px;padding:8px;}",

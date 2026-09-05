@@ -153,8 +153,8 @@
   figcaption{color:var(--muted); font-size:.86rem; margin:12px 2px 0; max-width:96ch}
   figcaption b{color:var(--ink); font-weight:600}
   figure{margin:0}
-  .simframe{border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:var(--shadow); background:#fff}
-  .simframe iframe{display:block; width:100%; height:900px; border:0; background:#fff}
+  .simframe{border:1px solid var(--line); border-radius:10px; overflow:hidden; box-shadow:var(--shadow); background:var(--paper)}
+  .simframe iframe{display:block; width:100%; height:900px; border:0; background:transparent; color-scheme:light dark}
   @media (max-width:640px){ .simframe iframe{height:1180px} }
   .pubnote{display:inline-flex; align-items:center; gap:10px; margin:18px auto 0;
     padding:8px 18px; border:1.5px solid var(--orange); border-radius:22px;
@@ -310,7 +310,7 @@
     <div class="sh"><span class="n">09</span><h2>La física, interactiva</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y altísimo que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
     <div class="simframe">
-      <iframe src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
+      <iframe id="simframe" src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
     </div>
     <figcaption>Simulación interactiva (SVG, sin dependencias): <b>adelante</b> la S es un pulso corto y de gran amplitud (PGA máximo); <b>atrás</b>, un tren largo y débil —la misma energía repartida distinto—; con β &gt; 1 aparece el <i>supershear</i>. Las flechas rojas marcan la polarización N–S de la S. También disponible como <a href="assets/lamina_directividad.png">lámina estática</a>.</figcaption>
   </section>
@@ -330,6 +330,31 @@
   var root=document.documentElement, tg=document.getElementById('tg');
   try{var s=localStorage.getItem('lg-theme'); if(s)root.setAttribute('data-theme',s);}catch(e){}
   function redraw(){ if(window._seisDraw){resize(); window._seisDraw(1);} }
+
+  /* --- tema del iframe de la simulación --------------------------------
+     El iframe es un documento aparte: sólo ve el prefers-color-scheme del
+     sistema, no el data-theme que fija el botón de esta página. Sin esto el
+     inserto se queda claro cuando la página está en oscuro (y al revés). */
+  var mqDark=window.matchMedia('(prefers-color-scheme:dark)');
+  function effTheme(){
+    var a=root.getAttribute('data-theme');
+    return a ? a : (mqDark.matches?'dark':'light');
+  }
+  var sf=document.getElementById('simframe');
+  function syncSim(){
+    if(!sf||!sf.contentWindow)return;
+    try{ sf.contentWindow.postMessage({type:'lg-theme',theme:effTheme()},'*'); }catch(e){}
+  }
+  if(sf){
+    /* el tema va también en la URL para que el primer pintado ya salga bien
+       (postMessage llega después del load y produciría un destello claro) */
+    sf.setAttribute('src','sim/?theme='+effTheme());
+    sf.addEventListener('load',syncSim);
+  }
+  /* si el usuario no ha tocado el botón, seguimos al sistema */
+  if(mqDark.addEventListener) mqDark.addEventListener('change',syncSim);
+  else if(mqDark.addListener) mqDark.addListener(syncSim);
+
   tg.addEventListener('click',function(){
     var cur=root.getAttribute('data-theme');
     var mq=window.matchMedia('(prefers-color-scheme:dark)').matches;
@@ -337,6 +362,7 @@
     root.setAttribute('data-theme',next);
     try{localStorage.setItem('lg-theme',next);}catch(e){}
     setTimeout(redraw,30);
+    syncSim();
   });
 
   var cv=document.getElementById('seis'), ctx=cv.getContext('2d'), LW=1040, LH=150;

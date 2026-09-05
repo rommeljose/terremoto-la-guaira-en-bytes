@@ -5,26 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>¿A dónde va la energía? — balance y directividad</title>
 <style>
-  :root{ color-scheme: light dark; }
+  /* Paleta en variables: el claro va en :root, y el oscuro se redefine dos
+     veces — por preferencia del sistema (salvo que la página madre haya
+     pedido claro) y por data-theme="dark" explícito, que es lo que envía el
+     botón de tema de la página que embebe este iframe. */
+  :root{
+    color-scheme: light dark;
+    --bg:#fbfcfe; --fg:#16212e; --muted:#5b6b7d; --edge:#d5dde6; --accent:#e4572e;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg:#0b1219; --fg:#e7edf3; --muted:#9fb0c0; --edge:#2a3a4b;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#0b1219; --fg:#e7edf3; --muted:#9fb0c0; --edge:#2a3a4b;
+  }
+  :root[data-theme="light"]{ color-scheme: light; }
   body{ font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
         max-width:1040px; margin:24px auto; padding:0 16px; line-height:1.5;
-        background:#fbfcfe; color:#16212e; }
-  @media (prefers-color-scheme:dark){ body{ background:#0b1219; color:#e7edf3; } }
+        background:var(--bg); color:var(--fg); }
   h1{ font-size:20px; margin:0 0 4px; }
-  p.lead{ color:#5b6b7d; margin:0 0 18px; }
-  @media (prefers-color-scheme:dark){ p.lead{ color:#9fb0c0; } }
+  p.lead{ color:var(--muted); margin:0 0 18px; }
   .controls{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-             gap:12px 22px; margin:18px 0; padding:14px; border:1px solid #d5dde6; border-radius:10px; }
-  @media (prefers-color-scheme:dark){ .controls{ border-color:#2a3a4b; } }
+             gap:12px 22px; margin:18px 0; padding:14px; border:1px solid var(--edge); border-radius:10px; }
   label{ font-size:12px; font-weight:600; display:block; }
-  .val{ font-weight:700; color:#e4572e; }
-  input[type=range]{ width:100%; }
+  .val{ font-weight:700; color:var(--accent); }
+  input[type=range]{ width:100%; accent-color:var(--accent); }
   .btns{ display:flex; gap:8px; align-items:end; }
-  button{ font:inherit; padding:7px 14px; border-radius:8px; border:1px solid #d5dde6;
-          background:#e4572e; color:#fff; cursor:pointer; }
+  button{ font:inherit; padding:7px 14px; border-radius:8px; border:1px solid var(--edge);
+          background:var(--accent); color:#fff; cursor:pointer; }
   button.sec{ background:transparent; color:inherit; }
-  small.note{ color:#5b6b7d; }
+  small.note{ color:var(--muted); }
 </style>
+<script>
+/* Tema heredado de la página que embebe este iframe.
+   Va en <head> y antes del primer pintado para que no haya destello claro.
+   Fuentes, en orden: ?theme= de la URL → postMessage de la página madre.
+   Sin ninguna de las dos, manda el prefers-color-scheme del sistema. */
+(function(){
+  var root=document.documentElement;
+  function set(t){
+    if(t==='dark'||t==='light') root.setAttribute('data-theme',t);
+    else root.removeAttribute('data-theme');
+  }
+  try{ set(new URLSearchParams(location.search).get('theme')); }catch(e){}
+  window.addEventListener('message',function(ev){
+    var d=ev.data;
+    if(d && d.type==='lg-theme') set(d.theme);
+  });
+})();
+</script>
 </head>
 <body>
   <h1>Balance energético y directividad hacia adelante/atrás</h1>
