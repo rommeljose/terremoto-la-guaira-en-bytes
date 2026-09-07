@@ -18,19 +18,19 @@
   :root{
     --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
     --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
-    --green:#1f7a46; --green-soft:#e7f3ec; --grid:rgba(18,34,52,.04);
+    --green:#1f7a46; --green-soft:#e7f3ec; --red:#c0392b; --grid:rgba(18,34,52,.04);
     --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
   }
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
     --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
     --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
-    --green:#5cc088; --green-soft:#12271c; --grid:rgba(255,255,255,.03);
+    --green:#5cc088; --green-soft:#12271c; --red:#e2726a; --grid:rgba(255,255,255,.03);
     --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
   }}
   :root[data-theme="dark"]{
     --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
     --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
-    --green:#5cc088; --green-soft:#12271c; --grid:rgba(255,255,255,.03);
+    --green:#5cc088; --green-soft:#12271c; --red:#e2726a; --grid:rgba(255,255,255,.03);
     --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
   }
   *{box-sizing:border-box}
@@ -89,6 +89,32 @@
   .nextlinks a{font-family:"IBM Plex Sans",sans-serif; font-size:.86rem; font-weight:600; color:var(--blue);
     text-decoration:none; border:1px solid var(--line); border-radius:20px; padding:6px 14px; background:var(--paper)}
   .nextlinks a:hover{border-color:var(--blue)}
+  /* --- animación stick-slip incrustada --- */
+  .sim{margin:22px 0 8px}
+  .sim .controls{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; margin:0 0 12px; font-family:"IBM Plex Sans",sans-serif}
+  .sim button{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:.86rem; color:#fff; background:var(--blue);
+    border:none; border-radius:9px; padding:8px 15px; cursor:pointer}
+  .sim button.ghost{background:var(--paper); color:var(--blue); border:1px solid var(--line)}
+  .sim button:focus-visible, .sim input:focus-visible{outline:2px solid var(--amber); outline-offset:2px}
+  .sim .ctl{display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted)}
+  .sim input[type=range]{accent-color:var(--blue); width:110px}
+  .sim .panels{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:620px){ .sim .panels{grid-template-columns:1fr} }
+  .sim .panel{background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:12px 12px 14px; overflow:hidden}
+  .sim .panel h4{font-family:"IBM Plex Sans",sans-serif; font-size:.98rem; font-weight:700; color:var(--strong); margin:0 0 2px; display:flex; align-items:center; gap:8px}
+  .sim .dot{width:10px; height:10px; border-radius:50%; flex:none}
+  .sim .cap{font-size:.8rem; color:var(--muted); margin:0 0 8px; min-height:2.4em}
+  .sim canvas{display:block; width:100%; height:240px; border-radius:8px}
+  .sim .tl canvas{height:130px}
+  .sim .gauge{height:9px; background:var(--line); border-radius:6px; overflow:hidden; margin:10px 0 4px}
+  .sim .gauge > i{display:block; height:100%; width:0; border-radius:6px; transition:width .05s linear}
+  .sim .rowlbl{display:flex; justify-content:space-between; font-family:"IBM Plex Sans",sans-serif; font-size:.72rem; color:var(--muted); letter-spacing:.02em}
+  .sim .rowlbl .mono{font-family:"IBM Plex Mono",monospace; color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums}
+  .sim .tl{background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:12px; margin-top:14px}
+  .sim .tl h4{font-family:"IBM Plex Sans",sans-serif; font-size:.9rem; font-weight:700; color:var(--strong); margin:0 0 8px}
+  .sim .legend{display:flex; gap:14px; flex-wrap:wrap; font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; color:var(--muted); margin-top:8px}
+  .sim .legend span{display:inline-flex; align-items:center; gap:6px}
+  .sim .legend i{width:14px; height:3px; border-radius:2px; display:inline-block}
 </style>
 
 <div class="sheet">
@@ -223,6 +249,43 @@
   <p>La imagen más fiel es la de una <strong>barra que se rompe por cizalla</strong>. Imagina apretar un tornillo hasta pasarte: la llave le mete <strong>torque</strong>, la barra almacena energía elástica, y al superar su resistencia <strong>se fractura de golpe</strong>. El «momento» de esa fractura —rigidez × deformación × área rota— es exactamente la forma de $M_0$. La falla hace lo mismo, pero a escala de kilómetros: acumula deformación durante años y la suelta en segundos.</p>
   <p>Esto también explica por qué <strong>dos sismos de igual $M_0$ pueden sacudir distinto</strong>. La <em class="term">caída de esfuerzo</em> $\Delta\sigma\approx\mu\,\bar D/L$ dice cuán «apretado» estaba el tramo: mucho $\bar D$ en poca área (caída alta) sacude <strong>fuerte y concentrado</strong>; poco $\bar D$ en área enorme (caída baja) libera la misma energía <strong>más repartida</strong>.</p>
 
+  <h3>Míralo en marcha: el mismo «stick-slip»</h3>
+  <p>Los dos <strong>cargan despacio</strong> (deformación elástica), <strong>se rompen de golpe</strong> y <strong>liberan energía</strong>. Sube la <strong>resistencia</strong> para ver saltos —y ondas— mayores.</p>
+  <div class="sim">
+    <div class="controls">
+      <button id="play">❚❚ Pausa</button>
+      <button id="reset" class="ghost">↺ Reiniciar</button>
+      <label class="ctl">Velocidad <input id="speed" type="range" min="0.3" max="2.5" step="0.1" value="1"></label>
+      <label class="ctl">Resistencia de la roca <input id="resist" type="range" min="0.45" max="1" step="0.01" value="0.82"></label>
+    </div>
+    <div class="panels">
+      <div class="panel">
+        <h4><span class="dot" style="background:var(--amber)"></span>Tornillo que se parte</h4>
+        <p class="cap" id="capA">Se enrosca un poco y ya no avanza; la llave mete <b>torque</b> (τ = F·b) y el vástago <b>se retuerce</b>…</p>
+        <canvas id="cvA" aria-label="Tornillo que se retuerce por torsión y se parte"></canvas>
+        <div class="gauge"><i id="gA"></i></div>
+        <div class="rowlbl"><span>esfuerzo acumulado</span><span class="mono" id="sA">0%</span></div>
+      </div>
+      <div class="panel">
+        <h4><span class="dot" style="background:var(--blue)"></span>Falla que disloca</h4>
+        <p class="cap" id="capB">Las placas cargan la falla; las líneas de referencia se <b>curvan</b> (deformación elástica)…</p>
+        <canvas id="cvB" aria-label="Falla que acumula esfuerzo, desliza y radía ondas"></canvas>
+        <div class="gauge"><i id="gB"></i></div>
+        <div class="rowlbl"><span>esfuerzo acumulado</span><span class="mono" id="sB">0%</span></div>
+      </div>
+    </div>
+    <div class="tl">
+      <h4>Esfuerzo en el tiempo — el «diente de sierra» del stick-slip</h4>
+      <canvas id="cvT" aria-label="Curva de esfuerzo contra tiempo, en diente de sierra"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--ink)"></i> esfuerzo</span>
+        <span><i style="background:var(--red)"></i> resistencia → ruptura</span>
+        <span><i style="background:var(--green)"></i> caída = el sismo</span>
+      </div>
+    </div>
+  </div>
+  <div class="callout"><span class="k">Cómo leerlo</span> En el tornillo el <strong>brazo</strong> es el mango de la llave; en la falla, el <strong>largo $L$</strong> de la ruptura (con $F=\mu\bar DW$), así que $M_0=F\cdot b$ en los dos. Mientras carga se ven los ejes de esfuerzo de la <strong>falla de San Sebastián</strong> (transcurrente dextral): <strong style="color:var(--red)">P</strong> (compresión) NW–SE y <strong style="color:var(--blue)">T</strong> (tensión) NE–SW; al romper estallan en el <strong>mecanismo focal</strong> (pelota de playa: relleno = compresión, en NE y SW).</div>
+
   <h2><span class="no">6</span> La Guaira en números</h2>
   <p>Pongamos cifras reales. El primer sismo del 24-jun-2026, el <strong>M 7,2</strong>, tuvo un momento</p>
   $$ M_0 = 10^{\,1{,}5\cdot 7{,}2\,+\,9{,}1}\approx 7{,}9\times10^{19}\ \text{N·m}. $$
@@ -259,3 +322,327 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia('(prefers-color-scheme: reduce)').matches ||
+               matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- paleta desde los tokens CSS (respeta tema claro/oscuro) -------------
+  var P={};
+  function readPal(){
+    var s=getComputedStyle(document.documentElement), g=function(n){return s.getPropertyValue(n).trim();};
+    P={paper:g('--paper'),card:g('--card'),ink:g('--ink'),strong:g('--strong'),muted:g('--muted'),
+       line:g('--line'),blue:g('--blue'),blueSoft:g('--blue-soft'),amber:g('--amber'),amberSoft:g('--amber-soft'),
+       green:g('--green'),greenSoft:g('--green-soft'),red:g('--red')};
+  }
+  readPal();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',readPal);
+  new MutationObserver(readPal).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+  // ---- lienzos -------------------------------------------------------------
+  function C(id){var cv=document.getElementById(id);return {cv:cv,ctx:cv.getContext('2d'),w:0,h:0};}
+  var A=C('cvA'), B=C('cvB'), T=C('cvT');
+  function fit(o){var r=o.cv.getBoundingClientRect(),d=Math.min(2,window.devicePixelRatio||1);
+    o.cv.width=Math.round(r.width*d); o.cv.height=Math.round(r.height*d);
+    o.ctx.setTransform(d,0,0,d,0,0); o.w=r.width; o.h=r.height;}
+  function fitAll(){fit(A);fit(B);fit(T);}
+  window.addEventListener('resize',fitAll); fitAll();
+
+  // ---- estado --------------------------------------------------------------
+  var S={stress:0.60, phase:'load', slip:0, relT:0, waves:[], hist:[], events:[], boltVib:0,
+         speed:1, resist:0.82, playing:!reduce, t:0, sampAcc:0};
+  // posiciones fijas de las micro-líneas de esfuerzo en el plano de fractura
+  var MICRO=[{ox:-8,oy:-12},{ox:6,oy:-9},{ox:-3,oy:-6},{ox:9,oy:-2},{ox:-10,oy:2},
+             {ox:2,oy:5},{ox:9,oy:8},{ox:-6,oy:11},{ox:0,oy:-14},{ox:7,oy:13},{ox:-10,oy:0}];
+  var LOAD=0.16, WAVE=150, RELEASE=0.75, DT=0.03;
+
+  function rupture(){
+    S.slip=S.resist;                 // D ∝ esfuerzo acumulado
+    S.stress=0.0; S.phase='released'; S.relT=RELEASE;
+    S.boltVib=1;
+    var n=Math.round(2+S.slip*3);
+    for(var i=0;i<n;i++) S.waves.push({r:-i*20, max:230, s:S.slip});
+    S.events.push({x:1});            // marca para la línea de tiempo (borde derecho)
+  }
+  function step(dt){
+    if(S.phase==='load'){
+      S.stress += LOAD*S.speed*dt;
+      if(S.stress>=S.resist) rupture();
+    } else if(S.phase==='released'){
+      S.relT -= dt;
+      if(S.relT<=0){ S.phase='load'; S.stress=0; S.slip=0; S.waves.length=0; }
+    }
+    for(var i=0;i<S.waves.length;i++) S.waves[i].r += WAVE*S.speed*dt*0.7;
+    S.waves=S.waves.filter(function(w){return w.r<w.max;});
+    S.boltVib*=Math.pow(0.02,dt);    // decae rápido
+    S.sampAcc+=dt;
+    if(S.sampAcc>=0.05){ S.sampAcc=0; S.hist.push(S.stress); if(S.hist.length>360)S.hist.shift();
+      for(var e=0;e<S.events.length;e++) S.events[e].x--; S.events=S.events.filter(function(x){return x.x>-360;}); }
+    S.t+=dt;
+  }
+
+  function arrow(ctx,x1,y1,x2,y2,col,wd){var a=Math.atan2(y2-y1,x2-x1),h=6+wd;
+    ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=wd; ctx.beginPath();
+    ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-h*Math.cos(a-0.4),y2-h*Math.sin(a-0.4));
+    ctx.lineTo(x2-h*Math.cos(a+0.4),y2-h*Math.sin(a+0.4)); ctx.closePath(); ctx.fill();}
+  function lab(ctx,x,y,txt,col,size,al){ctx.fillStyle=col; ctx.font='600 '+(size||12)+'px "IBM Plex Sans",sans-serif';
+    ctx.textAlign=al||'left'; ctx.textBaseline='alphabetic'; ctx.fillText(txt,x,y);}
+  function smooth(x,a,b){var t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);}
+  function rp(px,py,lx,ly,a){return [px+lx*Math.cos(a)-ly*Math.sin(a), py+lx*Math.sin(a)+ly*Math.cos(a)];}
+
+  // ---- panel A: tornillo (torsión) -----------------------------------------
+  function drawBolt(){
+    var ctx=A.ctx,w=A.w,h=A.h; ctx.clearRect(0,0,w,h);
+    var cx=w*0.42, top=h*0.24, yb=h*0.55, base=h*0.83, sw=26;   // yb = plano de rotura
+    var load=(S.phase==='load')?S.stress:0, broke=(S.phase==='released');
+    var ins = smooth(load,0,0.18)*6;            // al principio se enrosca un poco en el bloque
+    var tw  = load*15;                          // torsión: giro del extremo (la raya se retuerce)
+    var vib = broke? Math.sin(S.t*55)*S.boltVib*5 : 0;
+    var gap = broke? (4+S.slip*5) : 0;          // salto al partirse
+
+    // bloque donde enrosca
+    ctx.fillStyle=P.blueSoft; ctx.strokeStyle=P.line; ctx.lineWidth=1;
+    ctx.fillRect(cx-52, base-6, 104, h-base+2); ctx.strokeRect(cx-52, base-6, 104, h-base+2);
+    ctx.fillStyle=P.muted; ctx.font='11px "IBM Plex Sans",sans-serif'; ctx.textAlign='center';
+    ctx.fillText('bloque', cx, base+16);
+
+    // vástago inferior (fijo, embebido)
+    ctx.fillStyle=P.amberSoft; ctx.strokeStyle=P.amber; ctx.lineWidth=1.5;
+    ctx.fillRect(cx-sw/2, yb, sw, base-yb); ctx.strokeRect(cx-sw/2, yb, sw, base-yb);
+
+    // parte superior: se enrosca (ins) y, al romper, salta (gap). El vástago es VERTICAL.
+    var vy=ins-(broke?gap:0), vx=vib, hx=cx+vx, hyB=top+vy;
+    var hh=22, hw=50, wl=58, wy=hyB-hh+11;
+    var th=(broke?0:load*1.6);            // ángulo de giro SOBRE EL EJE VERTICAL (rad; visual)
+    // vástago vertical
+    ctx.beginPath(); ctx.rect(cx-sw/2+vx, top+vy, sw, yb-top);
+    ctx.fillStyle=P.amberSoft; ctx.fill(); ctx.strokeStyle=P.amber; ctx.lineWidth=1.5; ctx.stroke();
+    // cabeza de perfil — CONTORNO FIJO (no se inclina)
+    ctx.beginPath();
+    ctx.moveTo(hx-hw/2, hyB); ctx.lineTo(hx-hw/2, hyB-hh+6); ctx.lineTo(hx-hw/2+7, hyB-hh);
+    ctx.lineTo(hx+hw/2-7, hyB-hh); ctx.lineTo(hx+hw/2, hyB-hh+6); ctx.lineTo(hx+hw/2, hyB);
+    ctx.closePath(); ctx.fillStyle=P.amber; ctx.fill(); ctx.strokeStyle=P.strong; ctx.lineWidth=1.2; ctx.stroke();
+    // FACETAS del hexágono que BARREN horizontalmente = giro sobre el eje vertical
+    ctx.save(); ctx.beginPath(); ctx.rect(hx-hw/2+1, hyB-hh, hw-2, hh); ctx.clip();
+    for(var kk=0;kk<6;kk++){
+      var ph=th+kk*Math.PI/3, face=Math.cos(ph);
+      if(face<=0.02) continue;                        // solo las aristas del frente
+      var fx=hx+(hw/2-3)*Math.sin(ph);
+      ctx.strokeStyle='rgba(0,0,0,'+(0.08+0.20*face).toFixed(2)+')'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(fx,hyB-hh+2); ctx.lineTo(fx,hyB-2); ctx.stroke();
+    }
+    ctx.restore();
+    // raya de referencia (TORSIÓN): la superficie se retuerce; el tope sigue el giro, sin inclinar
+    ctx.strokeStyle=P.strong; ctx.lineWidth=2; ctx.beginPath();
+    if(!broke){
+      var seg=9; for(var q=0;q<=seg;q++){var t2=q/seg, yy=yb-(yb-hyB)*t2, xx=cx+vx+(sw/2-2)*Math.sin(th*t2);
+        q?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+    } else { ctx.moveTo(cx+vx, top+vy); ctx.lineTo(cx+vx, yb+vy-2); }
+    ctx.stroke();
+    // llave FIJA (horizontal) + F + brazo b — la τ que provoca el giro, sin mover la llave
+    ctx.strokeStyle=P.muted; ctx.lineWidth=6; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(hx, wy); ctx.lineTo(hx+wl, wy); ctx.stroke(); ctx.lineCap='butt';
+    arrow(ctx, hx+wl, wy-18, hx+wl, wy, P.strong, 2.4);
+    lab(ctx, hx+wl+4, wy-7, 'F', P.strong, 13);
+    ctx.strokeStyle=P.muted; ctx.lineWidth=1; ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(hx, wy-13); ctx.lineTo(hx+wl, wy-13); ctx.stroke(); ctx.setLineDash([]);
+    lab(ctx, hx+wl/2, wy-17, 'brazo b', P.muted, 11, 'center');
+    // flecha curva de torque sobre la cabeza (dirección del giro)
+    if(!broke){
+      var cyT=hyB-hh-9, rr=13;
+      ctx.strokeStyle=P.amber; ctx.lineWidth=1.6;
+      ctx.beginPath(); ctx.arc(hx,cyT,rr, Math.PI*0.12, Math.PI*0.92); ctx.stroke();
+      var ae=Math.PI*0.92;
+      arrow(ctx, hx+rr*Math.cos(ae-0.22), cyT+rr*Math.sin(ae-0.22), hx+rr*Math.cos(ae), cyT+rr*Math.sin(ae), P.amber, 1.4);
+    }
+
+    // micro-líneas de esfuerzo (torsión) concentradas en el plano de rotura
+    if(!broke){
+      for(var mi=0;mi<MICRO.length;mi++){
+        if(mi/MICRO.length > load) continue;
+        var mo=MICRO[mi], mx=cx+mo.ox*0.62, my=yb+mo.oy;
+        ctx.strokeStyle=(load>0.7)?P.red:P.muted; ctx.globalAlpha=0.25+0.6*load; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.moveTo(mx-4,my-4); ctx.lineTo(mx+4,my+4); ctx.stroke();
+      }
+      ctx.globalAlpha=1;
+      lab(ctx, cx+42, yb-8, 'esfuerzo', (load>0.7)?P.red:P.muted, 9.5);
+    }
+
+    // plano de rotura / fractura por torsión
+    if(broke){
+      ctx.strokeStyle=P.red; ctx.lineWidth=2.2; ctx.beginPath();
+      var zz=cx-sw/2; ctx.moveTo(zz, yb);
+      for(var k=0;k<6;k++){ zz+=sw/6; ctx.lineTo(zz, yb+(k%2?3:-3)); } ctx.stroke();
+      ctx.strokeStyle=P.amber; ctx.lineWidth=1.4;
+      for(var s2=0;s2<5;s2++){var ang=-Math.PI/2+(s2-2)*0.5, L=8+S.boltVib*16;
+        ctx.beginPath(); ctx.moveTo(cx, yb); ctx.lineTo(cx+L*Math.cos(ang), yb+L*Math.sin(ang)); ctx.stroke();}
+    } else {
+      ctx.strokeStyle=P.line; ctx.setLineDash([3,4]); ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(cx-46,yb); ctx.lineTo(cx+46,yb); ctx.stroke(); ctx.setLineDash([]);
+      lab(ctx, cx+50, yb+3, 'plano de rotura', P.muted, 10);
+    }
+    lab(ctx, 12, h-10, 'τ = F · b', P.amber, 13);
+  }
+
+  // ---- mecanismo focal (beachball) dextral E-O: compresión NE y SW ---------
+  function beachball(ctx,x,y,r,al,fill){
+    ctx.save(); ctx.globalAlpha=al;
+    if(fill){
+      ctx.fillStyle=P.paper; ctx.beginPath(); ctx.arc(x,y,r+2.5,0,7); ctx.fill();   // halo separador
+      ctx.fillStyle=P.card;  ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fill();       // fondo = dilatación
+      ctx.fillStyle=P.strong;                                                        // relleno = compresión
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.arc(x,y,r,1.5*Math.PI,2*Math.PI); ctx.closePath(); ctx.fill(); // NE
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.arc(x,y,r,0.5*Math.PI,Math.PI);   ctx.closePath(); ctx.fill(); // SW
+    }
+    ctx.strokeStyle=P.strong; ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.stroke();                              // borde
+    ctx.beginPath(); ctx.moveTo(x-r,y); ctx.lineTo(x+r,y); ctx.moveTo(x,y-r); ctx.lineTo(x,y+r); ctx.stroke(); // planos nodales
+    ctx.restore();
+  }
+  // ejes de esfuerzo de la dextral: P (compresión) NW–SE, T (tensión) NE–SW
+  function stressAxes(ctx,x,y,r,mag,al){
+    ctx.save(); ctx.globalAlpha=al;
+    var NW=[-0.707,-0.707],SE=[0.707,0.707],NE=[0.707,-0.707],SW=[-0.707,0.707], L=15*mag;
+    [NW,SE].forEach(function(d){ arrow(ctx, x+d[0]*(r+7+L), y+d[1]*(r+7+L), x+d[0]*(r+4), y+d[1]*(r+4), P.red, 2); });   // P adentro
+    [NE,SW].forEach(function(d){ arrow(ctx, x+d[0]*(r+4), y+d[1]*(r+4), x+d[0]*(r+7+L), y+d[1]*(r+7+L), P.blue, 2); });   // T afuera
+    ctx.globalAlpha=Math.min(1,al+0.25);
+    lab(ctx, x+SE[0]*(r+12+L)+2, y+SE[1]*(r+12+L)+6, 'P', P.red, 11);
+    lab(ctx, x+NE[0]*(r+12+L)+2, y+NE[1]*(r+12+L)-1, 'T', P.blue, 11);
+    ctx.restore();
+  }
+
+  // ---- panel B: falla ------------------------------------------------------
+  function drawFault(){
+    var ctx=B.ctx,w=B.w,h=B.h; ctx.clearRect(0,0,w,h);
+    var yf=h*0.50, hx=w*0.5;                    // traza de la falla y su hipocentro
+    var load=(S.phase==='load')?S.stress:0, broke=(S.phase==='released');
+    var amp=load*20, off=broke?S.slip*26:0;
+
+    // dos bloques (vista en planta)
+    ctx.fillStyle=P.blueSoft; ctx.fillRect(0,0,w,yf);
+    ctx.fillStyle=P.amberSoft; ctx.fillRect(0,yf,w,h-yf);
+    // líneas de referencia (vallas/caminos) que cruzan la falla
+    ctx.lineWidth=2;
+    for(var x=w*0.12;x<w*0.94;x+=w*0.135){
+      ctx.strokeStyle=P.muted; ctx.beginPath();
+      for(var y=8;y<=h-8;y+=6){
+        var d=y-yf, prof=Math.tanh(-d/24);      // curva S (dextral: norte +, sur −)
+        var dx = broke ? (d<0? off: -off) : amp*prof;
+        (y===8)?ctx.moveTo(x+dx,y):ctx.lineTo(x+dx,y);
+      }
+      ctx.stroke();
+    }
+    // traza de la falla + flechas de placa (dextral)
+    ctx.strokeStyle=P.strong; ctx.lineWidth=2.4; ctx.beginPath(); ctx.moveTo(0,yf); ctx.lineTo(w,yf); ctx.stroke();
+    arrow(ctx, w*0.26, yf-15, w*0.26+30, yf-15, P.strong, 2);
+    arrow(ctx, w*0.74, yf+15, w*0.74-30, yf+15, P.strong, 2);
+
+    // PALANCA (durante la carga): la falla ES el brazo; F = μD̄W en el extremo
+    if(!broke){
+      var xe=w*0.87, Fh=8+load*30;
+      ctx.fillStyle=P.blue; ctx.beginPath();                       // fulcro en el hipocentro
+      ctx.moveTo(hx,yf+2); ctx.lineTo(hx-6,yf+12); ctx.lineTo(hx+6,yf+12); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle=P.blue; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+      ctx.beginPath(); ctx.moveTo(hx,yf+16); ctx.lineTo(xe,yf+16); ctx.stroke(); ctx.setLineDash([]);
+      lab(ctx,(hx+xe)/2, yf+28, 'brazo  b = L', P.blue, 10, 'center');
+      arrow(ctx, xe, yf, xe, yf-Fh, P.blue, 2);                    // F perpendicular
+      lab(ctx, xe+4, yf-Fh+3, 'F = μD̄W', P.blue, 10);
+    }
+
+    // hipocentro
+    ctx.fillStyle=P.strong; ctx.beginPath(); ctx.arc(hx,yf,3.5,0,7); ctx.fill();
+    // ondas radiadas
+    for(var i=0;i<S.waves.length;i++){var wv=S.waves[i]; if(wv.r<=0)continue;
+      var al=Math.max(0,(1-wv.r/wv.max))*0.9*(0.5+wv.s);
+      ctx.strokeStyle=P.green; ctx.globalAlpha=al; ctx.lineWidth=2.2;
+      ctx.beginPath(); ctx.arc(hx,yf,wv.r,0,7); ctx.stroke(); ctx.globalAlpha=1;}
+    // MECANISMO FOCAL DINÁMICO: esfuerzos P/T que crecen y estallan en el beachball
+    var mR = broke ? 22 : (11 + load*6);
+    stressAxes(ctx, hx, yf, mR, broke?1:load, broke?1:(0.35+0.6*load));   // ejes P/T dextral
+    beachball(ctx, hx, yf, mR, broke?1:(0.35+0.5*load), broke);           // relleno solo al romper
+    if(broke){
+      lab(ctx, hx+34, yf+16, 'mecanismo focal', P.strong, 10);
+      lab(ctx, hx+34, yf+28, '(doble par · dextral)', P.muted, 9.5);
+      lab(ctx, hx-104, yf+22, '¡desliza D̄!', P.green, 11);
+    }
+    // etiquetas
+    lab(ctx, 8, 15, 'placa (vista en planta)', P.muted, 10);
+    lab(ctx, 12, h-10, 'M₀ = μ·A·D̄ = F·b', P.blue, 13);
+  }
+
+  // ---- línea de tiempo -----------------------------------------------------
+  function drawTL(){
+    var ctx=T.ctx,w=T.w,h=T.h; ctx.clearRect(0,0,w,h);
+    var pad=8, x0=34, y0=h-20, y1=12, gw=w-x0-10;
+    // eje
+    ctx.strokeStyle=P.line; ctx.lineWidth=1; ctx.beginPath();
+    ctx.moveTo(x0,y1); ctx.lineTo(x0,y0); ctx.lineTo(w-6,y0); ctx.stroke();
+    lab(ctx, 6, y1+8, 'σ', P.muted, 11); lab(ctx, w-6, y0+15, 'tiempo →', P.muted, 10, 'right');
+    // resistencia
+    var yr=y0-(y0-y1)*S.resist;
+    ctx.strokeStyle=P.red; ctx.setLineDash([6,4]); ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(x0,yr); ctx.lineTo(w-6,yr); ctx.stroke(); ctx.setLineDash([]);
+    lab(ctx, x0+4, yr-4, 'resistencia', P.red, 10);
+    // historia (diente de sierra)
+    var n=S.hist.length; if(n>1){
+      ctx.strokeStyle=P.ink; ctx.lineWidth=2; ctx.beginPath();
+      for(var i=0;i<n;i++){var x=x0+gw*(i/(360-1)), y=y0-(y0-y1)*Math.min(1,S.hist[i]);
+        i?ctx.lineTo(x,y):ctx.moveTo(x,y);} ctx.stroke();
+      // relleno bajo la curva
+      ctx.lineTo(x0+gw*((n-1)/359),y0); ctx.lineTo(x0,y0); ctx.closePath();
+      ctx.fillStyle=P.blueSoft; ctx.globalAlpha=.5; ctx.fill(); ctx.globalAlpha=1;
+    }
+    // marcas de ruptura (caída = sismo)
+    for(var e=0;e<S.events.length;e++){var idx=360+S.events[e].x; if(idx<1||idx>=n)continue;
+      var x=x0+gw*(idx/359);
+      ctx.strokeStyle=P.green; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(x,yr); ctx.lineTo(x,y0); ctx.stroke();}
+  }
+
+  // ---- HUD (medidores + captions) -----------------------------------------
+  var gA=document.getElementById('gA'),gB=document.getElementById('gB'),
+      sA=document.getElementById('sA'),sB=document.getElementById('sB'),
+      capA=document.getElementById('capA'),capB=document.getElementById('capB');
+  function hud(){
+    var f=Math.min(1,S.stress/S.resist), pct=Math.round(f*100)+'%';
+    var col = f<0.6?P.green : f<0.9?P.amber : P.red;
+    if(S.phase==='released'){ pct='—'; col=P.green; }
+    gA.style.width=gB.style.width=(S.phase==='released'?100:f*100)+'%';
+    gA.style.background=gB.style.background=col;
+    sA.textContent=sB.textContent=pct;
+    if(S.phase==='released'){
+      capA.innerHTML='<b style="color:'+P.red+'">¡Se parte por torsión!</b> el vástago cede en el plano de rotura y salta — energía liberada.';
+      capB.innerHTML='<b style="color:'+P.green+'">¡Terremoto!</b> la falla desliza <b>D̄</b> de golpe y radía <b>ondas</b> desde el hipocentro.';
+    } else {
+      capA.innerHTML='Se enrosca un poco y ya no avanza; la llave mete <b>torque</b> (τ = F·b) y el vástago <b>se retuerce</b>…';
+      capB.innerHTML='Las placas cargan la falla; las líneas de referencia se <b>curvan</b> (deformación elástica)…';
+    }
+  }
+
+  // ---- bucle ---------------------------------------------------------------
+  var last=performance.now(), acc=0;
+  function frame(now){
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+    if(S.playing){ acc+=dt; while(acc>=DT){ step(DT); acc-=DT; } }
+    drawBolt(); drawFault(); drawTL(); hud();
+    requestAnimationFrame(frame);
+  }
+  // sembrar algo de historia para el primer fotograma
+  for(var i=0;i<120;i++){ step(DT); }
+  S.stress=0.60; S.phase='load';
+  requestAnimationFrame(frame);
+
+  // ---- controles -----------------------------------------------------------
+  var playBtn=document.getElementById('play');
+  playBtn.addEventListener('click',function(){ S.playing=!S.playing;
+    playBtn.textContent=S.playing?'❚❚ Pausa':'▶ Reproducir'; });
+  if(reduce){ S.playing=false; playBtn.textContent='▶ Reproducir'; }
+  document.getElementById('reset').addEventListener('click',function(){
+    S.stress=0; S.phase='load'; S.slip=0; S.waves.length=0; S.hist.length=0; S.events.length=0; S.t=0; });
+  document.getElementById('speed').addEventListener('input',function(e){ S.speed=parseFloat(e.target.value); });
+  document.getElementById('resist').addEventListener('input',function(e){ S.resist=parseFloat(e.target.value); });
+})();
+</script>
