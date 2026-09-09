@@ -104,6 +104,18 @@
     font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
   .refs{font-size:.92rem} .refs li{margin:8px 0}
   mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+  /* --- visor 3-D de replicas, incrustado en vivo --- */
+  .visor{margin:26px 0}
+  .visor .marco{position:relative; border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    box-shadow:var(--shadow); background:var(--paper); height:min(72vh,620px); min-height:420px}
+  .visor iframe{display:block; width:100%; height:100%; border:0}
+  .visor .barra{display:flex; justify-content:space-between; align-items:center; gap:10px 16px;
+    flex-wrap:wrap; margin:10px 2px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.84rem;
+    color:var(--muted)}
+  .visor .barra a{font-weight:600; color:var(--blue); text-decoration:none; border:1px solid var(--line);
+    border-radius:20px; padding:5px 13px; background:var(--paper); flex:none}
+  .visor .barra a:hover{border-color:var(--blue)}
+  @media (max-width:620px){ .visor .marco{height:min(64vh,460px); min-height:330px} }
 </style>
 
 <div class="sheet">
@@ -115,6 +127,41 @@
   </header>
 
   <p class="lead">El catálogo actual de la secuencia (localizaciones absolutas de la red nacional) tiene una dispersión de varios kilómetros que <strong>difumina</strong> justo lo que queremos medir: la separación de las dos acumulaciones de energía, la <strong>geometría del hueco</strong> intermedio (Paper 1) y las profundidades (Papers 1 y 2). Una <strong>relocalización relativa</strong> cancela los errores comunes de trayecto y resuelve la posición <em>relativa</em> de cada evento con precisión de decenas a centenas de metros, sin depender de que el modelo de velocidades absoluto sea perfecto.</p>
+
+  <h3 style="margin-top:34px">Míralas antes de leer el método</h3>
+  <p>Esto es el catálogo tal como está hoy, en tres dimensiones y sin relocalizar. La dispersión
+    de la que habla el párrafo anterior <strong>se ve girando la escena</strong>: en profundidad,
+    la nube se estira mucho más de lo que la física de la secuencia justifica. Eso es,
+    precisamente, lo que hypoDD viene a apretar.</p>
+
+  <div class="visor">
+    <div class="marco">
+      <iframe src="https://replicas-3d-laguaira.sigeos.org/"
+              title="Visor 3-D de las réplicas del doblete de La Guaira"
+              loading="lazy" allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="barra">
+      <span>Visor en vivo · se actualiza solo cuando cambia la simulación. Si el recuadro queda
+        en blanco, ábrelo aparte.</span>
+      <a href="https://replicas-3d-laguaira.sigeos.org/" target="_blank" rel="noopener">Abrir a
+        pantalla completa →</a>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <span class="k">Qué se está viendo, y qué no</span>
+    Son las <b>localizaciones absolutas del catálogo</b> —la red nacional, evento por evento—, no
+    el resultado de ninguna relocalización. Las profundidades fijadas de oficio en 5 km vienen
+    <b>ocultas por defecto</b> (casilla «ocultar las profundidades fijadas a 5 km»), y conviene
+    dejarlas así: son un artefacto del procedimiento de localización, no una capa de sismos
+    reales. <b>El «después» de esta página todavía no existe</b>: aparecerá aquí cuando hypoDD
+    corra con los piques revisados.
+    <br><br>El recuadro mide algo menos de 700 px, por debajo del umbral con el que el visor
+    cambia de disposición, así que <b>los controles se abren con el botón ☰ Panel</b> de su
+    cabecera. A pantalla completa aparecen desplegados.
+  </div>
+
 
   <h2><span class="no">1</span> Fundamento físico: cancelación de errores de camino</h2>
   <p>Para una estación $k$ y un evento $i$, el tiempo de viaje observado se descompone en</p>
