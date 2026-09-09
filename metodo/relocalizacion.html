@@ -106,8 +106,15 @@
   mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
   /* --- visor 3-D de replicas, incrustado en vivo --- */
   .visor{margin:26px 0}
+  /* En pantalla ancha el recuadro se sale de la caja de texto. No es capricho: por
+     debajo de 820 px el visor pliega su panel tras el boton ☰, y entonces el
+     conmutador Catalogo/Relocalizado —que es lo que hay que ver aqui— queda escondido. */
+  @media (min-width:900px){
+    .visor{position:relative; left:50%; transform:translateX(-50%);
+      width:min(1180px, calc(100vw - 40px))}
+  }
   .visor .marco{position:relative; border:1px solid var(--line); border-radius:12px; overflow:hidden;
-    box-shadow:var(--shadow); background:var(--paper); height:min(72vh,620px); min-height:420px}
+    box-shadow:var(--shadow); background:var(--paper); height:min(76vh,680px); min-height:420px}
   .visor iframe{display:block; width:100%; height:100%; border:0}
   .visor .barra{display:flex; justify-content:space-between; align-items:center; gap:10px 16px;
     flex-wrap:wrap; margin:10px 2px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.84rem;
@@ -133,6 +140,10 @@
     de la que habla el párrafo anterior <strong>se ve girando la escena</strong>: en profundidad,
     la nube se estira mucho más de lo que la física de la secuencia justifica. Eso es,
     precisamente, lo que hypoDD viene a apretar.</p>
+  <p>Y se puede ver el antes y el después sin salir de aquí. En el panel del visor, bajo
+    <b>Localización</b>, hay dos botones: <b>Catálogo</b> y <b>Relocalizado (hypoDD · demo)</b>.
+    Alternar entre ellos <strong>es</strong> el asunto de esta página — con la salvedad, grande,
+    que viene justo debajo.</p>
 
   <div class="visor">
     <div class="marco">
@@ -142,8 +153,9 @@
               referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="barra">
-      <span>Visor en vivo · se actualiza solo cuando cambia la simulación. Si el recuadro queda
-        en blanco, ábrelo aparte.</span>
+      <span>Visor en vivo · se actualiza solo cuando cambia la simulación. En pantalla estrecha
+        el panel se pliega tras el botón <b>☰ Panel</b>. Si el recuadro queda en blanco, ábrelo
+        aparte.</span>
       <a href="https://replicas-3d-laguaira.sigeos.org/" target="_blank" rel="noopener">Abrir a
         pantalla completa →</a>
     </div>
@@ -151,15 +163,17 @@
 
   <div class="callout blue">
     <span class="k">Qué se está viendo, y qué no</span>
-    Son las <b>localizaciones absolutas del catálogo</b> —la red nacional, evento por evento—, no
-    el resultado de ninguna relocalización. Las profundidades fijadas de oficio en 5 km vienen
-    <b>ocultas por defecto</b> (casilla «ocultar las profundidades fijadas a 5 km»), y conviene
-    dejarlas así: son un artefacto del procedimiento de localización, no una capa de sismos
-    reales. <b>El «después» de esta página todavía no existe</b>: aparecerá aquí cuando hypoDD
-    corra con los piques revisados.
-    <br><br>El recuadro mide algo menos de 700 px, por debajo del umbral con el que el visor
-    cambia de disposición, así que <b>los controles se abren con el botón ☰ Panel</b> de su
-    cabecera. A pantalla completa aparecen desplegados.
+    <b>Catálogo</b> son las localizaciones absolutas de la red nacional, evento por evento: el
+    punto de partida real. Las profundidades fijadas de oficio en 5 km vienen <b>ocultas por
+    defecto</b> (casilla «ocultar las profundidades fijadas a 5 km»), y conviene dejarlas así:
+    son un artefacto del procedimiento de localización, no una capa de sismos reales.
+    <br><br><b>Relocalizado (hypoDD · demo) NO son localizaciones reales</b>, y el propio visor lo
+    avisa en rojo al seleccionarlo. Es una <b>demostración sintética</b>: 800 eventos apretados
+    hacia la traza con una estructura objetivo inventada (×10, sólo en horizontal, desplazamiento
+    mediano de 3,2 km, profundidad sin tocar). Sirve para ver <i>qué tipo de apriete</i> revela
+    una relocalización relativa, sobre una maquinaria que sí está validada — no para leer dónde
+    estuvo ningún sismo. <b>El resultado real sigue esperando los picks P/S de FUNVISIS</b>
+    (§6).
   </div>
 
 
