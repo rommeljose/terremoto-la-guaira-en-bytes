@@ -7,7 +7,7 @@ herede el tema claro/oscuro de la página a través de las clases `.mp-*`.
 
 Dos paneles:
   · principal — costa central de Venezuela, las trazas de falla activas
-    cercanas, el sistema Puerto Cabello + San Sebastián sobre el que discurre
+    cercanas, el enlace San Sebastián–Morón–Boconó, sobre el que discurre
     la secuencia, y los dos epicentros del catálogo USGS.
   · recuadro  — el Caribe y el norte de Suramérica, para situar al lector que
     no conozca la región, con el marco del panel principal.
@@ -16,7 +16,7 @@ Datos de entrada, todos en `herramientas/datos/` (ver README):
   costa_10m_zoom.json     Natural Earth 1:10 m, recortada  (dominio público)
   costa_50m_region.json   Natural Earth 1:50 m, recortada  (dominio público)
   fallas_cercanas.json    trazas de fallas activas (proyecto Red de Emergencia)
-  traza_principal.json    el sistema Puerto Cabello + San Sebastián, con las
+  traza_principal.json    el enlace San Sebastián–Morón–Boconó, con las
                           anclas de los dos hipocentros sobre el eje s
 
 Ejecutar desde la raíz del repositorio:  python3 herramientas/gen_mapa_ubicacion.py
@@ -75,7 +75,7 @@ a('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" '
   'role="img" aria-labelledby="mp-tit mp-des" class="mapa-ubic">' % (W, H))
 a('<title id="mp-tit">Mapa de ubicación de la secuencia sísmica del 24 de junio de 2026</title>')
 a('<desc id="mp-des">Costa central de Venezuela. Se muestran las trazas de fallas activas, '
-  'el sistema Puerto Cabello + San Sebastián sobre el que discurre la secuencia, los dos '
+  'el enlace San Sebastián–Morón–Boconó, sobre el que discurre la secuencia, los dos '
   'epicentros del catálogo USGS (M 7,2 al oeste y M 7,5 al este, separados 158 kilómetros '
   'medidos sobre la falla) y las localidades de referencia. Un recuadro sitúa la zona en el '
   'Caribe y el norte de Suramérica.</desc>')
@@ -179,7 +179,7 @@ a('<g class="mp-leyenda">')
 a('<polygon class="mp-epi" points="%s"/>' % estrella(lx + 8, ly, 8))
 a('<text class="mp-ley-txt" x="%d" y="%d">epicentro del catálogo USGS</text>' % (lx + 30, ly + 4))
 a('<path class="mp-traza" d="M%d %d H%d"/>' % (lx, ly + 22, lx + 22))
-a('<text class="mp-ley-txt" x="%d" y="%d">sistema Puerto Cabello + San Sebastián (296 km)</text>'
+a('<text class="mp-ley-txt" x="%d" y="%d">enlace San Sebastián–Morón–Boconó (296 km)</text>'
   % (lx + 30, ly + 26))
 a('<path class="mp-falla" d="M%d %d H%d"/>' % (lx, ly + 44, lx + 22))
 a('<text class="mp-ley-txt" x="%d" y="%d">otras trazas de fallas activas</text>' % (lx + 30, ly + 48))

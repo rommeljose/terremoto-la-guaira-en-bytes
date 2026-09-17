@@ -58,7 +58,7 @@ y `<figcaption>`). Sus datos de entrada están en `herramientas/datos/`:
 |---|---|---|
 | `costa_10m_zoom.json`, `costa_50m_region.json` | Natural Earth 1:10 M y 1:50 M, recortadas a las dos ventanas | dominio público |
 | `fallas_cercanas.json` | trazas de fallas activas, proyecto Red de Emergencia | propia |
-| `traza_principal.json` | sistema Puerto Cabello + San Sebastián, con las anclas de los dos hipocentros sobre el eje *s* | propia |
+| `traza_principal.json` | enlace San Sebastián–Morón–Boconó, con las anclas de los dos hipocentros sobre el eje *s* | propia |
 
 ## Datos y herramientas
 

@@ -95,7 +95,34 @@
   .sh .rule{flex:1; height:2px; background:var(--ink); opacity:.12}
 
   .note{margin:15px 0 0; color:var(--muted); font-size:.95rem; max-width:74ch}
-  .sub-h{margin:26px 0 0; font-size:1.02rem; font-weight:700; color:var(--strong)}
+  .sub-h{margin:28px 0 10px; font-size:1.05rem; font-weight:700; color:var(--strong)}
+  /* Bloques que ocupan todo el ancho de la hoja. En pantalla ancha el texto se
+     reparte en dos columnas para no dejar renglones de 140 caracteres; por
+     debajo de 900 px vuelve a una sola, sin media queries adicionales. */
+  .bloque{max-width:none}
+  .bloque p{max-width:none; margin:0 0 13px}
+  .bloque p:last-child{margin-bottom:0}
+  @media (min-width:900px){
+    .bloque.dos{column-count:2; column-gap:46px; column-rule:1px solid var(--line)}
+    .bloque.dos p{break-inside:avoid-column}
+  }
+  .mapa figcaption{margin:0; padding:13px 18px 15px; border-top:1px solid var(--line);
+    background:var(--panel); max-width:none; font-size:.86rem}
+  /* Fichas de enlaces: se reacomodan solas segun el ancho disponible */
+  .refs{display:grid; grid-template-columns:repeat(auto-fit,minmax(252px,1fr)); gap:12px; margin-top:14px}
+  .ref-card{border:1px solid var(--line); border-left:3px solid var(--blue); border-radius:8px;
+    padding:13px 15px; background:var(--panel); display:flex; flex-direction:column; gap:5px}
+  .ref-card.o{border-left-color:var(--orange)}
+  .ref-card.g{border-left-color:var(--green)}
+  .ref-card a{color:var(--ink); font-weight:700; font-size:.94rem; text-decoration:none;
+    border-bottom:1px solid var(--line)}
+  .ref-card a:hover{color:var(--orange); border-color:var(--orange)}
+  .ref-card a:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+  .ref-card p{margin:0; font-size:.84rem; color:var(--muted)}
+  .ref-card .url{font-family:"IBM Plex Mono",monospace; font-size:.72rem; color:var(--muted);
+    word-break:break-all; opacity:.85}
+  .grupo-h{margin:24px 0 0; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--orange); font-weight:700}
   .note b{color:var(--ink); font-weight:600}
   .metodo-link{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.95rem;
     color:#fff; background:var(--orange); text-decoration:none; padding:11px 20px; border-radius:8px;
@@ -241,9 +268,9 @@
     <div class="sh"><span class="n">01</span><h2>Dónde ocurrió, y para qué es esta página</h2><span class="rule"></span></div>
 
     <figure class="mapa">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 499" role="img" aria-labelledby="mp-tit mp-des" class="mapa-ubic">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 499" role="img" aria-labelledby="mp-tit mp-des" class="mapa-ubic">
       <title id="mp-tit">Mapa de ubicación de la secuencia sísmica del 24 de junio de 2026</title>
-      <desc id="mp-des">Costa central de Venezuela. Se muestran las trazas de fallas activas, el sistema Puerto Cabello + San Sebastián sobre el que discurre la secuencia, los dos epicentros del catálogo USGS (M 7,2 al oeste y M 7,5 al este, separados 158 kilómetros medidos sobre la falla) y las localidades de referencia. Un recuadro sitúa la zona en el Caribe y el norte de Suramérica.</desc>
+      <desc id="mp-des">Costa central de Venezuela. Se muestran las trazas de fallas activas, el enlace San Sebastián–Morón–Boconó, sobre el que discurre la secuencia, los dos epicentros del catálogo USGS (M 7,2 al oeste y M 7,5 al este, separados 158 kilómetros medidos sobre la falla) y las localidades de referencia. Un recuadro sitúa la zona en el Caribe y el norte de Suramérica.</desc>
       <clipPath id="mp-clip-pral"><rect x="0" y="0" width="1040" height="499"/></clipPath>
       <g clip-path="url(#mp-clip-pral)">
       <path class="mp-mar" d="M0.0 -53.3 L8.4 -49.9 L11.8 -50.4 L13.5 -47.3 L17.3 -43.9 L21.8 -41.0 L25.5 -39.2 L37.6 -37.1 L82.9 -39.0 L88.3 -37.4 L92.8 -34.0 L102.3 -23.7 L108.0 -19.4 L114.3 -15.9 L124.1 -12.3 L128.8 -11.2 L132.8 -10.9 L134.5 -12.2 L136.0 -11.3 L142.8 -8.2 L144.3 -6.0 L147.3 -0.6 L154.5 4.9 L176.1 16.2 L182.6 20.8 L187.7 25.7 L189.9 30.1 L192.5 33.2 L211.6 41.4 L213.0 38.5 L213.5 37.2 L213.5 35.2 L215.7 35.2 L216.6 37.0 L219.5 41.4 L219.5 43.2 L217.3 48.8 L219.9 56.3 L231.2 72.9 L249.0 107.7 L251.8 115.9 L249.2 119.6 L247.1 118.4 L244.1 115.5 L240.3 112.8 L235.4 111.8 L231.7 112.5 L228.4 114.1 L225.5 116.0 L223.4 117.8 L233.0 120.3 L256.3 122.5 L263.2 127.8 L260.1 133.4 L255.3 135.7 L242.3 135.8 L237.9 138.3 L236.3 144.1 L236.5 150.8 L240.3 168.9 L249.3 194.5 L253.1 201.5 L259.5 213.0 L262.2 217.9 L271.7 229.9 L282.8 239.8 L294.8 244.5 L330.3 244.3 L335.5 245.4 L342.3 248.5 L349.2 250.7 L354.1 249.8 L358.2 247.7 L363.2 246.5 L366.7 246.8 L368.8 247.8 L369.8 249.9 L370.0 252.3 L370.1 253.5 L371.1 254.9 L373.3 252.9 L375.4 249.9 L376.0 248.5 L384.9 244.5 L396.5 242.1 L434.8 239.1 L459.3 232.6 L483.0 230.9 L507.9 228.2 L526.9 226.2 L550.8 227.2 L572.0 224.4 L588.5 215.8 L599.7 213.5 L611.1 209.2 L617.5 208.2 L654.1 208.7 L685.6 205.9 L753.5 201.9 L786.4 202.5 L789.7 203.3 L793.0 205.4 L808.7 208.2 L813.5 208.2 L817.1 205.5 L820.6 201.5 L824.7 197.8 L830.3 196.2 L837.3 197.2 L854.9 206.4 L874.0 210.9 L879.8 216.1 L893.2 217.7 L896.6 218.4 L894.5 222.6 L888.0 226.5 L880.4 228.9 L874.8 228.3 L875.1 231.7 L874.7 238.8 L875.8 241.5 L884.7 250.7 L906.6 267.8 L908.8 270.6 L918.4 276.5 L923.6 284.5 L944.1 296.8 L939.9 297.0 L936.0 296.2 L932.6 294.8 L930.3 292.8 L928.0 294.7 L926.1 296.8 L932.2 304.9 L939.8 303.2 L947.2 307.6 L959.8 318.9 L967.2 321.5 L975.0 322.7 L991.6 323.1 L983.0 317.5 L954.1 305.1 L948.0 296.8 L1031.2 333.3 L1040.0 336.0 L1040 0 L0 0 Z"/>
@@ -306,7 +333,7 @@
       <polygon class="mp-epi" points="50.0,369.0 52.0,374.3 57.6,374.5 53.2,378.0 54.7,383.5 50.0,380.4 45.3,383.5 46.8,378.0 42.4,374.5 48.0,374.3"/>
       <text class="mp-ley-txt" x="72" y="381">epicentro del catálogo USGS</text>
       <path class="mp-traza" d="M42 399 H64"/>
-      <text class="mp-ley-txt" x="72" y="403">sistema Puerto Cabello + San Sebastián (296 km)</text>
+      <text class="mp-ley-txt" x="72" y="403">enlace San Sebastián–Morón–Boconó (296 km)</text>
       <path class="mp-falla" d="M42 421 H64"/>
       <text class="mp-ley-txt" x="72" y="425">otras trazas de fallas activas</text>
       </g>
@@ -378,15 +405,19 @@
       <text class="mp-inset-pie" x="1026.0" y="288.3" text-anchor="end">el recuadro rojo es este mapa</text>
       </g>
       </svg>
-    <figcaption>Costa central de Venezuela. El <b>sistema Puerto Cabello + San Sebastián</b> es un accidente de rumbo dextral continuo de <b>296 km</b>: las dos fallas se encadenan en −67,78° (punto azul). El primer evento nucleó junto a Puerto Cabello y el segundo <b>158 km más al este</b> medidos <i>sobre la traza</i> —no en línea recta, que dan 152 km—, a menos de 30 km de La Guaira. Trazas de fallas activas de la base de datos del proyecto Red de Emergencia; línea de costa de Natural Earth (1:10 M y 1:50 M, dominio público); epicentros del catálogo <span class="mono">USGS/NEIC</span> (<span class="mono">us6000t7zc</span>, <span class="mono">us6000t7zp</span>).</figcaption>
+    <figcaption>Costa central de Venezuela. El trazo rojo es el <b>enlace San Sebastián–Morón–Boconó</b>, un accidente de rumbo dextral continuo de <b>296 km</b> cuyos dos segmentos cartografiados se encadenan en −67,78° (punto azul). El primer evento nucleó junto a Puerto Cabello y el segundo <b>158 km más al este</b> medidos <i>sobre la traza</i>; en línea recta entre los epicentros de catálogo son 152 km, y la separación entre las dos fuentes que mide la retroproyección es de <b>149 km</b>. Las tres cifras describen la misma cosa de tres maneras, y la diferencia importa: de la distancia <i>sobre la falla</i> depende la velocidad que habría que exigirle a un frente continuo. Trazas de fallas activas de la <a href="https://redemergenciasismica.sigeos.org/" target="_blank" rel="noopener">Red Sísmica de Emergencia</a>; línea de costa de Natural Earth (1:10 M y 1:50 M, dominio público); epicentros del catálogo <span class="mono">USGS/NEIC</span> (<span class="mono">us6000t7zc</span>, <span class="mono">us6000t7zp</span>).</figcaption>
     </figure>
 
-    <p class="note" style="margin-top:22px">El 24 de junio de 2026, a las 22:04 hora local, el límite entre las placas <b>Caribe</b> y <b>Suramericana</b> rompió frente a la costa central de Venezuela. No fue un terremoto, sino <b>dos</b>: un <b>M 7,2</b> y, <b>32 segundos más tarde</b>, un <b>M 7,5</b> a 158 km de distancia. En medio quedó un tramo que no liberó momento con rapidez. Reconstruir esa secuencia —dónde rompió, cuándo, en qué orden y a qué velocidad— es el objeto de los artículos en preparación.</p>
+    <div class="bloque dos" style="margin-top:24px">
+      <p>El <b>24 de junio de 2026</b>, a las 22:04 hora local, el límite entre las placas <b>Caribe</b> y <b>Suramericana</b> rompió frente a la costa central de Venezuela. No fue un terremoto, sino <b>dos</b>: un <b>M 7,2</b> y, <b>32 segundos más tarde</b>, un <b>M 7,5</b> a unos 150 km de distancia. En medio quedó un tramo que no liberó momento con rapidez.</p>
+      <p>Que fueran dos no es un supuesto de catálogo: es el resultado que sostiene todo lo demás. El modelo de falla finita del USGS hace deslizar unos <b>243 km</b> de traza, y esos 243 km <b>no son el recorrido de un frente único</b>, sino la <b>envolvente de dos rupturas sucesivas</b> — la radiación de alta frecuencia del M 7,2 no se aleja más de ~35 km de su epicentro. Tres observables parcialmente independientes convergen: la retroproyección, la inversión de la tasa de momento y el hueco de réplicas.</p>
+      <p>La estructura que rompió es la misma familia de fallas de rumbo dextral que atraviesa el norte del país de oeste a este y que, más al oriente, se prolonga en la <a href="https://tecnologiacumanesa.blogspot.com/2026/07/la-falla-de-el-pilar.html" target="_blank" rel="noopener">falla de El Pilar</a>, responsable del <a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-cariaco-de-1997.html" target="_blank" rel="noopener">sismo de Cariaco de 1997</a> y del <a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-1766.html" target="_blank" rel="noopener">terremoto de 1766</a>. El régimen de <a href="https://tecnologiacumanesa.blogspot.com/2026/07/transpresion-en-el-oriente-de-venezuela.html" target="_blank" rel="noopener">transpresión en el oriente de Venezuela</a> da el contexto tectónico de toda la secuencia.</p>
 
-    <h3 class="sub-h">Por qué existe esta página</h3>
-    <p class="note">Un artículo científico expone <b>resultados</b>: enseña la figura y la cifra, y comprime el camino en una cita. Quien quiera comprobarlo tiene que reconstruir ese camino por su cuenta. Esta página hace lo contrario —expone el <b>camino</b>—: qué es una función de Green y por qué el sismograma es lineal en la tasa de momento; cómo se pasa de un momento de fuerza al momento sísmico; por qué un doble par de fuerzas no hace girar el terreno; qué significa apilar ondas de estaciones a 8 000 km y qué puede fingir ese apilado. Las deducciones van completas, con su álgebra y sus diagramas, no citadas.</p>
-    <p class="note">La intención es que sirva de <b>referente teórico-práctico</b> de los artículos: del <b>Paper 1</b> (la fuente: el doblete visto por retroproyección e inversión), del <b>Paper 2</b> (la directividad y el pulso que recibió La Guaira) y de los que sigan. Cada página de método corresponde a una pieza del análisis publicado, y el orden es deliberado: primero los fundamentos, después cada método, y al final lo que se hizo para no engañarse —los controles, los descartes y el cómputo—.</p>
-    <p class="note">No sustituye a los artículos ni los resume: los <b>sostiene por debajo</b>. Quien solo quiera el resultado puede quedarse con el enunciado de arriba; quien quiera discutirlo encontrará aquí de dónde sale cada paso.</p>
+      <h3 class="sub-h">Por qué existe esta página</h3>
+      <p>Un artículo científico expone <b>resultados</b>: enseña la figura y la cifra, y comprime el camino en una cita. Quien quiera comprobarlo tiene que reconstruir ese camino por su cuenta. Esta página hace lo contrario —expone el <b>camino</b>—: qué es una función de Green y por qué el sismograma es lineal en la tasa de momento; cómo se pasa de un momento de fuerza al momento sísmico; por qué un doble par de fuerzas no hace girar el terreno; qué significa apilar ondas de estaciones a 8 000 km y qué puede fingir ese apilado. Las deducciones van completas, con su álgebra y sus diagramas, no citadas.</p>
+      <p>La intención es que sirva de <b>referente teórico-práctico</b> de los artículos: del <b>Paper 1</b> —la fuente: el doblete visto por retroproyección e inversión— del <b>Paper 2</b> —la directividad y el papel relativo del campo cercano en el daño del litoral central— y de los que sigan. Cada página de método corresponde a una pieza del análisis publicado, y el orden es deliberado: primero los fundamentos, después cada método, y al final lo que se hizo para no engañarse: los controles, los descartes y el cómputo.</p>
+      <p>No sustituye a los artículos ni los resume: los <b>sostiene por debajo</b>. Quien solo quiera el resultado puede quedarse con el enunciado de arriba; quien quiera discutirlo encontrará aquí de dónde sale cada paso. Y para ver el dato en movimiento —los epicentros de cada agencia, la retroproyección y las curvas camino–tiempo— está el <a href="https://paradojasismica.sigeos.org/" target="_blank" rel="noopener">visor del doblete</a>; para el efecto en el terreno, el <a href="https://sismolaguaira.sigeos.org/" target="_blank" rel="noopener">mapa de daños</a>. Ambos, con el resto de las herramientas, se listan al final.</p>
+    </div>
   </section>
 
   <section>
@@ -414,7 +445,7 @@
     </div>
     <div class="grid2" style="margin-top:14px">
       <div class="box b"><div class="big">3</div><h3>continentes</h3><p>Norteamérica, Europa y el Atlántico/Sudamérica aportan cobertura azimutal.</p></div>
-      <div class="box b"><div class="big">1°–356°</div><h3>azimut cubierto</h3><p>Prácticamente el círculo completo alrededor del epicentro.</p></div>
+      <div class="box b"><div class="big">1°–356°</div><h3>azimut cubierto</h3><p>Prácticamente el círculo completo alrededor del epicentro. El mismo criterio, aplicado a la red local, se puede recorrer estación por estación en la <a href="https://rommeljose.github.io/Gap-Red-de-Emergencia-Terremoto-de-la-Guaira/" target="_blank" rel="noopener">consola del gap azimutal</a>.</p></div>
       <div class="box" style="border-top:3px solid var(--orange-d)"><div class="big">C1 <span class="u" style="color:var(--orange-d)">excluido</span></div><h3>arreglo del sur (Chile)</h3><p>Evaluado y excluido por criterios de calidad: ninguna estación alinea y solo 3 de 31 superan S/N ≥ 3. <b>No entra</b> en los cálculos.</p></div>
     </div>
   </section>
@@ -424,7 +455,7 @@
       <span class="tag">FDSN</span>
       <div>
         <h4>¿Qué es la API FDSN?</h4>
-        <p>Un <b>estándar web</b> que permite el acceso uniforme a datos sismológicos —catálogos de terremotos y formas de onda— desde centros de datos de todo el mundo. Por FDSN se obtuvieron los registros telesísmicos y el catálogo de réplicas de esta secuencia. Venezuela cuenta con su <b>propio servicio FDSN, diseñado por Rommel Contreras</b>: <a href="https://catalogosismicovenezuela.sigeos.org/" target="_blank" rel="noopener">catalogosismicovenezuela.sigeos.org</a> — con su <a href="https://catalogosismicovenezuela.sigeos.org/api.html" target="_blank" rel="noopener">API documentada</a>.</p>
+        <p>Un <b>estándar web</b> que permite el acceso uniforme a datos sismológicos —catálogos de terremotos y formas de onda— desde centros de datos de todo el mundo. Por FDSN se obtuvieron los registros telesísmicos y el catálogo de réplicas de esta secuencia. Venezuela cuenta con su <b>propio servicio FDSN, diseñado por Rommel Contreras</b>: <a href="https://catalogosismicovenezuela.sigeos.org/" target="_blank" rel="noopener">catalogosismicovenezuela.sigeos.org</a> — con su <a href="https://catalogosismicovenezuela.sigeos.org/api.html" target="_blank" rel="noopener">API documentada</a> y un <a href="https://funvisis-fdsn.rommeljose.workers.dev" target="_blank" rel="noopener">extremo FDSN de eventos</a> para consumo por programa.</p>
       </div>
     </div>
   </section>
@@ -433,6 +464,7 @@
     <div class="sh"><span class="n">04</span><h2>Retroproyección · imagen de las dos fuentes</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Un arreglo telesísmico lejano, usado como <b>telescopio sísmico</b>: alineando y apilando la onda P de decenas de estaciones se mapea <b>dónde y cuándo</b> radía la ruptura. Así aparecen las <b>dos acumulaciones de energía</b> —M 7,2 al oeste y M 7,5 al este, separadas ~149 km y ~32 s— y el <b>hueco</b> entre ellas, con controles sintéticos que descartan que sea un artefacto.</p>
     <a class="metodo-link" href="metodo/retroproyeccion.html">Leer el método completo — retroproyección (delay-and-stack) →</a>
+    <p class="note">El mismo resultado, manipulable: el <a href="https://paradojasismica.sigeos.org/" target="_blank" rel="noopener">visor del doblete</a> superpone los epicentros de cada agencia, la imagen de retroproyección y las curvas camino–tiempo sobre el mismo mapa.</p>
   </section>
 
   <section>
@@ -460,7 +492,7 @@
 
   <section>
     <div class="sh"><span class="n">07</span><h2>Relocalización de réplicas · próximo paso</h2><span class="rule"></span></div>
-    <p class="note" style="margin:0 0 16px">El siguiente salto de precisión: <b>relocalización relativa</b> de la secuencia con <b>hypoDD</b> (doble diferencia, en su Fortran nativo). Cancela los errores comunes de trayecto y resuelve la posición <b>relativa</b> de cada réplica con precisión de decenas a centenas de metros — apretando las dos acumulaciones y el hueco. La maquinaria ya está <b>montada y validada</b> (test sintético: horizontal ×7 → ~0,5 km); falta el insumo real: los picks P/S de FUNVISIS.</p>
+    <p class="note" style="margin:0 0 16px">El siguiente salto de precisión: <b>relocalización relativa</b> de la secuencia con <b>hypoDD</b> (doble diferencia, en su Fortran nativo). Cancela los errores comunes de trayecto y resuelve la posición <b>relativa</b> de cada réplica con precisión de decenas a centenas de metros — apretando las dos acumulaciones y el hueco. La maquinaria ya está <b>montada y validada</b> (test sintético: horizontal ×7 → ~0,5 km); falta el insumo real: los picks P/S de FUNVISIS. Para revisarlos a mano cuando lleguen está el <a href="https://revisor-piques-laguaira.pages.dev/" target="_blank" rel="noopener">revisor de piques</a>, y la distribución espacial de la secuencia frente al daño observado se puede recorrer en el <a href="https://sismolaguaira.sigeos.org/" target="_blank" rel="noopener">mapa de daños</a>.</p>
     <a class="metodo-link" href="metodo/relocalizacion.html">Leer el método completo — fundamento, diagramas y paso a paso →</a>
   </section>
 
@@ -492,6 +524,43 @@
     </div>
     <p class="note" style="font-size:.88rem">Ese repositorio conserva además el rastro de una auditoría interna de septiembre de 2026: un intento previo de acelerar el cálculo con GPU reportó mejoras que <b>nunca se habían medido</b>, una revisión independiente lo desmontó y las cifras se retiraron. Los tres documentos —la auditoría, la bitácora con su aviso de corrección y la remediación posterior— se conservan sin reescribir, porque un registro así solo sirve si no se corrige a posteriori.</p>
     <p class="note">Los datos de entrada proceden de servicios abiertos —<b>FDSN</b> (EarthScope/IRIS y SIGEOS-FUNVISIS) y <b>Syngine</b>/AxiSEM— y los registros de movimiento fuerte de FUNVISIS se distribuyen bajo solicitud a esa institución, por lo que no forman parte de este material.</p>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">11</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
+    <div class="bloque">
+      <p class="note" style="margin:0">Alrededor de este análisis hay una familia de páginas y servicios <b>de creación propia</b> —visores, mapas, réplicas del catálogo y servicios de datos— que sostienen la parte práctica del trabajo. Varias se citan en su sitio a lo largo de esta página; aquí van todas juntas, con lo que aporta cada una. El índice completo, incluidas las que no tratan de sismología, está en la entrada <a href="https://tecnologiacumanesa.blogspot.com/2000/09/mis-paginas-web-publicas.html" target="_blank" rel="noopener">«Mis páginas web públicas»</a> del blog <i>Tecnología Cumanesa</i>.</p>
+    </div>
+
+    <p class="grupo-h">Visores y mapas de la secuencia</p>
+    <div class="refs">
+      <div class="ref-card o"><a href="https://paradojasismica.sigeos.org/" target="_blank" rel="noopener">Visor del doblete</a><p>Epicentros según cada agencia, imagen de retroproyección, curvas camino–tiempo y directividad, sobre un mismo mapa. Es la contraparte manipulable de las secciones 04 y 06.</p><span class="url">paradojasismica.sigeos.org</span></div>
+      <div class="ref-card o"><a href="https://sismolaguaira.sigeos.org/" target="_blank" rel="noopener">Mapa de daños</a><p>Mapa GIS con los daños observados, las réplicas de FUNVISIS, la clasificación Copernicus EMS y los reportes ciudadanos. Es el terreno sobre el que se discute el Paper 2.</p><span class="url">sismolaguaira.sigeos.org</span></div>
+      <div class="ref-card o"><a href="https://replicas-3d-laguaira.sigeos.org/" target="_blank" rel="noopener">Réplicas en 3-D</a><p>La secuencia en profundidad junto a las trazas de Boconó y San Sebastián, con la inversión del momento. Va embebida en la página de relocalización (sección 07).</p><span class="url">replicas-3d-laguaira.sigeos.org</span></div>
+      <div class="ref-card o"><a href="https://revisor-piques-laguaira.pages.dev/" target="_blank" rel="noopener">Revisor de piques</a><p>Revisión manual, sismograma a sismograma, de las llegadas P y S. Es el paso que hoy bloquea la relocalización relativa con hypoDD.</p><span class="url">revisor-piques-laguaira.pages.dev</span></div>
+    </div>
+
+    <p class="grupo-h">Datos y servicios</p>
+    <div class="refs">
+      <div class="ref-card "><a href="https://catalogosismicovenezuela.sigeos.org/" target="_blank" rel="noopener">Réplica del catálogo sísmico de FUNVISIS</a><p>Copia consultable del catálogo oficial, con los eventos de la secuencia de La Guaira. De aquí sale el catálogo de réplicas que usa el análisis.</p><span class="url">catalogosismicovenezuela.sigeos.org</span></div>
+      <div class="ref-card "><a href="https://funvisis-fdsn.rommeljose.workers.dev" target="_blank" rel="noopener">Servicio FDSN de eventos</a><p>El mismo catálogo en el formato estándar FDSN, pensado para consumo por programa. Es el servicio propio que se menciona en el recuadro FDSN.</p><span class="url">funvisis-fdsn.rommeljose.workers.dev</span></div>
+      <div class="ref-card "><a href="https://sismos.sigeos.org/" target="_blank" rel="noopener">Últimos sismos de Venezuela</a><p>Mapa nacional con los datos públicos de FUNVISIS, actualizado cada cinco minutos.</p><span class="url">sismos.sigeos.org</span></div>
+      <div class="ref-card "><a href="https://rommeljose.github.io/reportes-terremoto/" target="_blank" rel="noopener">API de reportes ciudadanos</a><p>Documentación del servicio que recoge y ordena los reportes de la población tras el sismo; la consulta sobre esa misma base está en reportes-terremoto.rommeljose.workers.dev.</p><span class="url">rommeljose.github.io/reportes-terremoto</span></div>
+    </div>
+
+    <p class="grupo-h">La red sísmica de emergencia</p>
+    <div class="refs">
+      <div class="ref-card g"><a href="https://redemergenciasismica.sigeos.org/" target="_blank" rel="noopener">Red Sísmica de Emergencia</a><p>Mapa editable de la red temporal: estaciones, fuerzas de tarea y réplicas en vivo. <b>De esta base salen las trazas de fallas activas</b> del mapa de la sección 01.</p><span class="url">redemergenciasismica.sigeos.org</span></div>
+      <div class="ref-card g"><a href="https://rommeljose.github.io/Gap-Red-de-Emergencia-Terremoto-de-la-Guaira/" target="_blank" rel="noopener">Gap azimutal de la red</a><p>Consola que muestra, estación por estación, cuánto cierra cada instalación el hueco de cobertura. Es el mismo razonamiento de la sección 03, aplicado a la red local.</p><span class="url">rommeljose.github.io/Gap-Red-de-Emergencia-Terremoto-de-la-Guaira</span></div>
+    </div>
+
+    <p class="grupo-h">Contexto tectónico regional · blog <i>Tecnología Cumanesa</i></p>
+    <div class="refs">
+      <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/la-falla-de-el-pilar.html" target="_blank" rel="noopener">La falla de El Pilar</a><p>La prolongación oriental del mismo sistema de rumbo dextral que rompió en 2026.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
+      <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/transpresion-en-el-oriente-de-venezuela.html" target="_blank" rel="noopener">Transpresión en el oriente de Venezuela</a><p>El régimen tectónico que enmarca toda la secuencia: por qué el desplazamiento no es puramente horizontal.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
+      <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-cariaco-de-1997.html" target="_blank" rel="noopener">El sismo de Cariaco de 1997</a><p>El precedente instrumental más cercano, y el caso en que la escala longitud–magnitud sí funciona.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
+      <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-1766.html" target="_blank" rel="noopener">El sismo de 1766</a><p>La memoria histórica del mismo límite de placas, tres siglos antes de los sismógrafos.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
+    </div>
   </section>
 
   <div class="footer">
