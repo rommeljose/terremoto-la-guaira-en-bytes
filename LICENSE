@@ -4,18 +4,31 @@ Copyright (c) 2026 Rommel Contreras (Lcdo. Físico)
 Academia de Geohistoria del Estado Sucre (AGHES)
 
 ================================================================================
-CONTENIDO PROPIO — Creative Commons Atribución 4.0 Internacional (CC BY 4.0)
+CONTENIDO PROPIO — Creative Commons Atribución-NoComercial-CompartirIgual 4.0
+Internacional (CC BY-NC-SA 4.0)
 ================================================================================
 
 Los textos, las deducciones, los diagramas y mapas en SVG, la simulación
 interactiva, las hojas de estilo y el código que los genera (incluido
-`herramientas/gen_mapa_ubicacion.py`) se publican bajo CC BY 4.0:
+`herramientas/gen_mapa_ubicacion.py`) se publican bajo CC BY-NC-SA 4.0:
 
-    https://creativecommons.org/licenses/by/4.0/legalcode.es
+    https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
 
-Usted es libre de compartir y adaptar este material, para cualquier finalidad,
-incluso comercial, BAJO LA CONDICIÓN de dar crédito de manera adecuada, enlazar
-a la licencia e indicar si se han realizado cambios.
+Usted es libre de COMPARTIR (copiar y redistribuir el material en cualquier
+medio o formato) y de ADAPTAR (remezclar, transformar y construir a partir del
+material), bajo las siguientes condiciones:
+
+  BY — ATRIBUCIÓN. Debe dar crédito de manera adecuada, enlazar a la licencia e
+       indicar si se han realizado cambios.
+
+  NC — NO COMERCIAL. No puede hacer uso del material con FINALIDAD COMERCIAL.
+       Para cualquier uso comercial hace falta permiso escrito del autor.
+
+  SA — COMPARTIR IGUAL. Si remezcla, transforma o crea a partir del material,
+       debe distribuir su contribución bajo ESTA MISMA LICENCIA.
+
+No puede aplicar restricciones legales ni medidas tecnológicas que limiten a
+otros hacer aquello que la licencia permite.
 
 El autor NO renuncia a la atribución y NO aplica CC0 ni ninguna dedicación al
 dominio público.

@@ -73,9 +73,11 @@ institución y no forman parte de este material.
 
 ## Licencia
 
-Contenido propio bajo **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)** — ver
-[`LICENSE`](LICENSE). Uso libre, incluido el comercial, **a condición de citar la autoría**.
-No se aplica CC0.
+Contenido propio bajo **Creative Commons Atribución-NoComercial-CompartirIgual 4.0
+Internacional (CC BY-NC-SA 4.0)** — ver [`LICENSE`](LICENSE). Se puede compartir y adaptar
+con tres condiciones: **citar la autoría** (BY), **no hacer uso comercial** (NC) y
+**distribuir las obras derivadas bajo esta misma licencia** (SA). Para un uso comercial hace
+falta permiso escrito del autor. No se aplica CC0.
 
 `LICENSE` detalla además lo que **no** cubre: los artículos científicos (que no están aquí),
 el capítulo original del Prof. Beauperthuy Urich (que se enlaza, no se redistribuye), los datos

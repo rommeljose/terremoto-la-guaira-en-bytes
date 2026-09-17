@@ -46,11 +46,19 @@
   header{text-align:center; border-bottom:2px solid var(--ink); padding-bottom:20px}
   .kicker{font-size:.76rem; letter-spacing:.2em; text-transform:uppercase; color:var(--orange);
     font-weight:700; margin:0 0 10px}
-  h1{font-size:clamp(1.7rem,4.6vw,3.05rem); font-weight:800; letter-spacing:-.02em; line-height:1.04;
-    margin:0 auto; color:var(--strong); text-wrap:balance; max-width:20ch}
+  /* El título tiene dos mitades naturales, separadas por la coma. Se maquetan
+     como tal: la primera manda, la segunda matiza. Con max-width en 20ch el
+     enunciado se partía en cuatro renglones desiguales. */
+  h1{margin:0; color:var(--strong); font-weight:800; letter-spacing:-.022em; line-height:1.07;
+    font-size:clamp(1.55rem,4.1vw,2.7rem)}
+  h1 .t1{display:block; margin:0 auto; max-width:24ch; text-wrap:balance}
+  h1 .t2{display:block; margin:11px auto 0; max-width:34ch; text-wrap:balance;
+    font-size:clamp(.92rem,2.05vw,1.26rem); font-weight:600; letter-spacing:-.004em;
+    color:var(--ink); opacity:.72}
+  h1 .t2::before{content:""; display:block; width:56px; height:2px; margin:0 auto 11px;
+    background:var(--orange); opacity:.85}
   .dek{margin:14px auto 0; max-width:70ch; color:var(--muted); font-size:clamp(1rem,2vw,1.14rem)}
   .dek b{color:var(--ink); font-weight:600}
-  .brand{display:flex; justify-content:center; margin:0 0 16px}
   .logo-chip{background:#fff; border:1px solid var(--line); border-radius:12px; padding:8px;
     box-shadow:var(--shadow); display:inline-grid; place-items:center}
   .logo-chip img{display:block}
@@ -257,9 +265,8 @@
 
 <div class="sheet">
   <header>
-    <div class="brand"><span class="logo-chip"><img src="assets/logo_aghes.png" alt="Academia de Geohistoria del Estado Sucre (AGHES)" width="54" height="54"></span></div>
     <p class="kicker">Estudio telesísmico de fuente · 24 de junio de 2026</p>
-    <h1>Análisis del terremoto de La Guaira en bytes, y su complejidad físico-matemática</h1>
+    <h1><span class="t1">Análisis del terremoto de La Guaira en bytes</span><span class="t2">y su complejidad físico-matemática</span></h1>
     <p class="dek">Análisis de la fuente del <b>evento complejo del 24-jun-2026</b>: la imagen de las dos rupturas, la inversión de la tasa de momento y las pruebas de robustez que las sostienen. Cada método se expone desde sus fundamentos, con la física que hay detrás y las cifras del dato que lo alimenta.</p>
     <p class="disamb">Las cifras de esta página describen el <b>análisis de la fuente sísmica</b> —datos, sismogramas y modelado de la ruptura—. <b>No</b> son cifras de víctimas ni de daños.</p>
     <p class="pubnote"><b>Artículos en preparación.</b> Las cifras aquí expuestas son preliminares y pueden variar en la versión revisada.</p>
@@ -585,8 +592,8 @@
 
   <div class="licencia">
     <h3>Licencia y autoría</h3>
-    <span class="cc">CC BY 4.0</span>
-    <p><b>© 2026 Rommel Contreras</b>, Lcdo. Físico — Academia de Geohistoria del Estado Sucre (AGHES). El contenido propio de este sitio —los textos, las deducciones, los diagramas y mapas en SVG, la simulación interactiva y el código que los genera— se publica bajo <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener">Creative Commons Atribución 4.0 Internacional</a>. Puede copiarse, adaptarse y reutilizarse, incluso con fines comerciales, <b>a condición de citar la autoría y enlazar a la fuente</b>. No se aplica CC0 ni ninguna dedicación al dominio público: la atribución no es opcional.</p>
+    <span class="cc">CC BY-NC-SA 4.0</span>
+    <p><b>© 2026 Rommel Contreras</b>, Lcdo. Físico — Academia de Geohistoria del Estado Sucre (AGHES). El contenido propio de este sitio —los textos, las deducciones, los diagramas y mapas en SVG, la simulación interactiva y el código que los genera— se publica bajo <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional</a>. Puede copiarse, adaptarse y reutilizarse <b>con tres condiciones</b>: citar la autoría y enlazar a la fuente (<b>BY</b>), no hacer <b>uso comercial</b> (<b>NC</b>), y distribuir cualquier obra derivada bajo <b>esta misma licencia</b> (<b>SA</b>). Para un uso comercial hace falta permiso escrito del autor. No se aplica CC0 ni ninguna dedicación al dominio público: la atribución no es opcional.</p>
 
     <h4>Qué no cubre esta licencia</h4>
     <ul>
@@ -598,7 +605,7 @@
 
     <h4>Cómo citar</h4>
     <p class="cita">Contreras, R. (2026). <i>Análisis del terremoto de La Guaira en bytes, y su complejidad físico-matemática</i>. Academia de Geohistoria del Estado Sucre (AGHES). <span class="mono">https://bytes.sigeos.org/</span></p>
-    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 11 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <span class="mono">LICENSE</span> del repositorio.</p>
+    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 11 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
   </div>
 
   <div class="footer">
