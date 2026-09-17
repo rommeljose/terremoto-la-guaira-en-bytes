@@ -71,6 +71,17 @@ y `<figcaption>`). Sus datos de entrada están en `herramientas/datos/`:
 Los registros de movimiento fuerte de FUNVISIS se distribuyen bajo solicitud a esa
 institución y no forman parte de este material.
 
+## Licencia
+
+Contenido propio bajo **Creative Commons Atribución 4.0 Internacional (CC BY 4.0)** — ver
+[`LICENSE`](LICENSE). Uso libre, incluido el comercial, **a condición de citar la autoría**.
+No se aplica CC0.
+
+`LICENSE` detalla además lo que **no** cubre: los artículos científicos (que no están aquí),
+el capítulo original del Prof. Beauperthuy Urich (que se enlaza, no se redistribuye), los datos
+de terceros con su licencia de origen, y los registros de movimiento fuerte de FUNVISIS, que no
+se incluyen en ninguna forma.
+
 ## Créditos
 
 **Lcdo. Físico Rommel Contreras** — Academia de Geohistoria del Estado Sucre (**AGHES**).

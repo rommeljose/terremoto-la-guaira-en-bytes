@@ -95,17 +95,22 @@
   .sh .rule{flex:1; height:2px; background:var(--ink); opacity:.12}
 
   .note{margin:15px 0 0; color:var(--muted); font-size:.95rem; max-width:74ch}
+  /* Enlaces de texto corrido. Sin esta regla heredaban el azul por defecto del
+     navegador (#0000EE), ilegible sobre el fondo del tema oscuro. --blue-d está
+     definido claro en oscuro y oscuro en claro, así que sirve para los dos. */
+  .sheet p a, .sheet figcaption a, .sheet li a, .sheet td a{
+    color:var(--blue-d); font-weight:600; text-decoration:none;
+    border-bottom:1px solid var(--blue); transition:color .12s, border-color .12s}
+  .sheet p a:hover, .sheet figcaption a:hover, .sheet li a:hover, .sheet td a:hover{
+    color:var(--orange); border-color:var(--orange)}
+  .sheet a:focus-visible{outline:2px solid var(--orange); outline-offset:2px; border-radius:2px}
+  .sheet p a.metodo-link{color:#fff; border-bottom:none}
   .sub-h{margin:28px 0 10px; font-size:1.05rem; font-weight:700; color:var(--strong)}
-  /* Bloques que ocupan todo el ancho de la hoja. En pantalla ancha el texto se
-     reparte en dos columnas para no dejar renglones de 140 caracteres; por
-     debajo de 900 px vuelve a una sola, sin media queries adicionales. */
+  /* Bloques de texto a todo el ancho de la hoja, en una sola columna: con dos
+     columnas los subtítulos caían en mitad de la página y rompían la lectura. */
   .bloque{max-width:none}
-  .bloque p{max-width:none; margin:0 0 13px}
+  .bloque p{max-width:none; margin:0 0 14px; line-height:1.62}
   .bloque p:last-child{margin-bottom:0}
-  @media (min-width:900px){
-    .bloque.dos{column-count:2; column-gap:46px; column-rule:1px solid var(--line)}
-    .bloque.dos p{break-inside:avoid-column}
-  }
   .mapa figcaption{margin:0; padding:13px 18px 15px; border-top:1px solid var(--line);
     background:var(--panel); max-width:none; font-size:.86rem}
   /* Fichas de enlaces: se reacomodan solas segun el ancho disponible */
@@ -225,6 +230,21 @@
   .footer .credit span{color:var(--orange)}
   .footer .meta{font-family:"IBM Plex Mono",monospace; font-size:.76rem; color:var(--muted); text-align:right}
   .closing{margin:18px 0 0; font-style:italic; color:var(--muted); font-size:.9rem; max-width:96ch}
+  .licencia{margin-top:42px; border:1px solid var(--line); border-top:3px solid var(--green);
+    border-radius:10px; background:var(--panel); padding:22px clamp(16px,3vw,28px)}
+  .licencia h3{margin:0 0 4px; font-size:1.06rem; font-weight:800; color:var(--strong)}
+  .licencia .cc{display:inline-block; margin:0 0 12px; font-family:"IBM Plex Mono",monospace;
+    font-size:.78rem; font-weight:600; color:var(--green-ink); background:var(--green);
+    border-radius:5px; padding:3px 10px; letter-spacing:.04em}
+  .licencia p{margin:0 0 12px; font-size:.9rem; color:var(--muted); max-width:none; line-height:1.6}
+  .licencia p:last-child{margin-bottom:0}
+  .licencia b{color:var(--ink); font-weight:600}
+  .licencia h4{margin:16px 0 8px; font-size:.75rem; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--orange); font-weight:700}
+  .licencia ul{margin:0 0 12px; padding-left:20px; font-size:.88rem; color:var(--muted); line-height:1.6}
+  .licencia li{margin-bottom:7px} .licencia li:last-child{margin-bottom:0}
+  .licencia .cita{margin:0; padding:12px 14px; border-left:3px solid var(--line);
+    background:var(--paper); border-radius:0 6px 6px 0; font-size:.85rem; color:var(--ink)}
 
   .toggle{position:fixed; top:14px; right:14px; z-index:20; background:var(--paper); color:var(--ink);
     border:1px solid var(--line); border-radius:20px; padding:7px 13px; box-shadow:var(--shadow);
@@ -408,7 +428,7 @@
     <figcaption>Costa central de Venezuela. El trazo rojo es el <b>enlace San Sebastián–Morón–Boconó</b>, un accidente de rumbo dextral continuo de <b>296 km</b> cuyos dos segmentos cartografiados se encadenan en −67,78° (punto azul). El primer evento nucleó junto a Puerto Cabello y el segundo <b>158 km más al este</b> medidos <i>sobre la traza</i>; en línea recta entre los epicentros de catálogo son 152 km, y la separación entre las dos fuentes que mide la retroproyección es de <b>149 km</b>. Las tres cifras describen la misma cosa de tres maneras, y la diferencia importa: de la distancia <i>sobre la falla</i> depende la velocidad que habría que exigirle a un frente continuo. Trazas de fallas activas de la <a href="https://redemergenciasismica.sigeos.org/" target="_blank" rel="noopener">Red Sísmica de Emergencia</a>; línea de costa de Natural Earth (1:10 M y 1:50 M, dominio público); epicentros del catálogo <span class="mono">USGS/NEIC</span> (<span class="mono">us6000t7zc</span>, <span class="mono">us6000t7zp</span>).</figcaption>
     </figure>
 
-    <div class="bloque dos" style="margin-top:24px">
+    <div class="bloque" style="margin-top:24px">
       <p>El <b>24 de junio de 2026</b>, a las 22:04 hora local, el límite entre las placas <b>Caribe</b> y <b>Suramericana</b> rompió frente a la costa central de Venezuela. No fue un terremoto, sino <b>dos</b>: un <b>M 7,2</b> y, <b>32 segundos más tarde</b>, un <b>M 7,5</b> a unos 150 km de distancia. En medio quedó un tramo que no liberó momento con rapidez.</p>
       <p>Que fueran dos no es un supuesto de catálogo: es el resultado que sostiene todo lo demás. El modelo de falla finita del USGS hace deslizar unos <b>243 km</b> de traza, y esos 243 km <b>no son el recorrido de un frente único</b>, sino la <b>envolvente de dos rupturas sucesivas</b> — la radiación de alta frecuencia del M 7,2 no se aleja más de ~35 km de su epicentro. Tres observables parcialmente independientes convergen: la retroproyección, la inversión de la tasa de momento y el hueco de réplicas.</p>
       <p>La estructura que rompió es la misma familia de fallas de rumbo dextral que atraviesa el norte del país de oeste a este y que, más al oriente, se prolonga en la <a href="https://tecnologiacumanesa.blogspot.com/2026/07/la-falla-de-el-pilar.html" target="_blank" rel="noopener">falla de El Pilar</a>, responsable del <a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-cariaco-de-1997.html" target="_blank" rel="noopener">sismo de Cariaco de 1997</a> y del <a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-1766.html" target="_blank" rel="noopener">terremoto de 1766</a>. El régimen de <a href="https://tecnologiacumanesa.blogspot.com/2026/07/transpresion-en-el-oriente-de-venezuela.html" target="_blank" rel="noopener">transpresión en el oriente de Venezuela</a> da el contexto tectónico de toda la secuencia.</p>
@@ -562,6 +582,24 @@
       <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-1766.html" target="_blank" rel="noopener">El sismo de 1766</a><p>La memoria histórica del mismo límite de placas, tres siglos antes de los sismógrafos.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
     </div>
   </section>
+
+  <div class="licencia">
+    <h3>Licencia y autoría</h3>
+    <span class="cc">CC BY 4.0</span>
+    <p><b>© 2026 Rommel Contreras</b>, Lcdo. Físico — Academia de Geohistoria del Estado Sucre (AGHES). El contenido propio de este sitio —los textos, las deducciones, los diagramas y mapas en SVG, la simulación interactiva y el código que los genera— se publica bajo <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener">Creative Commons Atribución 4.0 Internacional</a>. Puede copiarse, adaptarse y reutilizarse, incluso con fines comerciales, <b>a condición de citar la autoría y enlazar a la fuente</b>. No se aplica CC0 ni ninguna dedicación al dominio público: la atribución no es opcional.</p>
+
+    <h4>Qué no cubre esta licencia</h4>
+    <ul>
+      <li><b>Los artículos científicos.</b> El Paper 1 (la fuente) y el Paper 2 (la directividad y el campo cercano) <b>no forman parte de este sitio</b> y se publicarán con sus propios términos. Aquí está la base físico-matemática que los sostiene y el material de apoyo, no su contenido.</li>
+      <li><b>El capítulo del Prof. Luis Daniel Beauperthuy Urich.</b> La ampliación <a href="metodo/radiacion-doble-par.html">«De una fuerza puntual a la esfera focal»</a> desarrolla el capítulo 2 de <i>Sismofísica Básica</i> (2008). <b>El capítulo original es suyo</b>; esta exposición y sus posibles errores son de este sitio, y no lo comprometen.</li>
+      <li><b>Datos de terceros</b>, que conservan la licencia de su origen: línea de costa de <b>Natural Earth</b> (dominio público); parámetros de fuente y modelo de falla finita del <b>USGS/NEIC</b> (dominio público); sismogramas sintéticos de <b>Syngine</b>/AxiSEM (EarthScope); formas de onda y catálogos de los servicios <b>FDSN</b> de EarthScope-IRIS y SIGEOS-FUNVISIS.</li>
+      <li><b>Los registros de movimiento fuerte de FUNVISIS</b>, que esa institución distribuye bajo solicitud y que <b>no se incluyen</b> aquí en ninguna forma.</li>
+    </ul>
+
+    <h4>Cómo citar</h4>
+    <p class="cita">Contreras, R. (2026). <i>Análisis del terremoto de La Guaira en bytes, y su complejidad físico-matemática</i>. Academia de Geohistoria del Estado Sucre (AGHES). <span class="mono">https://bytes.sigeos.org/</span></p>
+    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 11 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <span class="mono">LICENSE</span> del repositorio.</p>
+  </div>
 
   <div class="footer">
     <div class="credit-wrap">

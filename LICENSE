@@ -1,0 +1,65 @@
+Análisis del terremoto de La Guaira en bytes — https://bytes.sigeos.org/
+
+Copyright (c) 2026 Rommel Contreras (Lcdo. Físico)
+Academia de Geohistoria del Estado Sucre (AGHES)
+
+================================================================================
+CONTENIDO PROPIO — Creative Commons Atribución 4.0 Internacional (CC BY 4.0)
+================================================================================
+
+Los textos, las deducciones, los diagramas y mapas en SVG, la simulación
+interactiva, las hojas de estilo y el código que los genera (incluido
+`herramientas/gen_mapa_ubicacion.py`) se publican bajo CC BY 4.0:
+
+    https://creativecommons.org/licenses/by/4.0/legalcode.es
+
+Usted es libre de compartir y adaptar este material, para cualquier finalidad,
+incluso comercial, BAJO LA CONDICIÓN de dar crédito de manera adecuada, enlazar
+a la licencia e indicar si se han realizado cambios.
+
+El autor NO renuncia a la atribución y NO aplica CC0 ni ninguna dedicación al
+dominio público.
+
+Cita sugerida:
+
+    Contreras, R. (2026). Análisis del terremoto de La Guaira en bytes, y su
+    complejidad físico-matemática. Academia de Geohistoria del Estado Sucre
+    (AGHES). https://bytes.sigeos.org/
+
+================================================================================
+QUÉ NO CUBRE ESTA LICENCIA
+================================================================================
+
+1. LOS ARTÍCULOS CIENTÍFICOS.
+   El Paper 1 (distribución espaciotemporal de las fuentes) y el Paper 2
+   (directividad y campo cercano) NO forman parte de este repositorio y se
+   publicarán con sus propios términos. Este sitio contiene la base
+   físico-matemática que los sostiene y material de apoyo, no su contenido.
+
+2. EL CAPÍTULO DEL PROF. LUIS DANIEL BEAUPERTHUY URICH.
+   La página `metodo/radiacion-doble-par.html` desarrolla el capítulo 2 de
+   *Sismofísica Básica* (2008). El capítulo original es de su autor, con todos
+   sus derechos reservados; se enlaza, no se redistribuye. La exposición de esa
+   página es propia y sus posibles errores son de este sitio, y no comprometen
+   al autor del capítulo.
+
+3. DATOS DE TERCEROS, que conservan la licencia de su origen:
+   - Línea de costa: Natural Earth (dominio público).
+     `herramientas/datos/costa_10m_zoom.json`, `costa_50m_region.json`
+   - Parámetros de fuente y modelo de falla finita: USGS/NEIC (dominio público),
+     eventos us6000t7zc y us6000t7zp.
+   - Sismogramas sintéticos: Syngine / AxiSEM, EarthScope, modelo ak135f_2s.
+   - Formas de onda y catálogos: servicios FDSN de EarthScope-IRIS y de
+     SIGEOS-FUNVISIS.
+
+4. LOS REGISTROS DE MOVIMIENTO FUERTE DE FUNVISIS.
+   Esa institución los distribuye bajo solicitud. NO se incluyen aquí en
+   ninguna forma, ni en dato ni en figura derivada.
+
+================================================================================
+PÁGINAS Y SERVICIOS ENLAZADOS
+================================================================================
+
+Las páginas y servicios que se listan en la sección 11 del sitio son también de
+creación propia del mismo autor y se rigen por esta misma licencia, salvo que
+cada uno indique lo contrario.
