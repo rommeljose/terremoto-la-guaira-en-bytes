@@ -20,16 +20,17 @@ y del resultado.
 
 ```
 index.html                       · portada (HTML + CSS + un canvas, sin dependencias)
-metodo/sismofisica.html          · 01 · fundamentos: falla, P y S, momento, mecanismo focal
+metodo/sismofisica.html          · 02 · fundamentos: falla, P y S, momento, mecanismo focal
 metodo/momento-torque.html       ·  ↳ ampliación: del torque al momento sísmico
 metodo/radiacion-doble-par.html  ·  ↳ ampliación avanzada: de la fuerza puntual a la esfera focal
                                       (sobre el cap. 2 de L. D. Beauperthuy Urich, 2008)
-metodo/retroproyeccion.html      · 03 · delay-and-stack: dónde y cuándo radía la ruptura
-metodo/green.html                · 04 · AxiSEM/Syngine, P+pP+sP y la profundidad
-metodo/inversion.html            · 05 · de Aki & Richards a d = G m
-metodo/relocalizacion.html       · 06 · hypoDD, con el visor 3-D de réplicas embebido
-sim/                             · 08 · simulación interactiva (directividad y balance energético)
-assets/                          · logo AGHES y lámina de directividad
+metodo/retroproyeccion.html      · 04 · delay-and-stack: dónde y cuándo radía la ruptura
+metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundidad
+metodo/inversion.html            · 06 · de Aki & Richards a d = G m
+metodo/relocalizacion.html       · 07 · hypoDD, con el visor 3-D de réplicas embebido
+sim/                             · 09 · simulación interactiva (directividad y balance energético)
+assets/                          · logo AGHES, lámina de directividad y mapa de ubicación
+herramientas/                    · generador del mapa (§01) y sus datos de entrada
 ```
 
 Todo es autocontenido: sin frameworks ni proceso de compilación. Hay **tema claro y
@@ -40,6 +41,24 @@ oscuro** (botón arriba a la derecha) y se respeta `prefers-reduced-motion`.
 1. Editar el texto o las cifras directamente en el `.html` correspondiente.
 2. Para cambiar una imagen, reemplazar el archivo en `assets/` (mismo nombre).
 3. `git commit` + `git push` — GitHub Pages republica solo.
+
+## El mapa de ubicación
+
+El mapa de la sección 01 es un **SVG en línea**, no una imagen: va dentro de `index.html` para
+que herede el tema claro/oscuro de la página a través de las clases `.mp-*`. Se regenera con
+
+```bash
+python3 herramientas/gen_mapa_ubicacion.py     # reescribe assets/mapa_ubicacion.svg
+```
+
+y después hay que **volver a pegar** el SVG resultante en `index.html` (entre `<figure class="mapa">`
+y `<figcaption>`). Sus datos de entrada están en `herramientas/datos/`:
+
+| Fichero | Origen | Licencia |
+|---|---|---|
+| `costa_10m_zoom.json`, `costa_50m_region.json` | Natural Earth 1:10 M y 1:50 M, recortadas a las dos ventanas | dominio público |
+| `fallas_cercanas.json` | trazas de fallas activas, proyecto Red de Emergencia | propia |
+| `traza_principal.json` | sistema Puerto Cabello + San Sebastián, con las anclas de los dos hipocentros sobre el eje *s* | propia |
 
 ## Datos y herramientas
 
