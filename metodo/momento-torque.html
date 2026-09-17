@@ -247,7 +247,7 @@
 
   <h2><span class="no">5</span> El tornillo que se fractura</h2>
   <p>La imagen más fiel es la de una <strong>barra que se rompe por cizalla</strong>. Imagina apretar un tornillo hasta pasarte: la llave le mete <strong>torque</strong>, la barra almacena energía elástica, y al superar su resistencia <strong>se fractura de golpe</strong>. El «momento» de esa fractura —rigidez × deformación × área rota— es exactamente la forma de $M_0$. La falla hace lo mismo, pero a escala de kilómetros: acumula deformación durante años y la suelta en segundos.</p>
-  <p>Esto también explica por qué <strong>dos sismos de igual $M_0$ pueden sacudir distinto</strong>. La <em class="term">caída de esfuerzo</em> $\Delta\sigma\approx\mu\,\bar D/L$ dice cuán «apretado» estaba el tramo: mucho $\bar D$ en poca área (caída alta) sacude <strong>fuerte y concentrado</strong>; poco $\bar D$ en área enorme (caída baja) libera la misma energía <strong>más repartida</strong>.</p>
+  <p>Esto también explica por qué <strong>dos sismos de igual $M_0$ pueden sacudir distinto</strong>. La <em class="term">caída de esfuerzo</em> $\Delta\sigma\approx\mu\,\bar D/L$ dice cuán «apretado» estaba el tramo: mucho $\bar D$ en poca área (caída alta) sacude <strong>fuerte y concentrado</strong>; poco $\bar D$ en un área grande (caída baja) libera la misma energía <strong>más repartida</strong>.</p>
 
   <h3>Míralo en marcha: el mismo «stick-slip»</h3>
   <p>Los dos <strong>cargan despacio</strong> (deformación elástica), <strong>se rompen de golpe</strong> y <strong>liberan energía</strong>. Sube la <strong>resistencia</strong> para ver saltos —y ondas— mayores.</p>
@@ -614,8 +614,8 @@
     gA.style.background=gB.style.background=col;
     sA.textContent=sB.textContent=pct;
     if(S.phase==='released'){
-      capA.innerHTML='<b style="color:'+P.red+'">¡Se parte por torsión!</b> el vástago cede en el plano de rotura y salta — energía liberada.';
-      capB.innerHTML='<b style="color:'+P.green+'">¡Terremoto!</b> la falla desliza <b>D̄</b> de golpe y radía <b>ondas</b> desde el hipocentro.';
+      capA.innerHTML='<b style="color:'+P.red+'">Se parte por torsión:</b> el vástago cede en el plano de rotura y salta — energía liberada.';
+      capB.innerHTML='<b style="color:'+P.green+'">Ruptura sísmica:</b> la falla desliza <b>D̄</b> de golpe y radía <b>ondas</b> desde el hipocentro.';
     } else {
       capA.innerHTML='Se enrosca un poco y ya no avanza; la llave mete <b>torque</b> (τ = F·b) y el vástago <b>se retuerce</b>…';
       capB.innerHTML='Las placas cargan la falla; las líneas de referencia se <b>curvan</b> (deformación elástica)…';

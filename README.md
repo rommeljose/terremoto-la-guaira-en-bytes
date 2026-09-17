@@ -1,30 +1,43 @@
-# Terremoto de La Guaira — en bytes
+# Análisis del terremoto de La Guaira, en bytes
 
-Página estática (una lámina) con las **cifras del análisis y el cómputo** de la fuente
-del terremoto de La Guaira del **24 de junio de 2026** (doblete M 7,2 + M 7,5):
-retroproyección telesísmica, inversión de la tasa de momento y las pruebas de robustez.
+Sitio estático con la exposición **didáctica y metodológica** del análisis telesísmico de
+la fuente del terremoto de La Guaira del **24 de junio de 2026** (evento complejo
+M 7,2 + M 7,5): retroproyección, inversión de la tasa de momento, relocalización de
+réplicas y los fundamentos físicos necesarios para leerlos.
 
-> **Aclaración importante.** Estas son cifras del **procesamiento de datos y el modelado
+> **Aclaración.** Las cifras del sitio describen el **procesamiento de datos y el modelado
 > de la ruptura** (sismogramas, estaciones, operadores de inversión). **No** son cifras de
 > víctimas ni de daños.
 
-Lo llamativo: todo el estudio se resolvió en **una sola APU de escritorio de consumo**
-(AMD Ryzen 5 3400G, 2019), sin clúster ni HPC.
+**El cómputo se documenta aparte.** El equipo empleado, los tiempos medidos por etapa, la
+paralelización de la inversión y su comprobación con CUDA, y las pruebas de regresión
+frente al código original están en el repositorio de cómputo
+[`Aira_geofisica`](https://github.com/rommeljose/Aira_geofisica) —de acceso restringido
+mientras los artículos están en preparación—. Este sitio se ocupa únicamente del método
+y del resultado.
 
 ## Estructura
 
 ```
-index.html                     · la lámina (HTML + CSS + un canvas, sin dependencias)
-assets/lamina_directividad.png · lámina divulgativa de directividad Doppler / polarización S
-assets/logo_aghes.png          · logo de la Academia de Geohistoria del Estado Sucre (AGHES)
+index.html                       · portada (HTML + CSS + un canvas, sin dependencias)
+metodo/sismofisica.html          · 01 · fundamentos: falla, P y S, momento, mecanismo focal
+metodo/momento-torque.html       ·  ↳ ampliación: del torque al momento sísmico
+metodo/radiacion-doble-par.html  ·  ↳ ampliación avanzada: de la fuerza puntual a la esfera focal
+                                      (sobre el cap. 2 de L. D. Beauperthuy Urich, 2008)
+metodo/retroproyeccion.html      · 03 · delay-and-stack: dónde y cuándo radía la ruptura
+metodo/green.html                · 04 · AxiSEM/Syngine, P+pP+sP y la profundidad
+metodo/inversion.html            · 05 · de Aki & Richards a d = G m
+metodo/relocalizacion.html       · 06 · hypoDD, con el visor 3-D de réplicas embebido
+sim/                             · 08 · simulación interactiva (directividad y balance energético)
+assets/                          · logo AGHES y lámina de directividad
 ```
 
-La página es autocontenida: no usa frameworks ni build. Tiene **tema claro y oscuro**
-(botón arriba a la derecha) y respeta `prefers-reduced-motion`.
+Todo es autocontenido: sin frameworks ni proceso de compilación. Hay **tema claro y
+oscuro** (botón arriba a la derecha) y se respeta `prefers-reduced-motion`.
 
-## Cómo actualizarla
+## Cómo actualizarlo
 
-1. Editar el texto/cifras directamente en `index.html`.
+1. Editar el texto o las cifras directamente en el `.html` correspondiente.
 2. Para cambiar una imagen, reemplazar el archivo en `assets/` (mismo nombre).
 3. `git commit` + `git push` — GitHub Pages republica solo.
 
@@ -34,7 +47,15 @@ La página es autocontenida: no usa frameworks ni build. Tiene **tema claro y os
   SIGEOS-FUNVISIS). Venezuela cuenta con su propio servicio FDSN, diseñado por Rommel Contreras:
   <https://catalogosismicovenezuela.sigeos.org/> · [API](https://catalogosismicovenezuela.sigeos.org/api.html).
 - **Sismogramas sintéticos (funciones de Green):** Syngine / AxiSEM, modelo `ak135f_2s`.
+- **Modelo de falla finita del M 7,5:** USGS/NEIC (`us6000t7zp`).
+
+Los registros de movimiento fuerte de FUNVISIS se distribuyen bajo solicitud a esa
+institución y no forman parte de este material.
 
 ## Créditos
 
 **Lcdo. Físico Rommel Contreras** — Academia de Geohistoria del Estado Sucre (**AGHES**).
+
+La ampliación *de una fuerza puntual a la esfera focal* desarrolla el capítulo 2 de
+*Sismofísica Básica* del **Prof. Luis Daniel Beauperthuy Urich** (2008), con enlace al
+capítulo original; los errores de esa página son de este sitio y no comprometen al autor.
