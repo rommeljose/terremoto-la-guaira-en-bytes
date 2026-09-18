@@ -172,6 +172,8 @@
     border-bottom:1px solid var(--blue); word-break:break-word}
   .aside a:hover{color:var(--orange); border-color:var(--orange)}
   .aside a:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+  .aside.o{border-left-color:var(--orange)}
+  .aside.o .tag{background:var(--orange); color:#1b1b1b}
 
   .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px}
   table{border-collapse:collapse; width:100%; min-width:540px}
@@ -762,6 +764,40 @@
       <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/transpresion-en-el-oriente-de-venezuela.html" target="_blank" rel="noopener">Transpresión en el oriente de Venezuela</a><p>El régimen tectónico que enmarca toda la secuencia: por qué el desplazamiento no es puramente horizontal.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
       <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-cariaco-de-1997.html" target="_blank" rel="noopener">El sismo de Cariaco de 1997</a><p>El precedente instrumental más cercano, y el caso en que la escala longitud–magnitud sí funciona.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
       <div class="ref-card "><a href="https://tecnologiacumanesa.blogspot.com/2026/07/el-sismo-de-1766.html" target="_blank" rel="noopener">El sismo de 1766</a><p>La memoria histórica del mismo límite de placas, tres siglos antes de los sismógrafos.</p><span class="url">tecnologiacumanesa.blogspot.com · jul 2026</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">14</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Ninguno de los dos artículos trata de normativa, y esta página tampoco. Pero conviene decir hacia dónde apunta el conjunto —el de muchos, no solo el de este trabajo—: que el <b>próximo</b> terremoto encuentre el litoral mejor construido. Y la vía por la que un resultado sismológico llega a cambiar algo en la calle es la <b>norma</b>.</p>
+
+    <div class="bloque">
+      <h3 class="sub-h">Qué se está haciendo en paralelo</h3>
+      <p>En paralelo a estos análisis avanza una propuesta de <b>norma de emergencia para el Litoral Central</b>, que es un problema distinto: no la fuente, sino el <b>suelo</b> que recibe la onda. Se construye sobre material ya publicado —la microzonificación de García (2023), la gravimetría de Ambrosio (2001), Romero <i>et al.</i> (2006) y Audemard <i>et al.</i> (2000)— y sobre la norma vigente, <span class="mono">COVENIN 1756-1:2019</span>. La zonificación reparte el terreno por <b>espesor de sedimento</b> sobre el basamento rocoso, y los factores de amplificación salen de las tablas de la propia norma: ni un espectro inventado.</p>
+
+      <figure class="figplate" style="margin-top:20px">
+        <img src="assets/lamina_zonificacion_litoral.png" width="1800" height="1416" loading="lazy"
+             alt="Mapa en tres bloques del Litoral Central con la zonificación por espesor sedimentario: roca, sedimento de 0 a 60 metros y sedimento de más de 60 metros, sobre la traza de la falla de San Sebastián.">
+        <figcaption><b>El litoral, repartido por lo que hay debajo.</b> Zona A, roca (Vs30 &gt; 650 m/s); zona B, sedimento de 0 a 60 m; zona C, más de 60 m. El rayado marca <b>dónde no hay control gravimétrico</b> y la clasificación se apoya en la franja calibrada, no en una isopaca medida; el enrejado gris, dónde sencillamente <b>no hay información</b>. Obsérvese el aviso del panel inferior: <b>32 km de costa sin datos</b> entre Camurí Grande y La Sabana. Un mapa así vale tanto por lo que dice como por dónde admite que no sabe. Costa, vialidad y aeropuerto © colaboradores de OpenStreetMap (ODbL); relieve, Copernicus DEM GLO-30 © ESA / Airbus.</figcaption>
+      </figure>
+
+      <h3 class="sub-h">Tres cosas que el ejercicio ya dejó claras</h3>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big">1,7 %</div><h3>la vivienda baja apenas cambia</h3><p>Entre zona B y zona C, el factor de períodos cortos pasa de <b>1,20 a 1,22</b>. Para <b>1 a 4 pisos</b> la zonificación casi no discrimina: la tabla de la norma ya incorpora la <b>no linealidad del suelo</b>, y con una aceleración de 0,30 g el suelo blando deja de amplificar los períodos cortos.</p></div>
+        <div class="box o"><div class="big">57 %</div><h3>la altura sí</h3><p>La diferencia aparece <b>de 4 pisos hacia arriba</b>: 19 % en períodos intermedios (4–15 pisos) y hasta <b>57 %</b> en períodos largos. Es ahí donde zonificar cambia el proyecto.</p></div>
+        <div class="box b"><div class="big">3</div><h3>no es un número, son tres</h3><p>La norma exige <b>tres factores dependientes del período</b> —cortos, intermedios y largos—, no un escalar único. Cualquier propuesta que reduzca la amplificación a un solo multiplicador es incorrecta, con el umbral que sea.</p></div>
+      </div>
+
+      <div class="aside o" style="margin-top:20px">
+        <span class="tag">AVISO</span>
+        <div>
+          <h4>Esto es un insumo técnico, no un instrumento normativo</h4>
+          <p>Nada de lo anterior autoriza ni desautoriza una construcción. La norma vigente exige que una microzonificación nueva se apoye en <b>estudios de sitio</b> con perfiles geotécnicos; este trabajo parte de material publicado, de modo que es un <b>insumo</b> que debe pasar por la autoridad competente. Y hay una exclusión que no puede quedar implícita: <b>esta zonificación trata solo la amplificación del suelo.</b> No mapea <b>licuación</b> ni <b>deslizamientos</b>, porque no hay datos para hacerlo. En el Litoral Central, después de 1999, eso hay que decirlo en voz alta: donde el riesgo real es el flujo torrencial o la ladera, un mapa de amplificación no es un permiso.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">El trabajo sigue, y lo que falta está declarado en el propio mapa: las localidades sin gravimetría llevan marca de <b>requiere estudio</b>, y una campaña de mediciones H/V bastaría para reclasificar buena parte de ellas con dato propio en vez de con franja calibrada.</p>
+      <p>Del lado sismológico, el eslabón que falta es el de la <b>sección 08</b>: la relocalización relativa de las réplicas. Mientras ese análisis llega, el resto de la cadena —qué rompió, en cuántos pedazos, con qué directividad y sobre qué suelo— ya está en marcha. Ninguna de las dos mitades sirve sola.</p>
     </div>
   </section>
 
