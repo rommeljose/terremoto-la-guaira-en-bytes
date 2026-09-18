@@ -29,7 +29,8 @@ metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundid
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
 metodo/relocalizacion.html       · 07 · hypoDD, con el visor 3-D de réplicas embebido
 sim/                             · 09 · simulación interactiva (directividad y balance energético)
-assets/                          · logo AGHES, lámina de directividad, mapa de ubicación
+assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
+                                   tarjeta social og_card.png
                                    y mapa de estaciones (fig_mapa_estaciones.png, generado en Aira_geofisica
                                    por codigo/aceleracion/fig_mapa_estaciones.py; aquí es una copia)
 herramientas/                    · generador del mapa (§01) y sus datos de entrada
@@ -51,6 +52,7 @@ que herede el tema claro/oscuro de la página a través de las clases `.mp-*`. S
 
 ```bash
 python3 herramientas/gen_mapa_ubicacion.py     # reescribe assets/mapa_ubicacion.svg
+python3 herramientas/gen_tarjeta_og.py         # reescribe assets/og_card.png (1200x630)
 ```
 
 y después hay que **volver a pegar** el SVG resultante en `index.html` (entre `<figure class="mapa">`
@@ -72,6 +74,28 @@ y `<figcaption>`). Sus datos de entrada están en `herramientas/datos/`:
 
 Los registros de movimiento fuerte de FUNVISIS se distribuyen bajo solicitud a esa
 institución y no forman parte de este material.
+
+## La tarjeta para compartir
+
+Cuando el enlace se pega en WhatsApp, Telegram, Slack, Facebook, LinkedIn o X, el rastreador
+del servicio lee las etiquetas del `<head>`. Hasta septiembre de 2026 las páginas solo
+declaraban `charset` y `viewport`: sin `description` ni Open Graph, el rastreador no tenía
+nada que citar y caía en lo primero que encontraba como texto, que era el comentario y las
+variables del bloque `<style>`. De ahí el `/* Lámina AGHES — tema claro … */ :root{ --ground:#e7eaef;`
+que aparecía en la vista previa.
+
+Ahora las nueve páginas (`index.html`, las siete de `metodo/` y `sim/`) llevan `description`,
+`canonical`, Open Graph y `twitter:card`, cada una con su propio título y resumen.
+
+La imagen es `assets/og_card.png`, 1200 × 630 (la relación 1,91:1 que piden los rastreadores),
+generada por `herramientas/gen_tarjeta_og.py`. La franja de mapa no es decoración: se dibuja
+con los mismos ficheros de `herramientas/datos/` que el mapa de la sección 01 —costa de
+Natural Earth, `traza_principal.json` y las anclas de los dos hipocentros del USGS—, de modo
+que si la traza cambia, la tarjeta cambia con ella.
+
+Si se cambia la tarjeta, los servicios conservan la anterior en caché; hay que forzar el
+refresco en el depurador de cada uno (Facebook *Sharing Debugger*, LinkedIn *Post Inspector*)
+o cambiar el nombre del fichero.
 
 ## Licencia
 
