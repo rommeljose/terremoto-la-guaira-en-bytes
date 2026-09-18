@@ -220,6 +220,9 @@
   .mp-inset-pie{fill:var(--muted); font:400 10.5px "Archivo",sans-serif}
 
   .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#ffffff; box-shadow:var(--shadow)}
+  .figplate.modesta{max-width:780px; margin:18px auto 0}
+  .figplate.modesta figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line);
+    background:var(--panel); max-width:none; line-height:1.58}
   .figplate img{display:block; width:100%; height:auto}
   figcaption{color:var(--muted); font-size:.86rem; margin:12px 2px 0; max-width:96ch}
   figcaption b{color:var(--ink); font-weight:600}
@@ -475,6 +478,11 @@
       <div class="box b"><div class="big">1°–356°</div><h3>azimut cubierto</h3><p>Prácticamente el círculo completo alrededor del epicentro. El mismo criterio, aplicado a la red local, se puede recorrer estación por estación en la <a href="https://rommeljose.github.io/Gap-Red-de-Emergencia-Terremoto-de-la-Guaira/" target="_blank" rel="noopener">consola del gap azimutal</a>.</p></div>
       <div class="box" style="border-top:3px solid var(--orange-d)"><div class="big">C1 <span class="u" style="color:var(--orange-d)">excluido</span></div><h3>arreglo del sur (Chile)</h3><p>Evaluado y excluido por criterios de calidad: ninguna estación alinea y solo 3 de 31 superan S/N ≥ 3. <b>No entra</b> en los cálculos.</p></div>
     </div>
+    <figure class="figplate modesta">
+      <img src="assets/fig_mapa_estaciones.png" width="2400" height="1290" loading="lazy"
+           alt="Dos paneles: a la izquierda, la cobertura telesísmica en proyección azimutal equidistante centrada en el M 7,2, con las estaciones de la inversión y de la retroproyección; a la derecha, los dos epicentros del USGS sobre el eje de ruptura.">
+      <figcaption><b>Quién miró, y desde dónde.</b> <b>(a)</b> Proyección <b>azimutal equidistante centrada en el M 7,2</b>: en esta proyección cada círculo a trazos —30°, 60°, 90°— es una distancia epicentral real, y cada dirección desde el centro, un acimut real. Se dibujan las <b>35 estaciones candidatas</b> descargadas para la inversión de Fase B, de las que <b>32 pasan</b> el control de señal/ruido y son las de la tabla; las <b>24</b> que superan el control de calidad de la retroproyección (Norteamérica y Europa); y las <b>23</b> comunes a los dos análisis. Las tres del Atlántico medio —CMLA en las Azores, MACI en Canarias, SACV en Cabo Verde— son las que cierran el acimut por el este y evitan que la cobertura quede partida en dos lóbulos. <b>(b)</b> El mismo problema visto de cerca: los dos epicentros de catálogo del USGS, separados <b>152 km en línea recta y 32,2 s</b>, sobre el <b>eje de ruptura ξ</b> (0–260 km) que usa la inversión, con el modelo de falla finita del M 7,5 coloreado por deslizamiento. Esos 152 km son la distancia entre <i>epicentros de catálogo</i>: sobre la traza cartografiada son 158 km, y la separación entre las <b>fuentes</b> que mide la retroproyección (§04) es de <b>149 km</b> —tres cifras próximas que miden cosas distintas y no deben confundirse. Figura generada con el código del repositorio de cómputo; costas de Natural Earth (dominio público).</figcaption>
+    </figure>
   </section>
 
   <section>
@@ -536,6 +544,16 @@
   <section>
     <div class="sh"><span class="n">09</span><h2>La física, interactiva</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y de gran amplitud que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
+    <p class="note" style="margin:0 0 16px; border-left:3px solid var(--orange); padding-left:14px">
+      <b>Qué es y qué no es.</b> Lo que sigue es un <b>ejemplo de demostración</b>, no un resultado del análisis.
+      Es una <b>fuente lineal cinemática</b>: una falla se representa como una fila de subfuentes puntuales que se
+      encienden una tras otra a la velocidad V<sub>r</sub>, y el gráfico suma en cada receptor lo que llega de todas
+      ellas. De ahí sale sola la directividad, que no es más que <b>efecto Doppler</b> aplicado a una fuente que se
+      desplaza. Las amplitudes están en <b>unidades relativas</b>, no en g ni en cm/s; no se usa aquí ningún registro
+      real, ninguna función de Green ni el resultado de la inversión, y los valores iniciales de los controles son
+      un orden de magnitud plausible para el M 7,2, <b>no parámetros ajustados</b>. Su propósito es didáctico: dejar ver
+      a mano el mecanismo que las secciones 04–06 miden con los datos. Para el caso real, las cifras son las del §08.
+    </p>
     <div class="simframe">
       <iframe id="simframe" src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
     </div>

@@ -29,7 +29,9 @@ metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundid
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
 metodo/relocalizacion.html       · 07 · hypoDD, con el visor 3-D de réplicas embebido
 sim/                             · 09 · simulación interactiva (directividad y balance energético)
-assets/                          · logo AGHES, lámina de directividad y mapa de ubicación
+assets/                          · logo AGHES, lámina de directividad, mapa de ubicación
+                                   y mapa de estaciones (fig_mapa_estaciones.png, generado en Aira_geofisica
+                                   por codigo/aceleracion/fig_mapa_estaciones.py; aquí es una copia)
 herramientas/                    · generador del mapa (§01) y sus datos de entrada
 ```
 
