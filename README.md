@@ -86,7 +86,7 @@ volver a copiarlas a mano.
 | `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
 | `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §10 · esfera frente a cilindro, y directividad |
 | `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §10 · los tres cálculos de la propagación guiada |
-| `lamina_zonificacion_litoral.png` | `Norma_Emergencia`, `trabajo/03_salidas/lamina_sintesis_litoral.png` | §14 · zonificación por espesor sedimentario (reducida a 1 800 px y cuantizada) |
+| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §14 · espesores de Caraballeda y el límite de la gravimetría (reducida a 1 700 px y cuantizada) |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
 artículo 1 y puente con el 2—, y la sección lo dice de forma explícita. La hipótesis de guía
