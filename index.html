@@ -557,6 +557,52 @@
       <div class="badge"><span class="dot">↓</span><div><h4>Profundidad de la fuente</h4><p>La varianza explicada es máxima en <span class="mono">5–10 km</span>, y el hueco resulta insensible a la profundidad (<span class="mono">f = 0,13–0,85 %</span>).</p></div></div>
       <div class="badge b"><span class="dot">⌀</span><div><h4>Un arreglo evaluado y excluido</h4><p>El arreglo del sur (Chile) se probó y se excluyó por relación señal/ruido y por geometría.</p></div></div>
     </div>
+
+    <div class="bloque" style="margin-top:26px">
+      <h3 class="sub-h">La reproducción del ensamblaje, en detalle</h3>
+      <p>La primera de esas comprobaciones conviene desarmarla, porque es fácil confundir lo que certifica. <b>No dice nada sobre el terremoto</b>: es una prueba que el método se hace a sí mismo.</p>
+
+      <h3 class="sub-h">El problema, y qué significa «ensamblar»</h3>
+      <p>La inversión de Fase B es un problema lineal, <span class="mono">d = G·m</span>. Sus tres piezas:</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big">d</div><h3>el dato</h3><p>Los sismogramas observados, concatenados: las ventanas de onda P de las <b>32 estaciones</b> puestas una detrás de otra en un solo vector de unas <b>7 200 muestras</b>.</p></div>
+        <div class="box b"><div class="big">m</div><h3>la incógnita</h3><p>Cuánto momento libera cada nodo <span class="mono">ξ</span> de la falla en cada instante <span class="mono">t<sub>k</sub></span>. Con la malla canónica, 27 nodos × 81 instantes: <b>2 187 incógnitas</b>.</p></div>
+        <div class="box b"><div class="big">G</div><h3>el operador</h3><p><b>7 200 × 2 187</b>. Cada columna es lo que produciría en todas las estaciones <i>un</i> nodo encendido en <i>un</i> instante: una función de Green, desplazada en el tiempo lo que le corresponda.</p></div>
+      </div>
+      <p style="margin-top:14px"><b>Ensamblar</b> es construir esa matriz: recorrer los pares nodo–instante–estación, calcular el desfase que le toca a cada uno —el tiempo de viaje de la P más la corrección de estación— e insertar la traza en su sitio. Es la parte del código donde es más fácil equivocarse <b>sin que se note</b>: un índice desplazado una muestra, un signo, un origen de tiempo mal referido, y sale un resultado perfectamente verosímil y falso.</p>
+
+      <h3 class="sub-h">Qué prueba exactamente</h3>
+      <p>Se rehace el camino con el operador <b>reconstruido por separado</b>, se le entrega la <span class="mono">G</span> publicada, el mismo dato y el mismo <span class="mono">λ</span>, y se vuelve a resolver. Después se compara con el resultado que está en el expediente. Salen dos números:</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box o"><div class="big">|m − m_l| = 0</div><h3>el mismo modelo</h3><p>La comparación se hace sobre la norma <b>relativa</b> <span class="mono">‖m − m_l‖ / ‖m_l‖</span>, y da cero hasta la precisión de la máquina. No es «parecido»: es el <b>mismo vector</b>.</p></div>
+        <div class="box o"><div class="big">VR = 21,15 %</div><h3>el mismo ajuste</h3><p>La misma varianza explicada que la corrida canónica, dígito a dígito.</p></div>
+      </div>
+      <p style="margin-top:14px">La tubería es, por tanto, <b>determinista y reconstruible</b>: quien la vuelva a montar obtiene lo mismo. Nada más, pero nada menos —esta comprobación certifica el <b>procedimiento</b>, no la sismología.</p>
+
+      <h3 class="sub-h">Qué es VR, y por qué 21 % no es un suspenso</h3>
+      <p>La varianza explicada es <span class="mono">VR = 100·(1 − Σ(d−p)² / Σd²)</span>: la fracción de la energía de los sismogramas que el modelo consigue explicar. Es el complemento del error de Kikuchi, <span class="mono">VR = 1 − EROR</span>.</p>
+      <p>Un 21 % suena bajo, y conviene decir de dónde viene: un operador lineal con <b>mecanismo fijo</b> y <b>eje de ruptura fijo</b>, con la restricción <span class="mono">m ≥ 0</span>, con una regularización fuerte (<span class="mono">λ_rel = 10</span>, elegida por discrepancia generalizada), en la banda <span class="mono">0,02–0,5 Hz</span>, y con una ventana que <b>termina antes de que acabe el M 7,5</b>. Todo eso se paga en ajuste.</p>
+      <div class="aside" style="margin-top:16px">
+        <span class="tag">VR</span>
+        <div>
+          <h4>El argumento no se apoya en la bondad del ajuste</h4>
+          <p>Lo que legitima interpretar el resultado <b>no es que el ajuste sea bueno</b>, sino que el control se hizo con <b>ese mismo ajuste malo</b> y aun así separa los escenarios.</p>
+        </div>
+      </div>
+      <p style="margin-top:16px">Por eso el control sintético no se calibró para que le resultara cómodo. Se buscó por bisección la escala <span class="mono">k</span> que iguala su varianza explicada a la del dato real, y <b>el mismo</b> <span class="mono">k</span> se aplicó a los dos escenarios en competencia —calibrar cada uno por separado sería darle a cada escenario la dificultad que le conviene:</p>
+      <div class="tbl-wrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th>Criterio de escala</th><th>VR sintética</th><th>S</th><th>Veredicto</th></tr></thead>
+          <tbody>
+            <tr><td>Igualar el RMS del dato<span class="sub">k = 1,000</span></td><td class="mono">48,6 / 43,7 %</td><td class="mono">2,91</td><td>demasiado fácil</td></tr>
+            <tr><td>Igualar la varianza explicada<span class="sub">k = 0,460</span></td><td class="mono">11,7 / 10,4 %</td><td class="mono">1,32</td><td>demasiado difícil</td></tr>
+            <tr><td><b>Calibrar hasta VR sintética = VR real</b><span class="sub">k = 0,584 — la elegida</span></td><td class="mono">20,7 / 18,0 %</td><td class="mono">2,62</td><td><b>la correcta</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px"><span class="mono">S</span> es la separación entre los dos escenarios, y el umbral <span class="mono">S ≥ 2</span> se fijó <b>antes</b> de mirar el resultado. Que la opción intermedia dé <span class="mono">S = 1,32</span> hay que decirlo: el margen no es holgado. Pero la elección no es discrecional, porque la condición de <b>igual bondad de ajuste</b> es la única que reproduce el problema real.</p>
+      <p>Con esa dificultad —la misma para los dos— el momento que cae en la ventana intermedia es <span class="mono">f = 0,0036</span> en el dato observado, frente a <span class="mono">f = 0,1652 ± 0,0450</span> que exigiría un frente continuo y <span class="mono">f = 0,0266 ± 0,0281</span> de la referencia en doblete.</p>
+    </div>
   </section>
 
   <section>
