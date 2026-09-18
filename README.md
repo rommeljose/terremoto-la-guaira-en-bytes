@@ -27,12 +27,11 @@ metodo/radiacion-doble-par.html  ·  ↳ ampliación avanzada: de la fuerza punt
 metodo/retroproyeccion.html      · 04 · delay-and-stack: dónde y cuándo radía la ruptura
 metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundidad
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
-metodo/relocalizacion.html       · 07 · hypoDD, con el visor 3-D de réplicas embebido
-sim/                             · 09 · simulación interactiva (directividad y balance energético)
+metodo/relocalizacion.html       · 08 · hypoDD, con el visor 3-D de réplicas embebido
+sim/                             · 11 · simulación interactiva (directividad y balance energético)
 assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
-                                   tarjeta social og_card.png
-                                   y mapa de estaciones (fig_mapa_estaciones.png, generado en Aira_geofisica
-                                   por codigo/aceleracion/fig_mapa_estaciones.py; aquí es una copia)
+                                   tarjeta social og_card.png, mapa de estaciones y las cuatro
+                                   figuras de §07 y §10 (ver «Las figuras traídas de otros repos»)
 herramientas/                    · generador del mapa (§01) y sus datos de entrada
 ```
 
@@ -74,6 +73,24 @@ y `<figcaption>`). Sus datos de entrada están en `herramientas/datos/`:
 
 Los registros de movimiento fuerte de FUNVISIS se distribuyen bajo solicitud a esa
 institución y no forman parte de este material.
+
+## Las figuras traídas de otros repositorios
+
+Cinco figuras de `assets/` **no se generan aquí**: son copias. Si el original cambia, hay que
+volver a copiarlas a mano.
+
+| en `assets/` | original | qué es |
+|---|---|---|
+| `fig_mapa_estaciones.png` | `Aira_geofisica`, `codigo/aceleracion/fig_mapa_estaciones.py` | §03 · cobertura telesísmica y epicentros |
+| `fig_profundidad_test.png` | `Sismos_latinos`, `resultados/faseB_paso2/` | §07 · la prueba de profundidad con dato sintético |
+| `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
+| `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §10 · esfera frente a cilindro, y directividad |
+| `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §10 · los tres cálculos de la propagación guiada |
+
+Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
+artículo 1 y puente con el 2—, y la sección lo dice de forma explícita. La hipótesis de guía
+lateral que ese material plantea **queda descartada** por su propio tercer cálculo, y el sitio
+la presenta así, junto con la prueba que la desmiente.
 
 ## La tarjeta para compartir
 
