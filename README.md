@@ -28,7 +28,7 @@ metodo/retroproyeccion.html      · 04 · delay-and-stack: dónde y cuándo rad�
 metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundidad
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
 metodo/relocalizacion.html       · 08 · hypoDD, con el visor 3-D de réplicas embebido
-sim/                             · 11 · simulación interactiva (directividad y balance energético)
+sim/                             · 13 · simulación interactiva (directividad y balance energético)
 assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
                                    tarjeta social og_card.png, mapa de estaciones y las cuatro
                                    figuras de §07 y §10 (ver «Las figuras traídas de otros repos»)
@@ -76,7 +76,7 @@ institución y no forman parte de este material.
 
 ## Las figuras traídas de otros repositorios
 
-Seis figuras de `assets/` **no se generan aquí**: son copias. Si el original cambia, hay que
+Ocho figuras de `assets/` **no se generan aquí**: son copias. Si el original cambia, hay que
 volver a copiarlas a mano.
 
 | en `assets/` | original | qué es |
@@ -86,12 +86,26 @@ volver a copiarlas a mano.
 | `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
 | `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §10 · esfera frente a cilindro, y directividad |
 | `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §10 · los tres cálculos de la propagación guiada |
-| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §14 · espesores de Caraballeda y el límite de la gravimetría (reducida a 1 700 px y cuantizada) |
+| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §16 · espesores de Caraballeda y el límite de la gravimetría |
+| `fig_dcfs_mapa.png` | `coulomb_dCFS/figuras/dcfs_mapa_okada.png` | §09 · el mapa de ΔCFS del primer evento |
+| `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
 artículo 1 y puente con el 2—, y la sección lo dice de forma explícita. La hipótesis de guía
 lateral que ese material plantea **queda descartada** por su propio tercer cálculo, y el sitio
 la presenta así, junto con la prueba que la desmiente.
+
+## Las dos versiones de cada figura
+
+Las figuras pesadas se publican a **1 500 px de ancho y cuantizadas a 256 colores**
+(`<nombre>_web.png`, entre el 31 % y el 46 % del original), que es lo que carga la página; el
+fichero a resolución nativa se conserva junto a ella y se alcanza desde el pie, con el enlace
+«Ver a resolución completa». Las reducciones se generan así:
+
+```python
+im = Image.open(src).convert('RGB')
+im.resize((1500, h), Image.LANCZOS).quantize(colors=256).save(dst, optimize=True)
+```
 
 ## La tarjeta para compartir
 

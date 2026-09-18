@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La Guaira en bytes — análisis y complejidad físico-matemática</title>
@@ -501,9 +502,9 @@
       <div class="box" style="border-top:3px solid var(--orange-d)"><div class="big">C1 <span class="u" style="color:var(--orange-d)">excluido</span></div><h3>arreglo del sur (Chile)</h3><p>Evaluado y excluido por criterios de calidad: ninguna estación alinea y solo 3 de 31 superan S/N ≥ 3. <b>No entra</b> en los cálculos.</p></div>
     </div>
     <figure class="figplate modesta">
-      <img src="assets/fig_mapa_estaciones.png" width="2400" height="1290" loading="lazy"
+      <img src="assets/fig_mapa_estaciones_web.png" width="1500" height="806" loading="lazy"
            alt="Dos paneles: a la izquierda, la cobertura telesísmica en proyección azimutal equidistante centrada en el M 7,2, con las estaciones de la inversión y de la retroproyección; a la derecha, los dos epicentros del USGS sobre el eje de ruptura.">
-      <figcaption><b>Quién miró, y desde dónde.</b> <b>(a)</b> Proyección <b>azimutal equidistante centrada en el M 7,2</b>: en esta proyección cada círculo a trazos —30°, 60°, 90°— es una distancia epicentral real, y cada dirección desde el centro, un acimut real. Se dibujan las <b>35 estaciones candidatas</b> descargadas para la inversión de Fase B, de las que <b>32 pasan</b> el control de señal/ruido y son las de la tabla; las <b>24</b> que superan el control de calidad de la retroproyección (Norteamérica y Europa); y las <b>23</b> comunes a los dos análisis. Las tres del Atlántico medio —CMLA en las Azores, MACI en Canarias, SACV en Cabo Verde— son las que cierran el acimut por el este y evitan que la cobertura quede partida en dos lóbulos. <b>(b)</b> El mismo problema visto de cerca: los dos epicentros de catálogo del USGS, separados <b>152 km en línea recta y 32,2 s</b>, sobre el <b>eje de ruptura ξ</b> (0–260 km) que usa la inversión, con el modelo de falla finita del M 7,5 coloreado por deslizamiento. Esos 152 km son la distancia entre <i>epicentros de catálogo</i>: sobre la traza cartografiada son 158 km, y la separación entre las <b>fuentes</b> que mide la retroproyección (§04) es de <b>149 km</b> —tres cifras próximas que miden cosas distintas y no deben confundirse. Figura generada con el código del repositorio de cómputo; costas de Natural Earth (dominio público).</figcaption>
+      <figcaption><b>Quién miró, y desde dónde.</b> <b>(a)</b> Proyección <b>azimutal equidistante centrada en el M 7,2</b>: en esta proyección cada círculo a trazos —30°, 60°, 90°— es una distancia epicentral real, y cada dirección desde el centro, un acimut real. Se dibujan las <b>35 estaciones candidatas</b> descargadas para la inversión de Fase B, de las que <b>32 pasan</b> el control de señal/ruido y son las de la tabla; las <b>24</b> que superan el control de calidad de la retroproyección (Norteamérica y Europa); y las <b>23</b> comunes a los dos análisis. Las tres del Atlántico medio —CMLA en las Azores, MACI en Canarias, SACV en Cabo Verde— son las que cierran el acimut por el este y evitan que la cobertura quede partida en dos lóbulos. <b>(b)</b> El mismo problema visto de cerca: los dos epicentros de catálogo del USGS, separados <b>152 km en línea recta y 32,2 s</b>, sobre el <b>eje de ruptura ξ</b> (0–260 km) que usa la inversión, con el modelo de falla finita del M 7,5 coloreado por deslizamiento. Esos 152 km son la distancia entre <i>epicentros de catálogo</i>: sobre la traza cartografiada son 158 km, y la separación entre las <b>fuentes</b> que mide la retroproyección (§04) es de <b>149 km</b> —tres cifras próximas que miden cosas distintas y no deben confundirse. Figura generada con el código del repositorio de cómputo; costas de Natural Earth (dominio público).  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/fig_mapa_estaciones.png">Ver a resolución completa →</a></span></figcaption>
     </figure>
   </section>
 
@@ -566,9 +567,9 @@
       <p>Ahí está el riesgo. A 10 km, <span class="mono">pP</span> llega a 3,2 s y <span class="mono">sP</span> a 4,6 s — <b>dentro del propio pulso de la fuente</b>, donde un operador que no las modele puede confundirlas con estructura temporal, es decir, con momento que nunca se liberó. Y el hueco que hay que resolver dura unos pocos segundos. Conviene subrayar el reparto de culpas: el modelo de corteza apenas influye (<b>+0,05 s</b>); la profundidad, sí.</p>
 
       <figure class="figplate" style="margin-top:20px">
-        <img src="assets/fig_profundidad_test.png" width="2555" height="1505" loading="lazy"
+        <img src="assets/fig_profundidad_test_web.png" width="1500" height="884" loading="lazy"
              alt="Tres paneles: el retardo de pP y sP frente a la profundidad del foco, el índice de separación S que crece con la profundidad, y la fuga de momento.">
-        <figcaption><b>La prueba, con dato sintético.</b> Se <b>genera</b> el dato con <span class="mono">pP</span> y <span class="mono">sP</span> a la profundidad verdadera y se <b>invierte</b> con el operador de solo-P, que es lo que se hará con el registro real. Las cuatro profundidades no son arbitrarias: son las que distintas fuentes atribuyen a este terremoto. <b>(a)</b> El mecanismo: al profundizar el foco, las fases de profundidad se <b>alejan</b> de la ventana que hay que resolver. <b>(b)</b> El índice de separación entre los dos escenarios, frente al umbral <span class="mono">S = 2</span> fijado de antemano. <b>(c)</b> La contrapartida: la fuga de momento hacia donde no lo hubo, y la energía no modelada.</figcaption>
+        <figcaption><b>La prueba, con dato sintético.</b> Se <b>genera</b> el dato con <span class="mono">pP</span> y <span class="mono">sP</span> a la profundidad verdadera y se <b>invierte</b> con el operador de solo-P, que es lo que se hará con el registro real. Las cuatro profundidades no son arbitrarias: son las que distintas fuentes atribuyen a este terremoto. <b>(a)</b> El mecanismo: al profundizar el foco, las fases de profundidad se <b>alejan</b> de la ventana que hay que resolver. <b>(b)</b> El índice de separación entre los dos escenarios, frente al umbral <span class="mono">S = 2</span> fijado de antemano. <b>(c)</b> La contrapartida: la fuga de momento hacia donde no lo hubo, y la energía no modelada.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/fig_profundidad_test.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
       <h3 class="sub-h">El resultado va al revés de lo previsto</h3>
@@ -586,9 +587,9 @@
       <p>La misma pregunta, hecha al registro observado con el operador canónico y con las funciones de Green <b>re-descargadas a cada profundidad</b>:</p>
 
       <figure class="figplate" style="margin-top:18px">
-        <img src="assets/fig_profundidad_canonica.png" width="1936" height="771" loading="lazy"
+        <img src="assets/fig_profundidad_canonica_web.png" width="1500" height="597" loading="lazy"
              alt="Dos paneles: barrido de profundidad con la varianza explicada y la fracción de momento en el hueco, y la covarianza entre profundidad y desplazamiento temporal.">
-        <figcaption><b>La profundidad como parámetro, sobre el dato real.</b> <b>(a)</b> Barrido: la varianza explicada (azul) es <b>máxima en el rango somero</b> —21–22 % entre 5 y 10 km, con el máximo en 8— y cae al profundizar: 15 % a 12 km, 11 % a 20 km. Las fases de profundidad que llevan las funciones de Green <b>sí resuelven que la fuente es somera</b>, y los 10 km del catálogo caen en la meseta alta. A la vez, <span class="mono">f</span> —la fracción de momento en el hueco de 20–32 s, en naranja— se mantiene <b>entre 0,13 y 0,85 % a todas las profundidades</b>: el hueco es insensible a ella. <b>(b)</b> Covarianza profundidad × desplazamiento temporal, para comprobar que las dos no se están compensando entre sí.</figcaption>
+        <figcaption><b>La profundidad como parámetro, sobre el dato real.</b> <b>(a)</b> Barrido: la varianza explicada (azul) es <b>máxima en el rango somero</b> —21–22 % entre 5 y 10 km, con el máximo en 8— y cae al profundizar: 15 % a 12 km, 11 % a 20 km. Las fases de profundidad que llevan las funciones de Green <b>sí resuelven que la fuente es somera</b>, y los 10 km del catálogo caen en la meseta alta. A la vez, <span class="mono">f</span> —la fracción de momento en el hueco de 20–32 s, en naranja— se mantiene <b>entre 0,13 y 0,85 % a todas las profundidades</b>: el hueco es insensible a ella. <b>(b)</b> Covarianza profundidad × desplazamiento temporal, para comprobar que las dos no se están compensando entre sí.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/fig_profundidad_canonica.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
       <h3 class="sub-h">No confundirla con la profundidad de las réplicas</h3>
@@ -613,7 +614,83 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">09</span><h2>Verificación y controles</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">09</span><h2>Transferencia de esfuerzo · ΔCFS</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Queda una pregunta que las secciones anteriores no responden: <b>¿por qué hubo un segundo?</b> Cuando una falla rompe no descarga la tensión por igual en todas partes — deja unos tramos <b>más cargados</b> y otros <b>relajados</b>. El mapa de ese reparto se llama <b>ΔCFS</b>, cambio en el esfuerzo de Coulomb, y es lo que se calcula aquí.</p>
+
+    <div class="bloque">
+      <h3 class="sub-h">Rojo acerca a romper, azul aleja</h3>
+      <p>La imagen que mejor funciona es <b>doblar una galleta hasta casi partirla</b>. Justo delante de la grieta, en su misma línea, el material queda <b>cargado</b>; a los lados, se <b>afloja</b>. Visto desde arriba, ese reparto dibuja cuatro pétalos — la <b>mariposa</b>. En los mapas, rojo es «lo acerca a romper» y azul, «lo aleja»; a un tramo azul se le dice que está <b>en sombra</b>. El contorno de <span class="mono">±0,01 MPa</span> es la línea de aviso convencional: el empujón mínimo que se considera capaz de contar.</p>
+
+      <figure class="figplate" style="margin-top:20px">
+        <img src="assets/fig_dcfs_mapa_web.png" width="1500" height="982" loading="lazy"
+             alt="Mapa del cambio de esfuerzo de Coulomb dejado por el primer terremoto, con lóbulos rojos a lo largo de la falla y azules a los lados, y las dos estrellas de los epicentros.">
+        <figcaption><b>El empujón que dejó el primero.</b> Calculado con el método de Okada, sobre la Tierra con superficie libre. Se reconoce la mariposa: dos pétalos rojos a lo largo de la falla y dos azules a los lados. Y lo que importa: <b>el pétalo rojo que sale hacia el este llega justo hasta donde rompió el segundo</b>, medio minuto más tarde. Conviene decir de inmediato la salvedad: a 150 km de distancia el empujón <i>estático</i> es diminuto — el segundo se disparó sobre todo por las <b>vibraciones</b> del primero, no por este empujón. Lo que coincide es la <b>dirección</b>.<span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/fig_dcfs_mapa.png">Ver a resolución completa →</a></span></figcaption>
+      </figure>
+
+      <h3 class="sub-h">El tramo tranquilo: ¿trabado, o en sombra?</h3>
+      <p>El hueco entre las dos rupturas admite dos lecturas opuestas, y no son inocentes: o está <b>trabado y cargado</b> —una zona que aguanta y podría soltar— o está <b>relajado</b>. Para distinguirlas se calculó el empujón sobre ese tramo <b>suponiendo que él mismo hubiera deslizado</b> y <b>suponiendo que no</b>. El resultado no cambia: en las dos versiones queda en azul. Está en sombra <b>porque sus dos vecinos lo dejaron así</b>, como el trozo flojo de una cuerda tirada por los dos extremos.</p>
+
+      <figure class="figplate" style="margin-top:20px">
+        <img src="assets/fig_dcfs_seccion_web.png" width="1500" height="1035" loading="lazy"
+             alt="La falla vista de canto, en dos paneles: con el primer terremoto solo y con los dos, mostrando el tramo intermedio apretado por ambos lados.">
+        <figcaption><b>La falla vista de canto.</b> <b>(a)</b> Con el primer sismo solo: empuja el tramo que tiene por delante, hacia donde ocurrió el segundo. <b>(b)</b> Con los dos: el tramo de en medio queda <b>apretado por ambos lados</b>. Y aquí hay un matiz que conviene no aplanar — <b>depende de dónde se mire exactamente</b>: justo <i>sobre</i> la línea de falla el tramo intermedio quedó cargado, y un poco <i>hacia los lados</i>, donde se agolpan las réplicas, quedó flojo. Como una cremallera: sobre el diente está tenso, y a un centímetro, la tela se afloja. Los recuadros rayados son las zonas que rompieron, donde el cálculo no aplica.<span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/fig_dcfs_seccion.png">Ver a resolución completa →</a></span></figcaption>
+      </figure>
+
+      <h3 class="sub-h">Un badén en medio de la falla</h3>
+      <p>La lectura que ordena todo lo anterior es geométrica. Los tramos <b>torcidos y ramificados</b> de una falla funcionan como <b>badenes</b> capaces de frenar una ruptura en crecimiento, y quedan muy apretados; es lo mismo que se ha descrito en la falla de San Andrés. La barrera de este caso habría actuado así: <b>impidió que el primer sismo siguiera de largo en una sola ruptura gigante y obligó a que la Tierra rompiera en dos</b>. Por eso no hubo un terremoto enorme, sino dos.</p>
+
+      <div class="aside o" style="margin-top:20px">
+        <span class="tag">ESTADO</span>
+        <div>
+          <h4>Cálculo exploratorio, no resultado de los artículos</h4>
+          <p>Esta sección resume un cálculo <b>exploratorio</b> que <b>no está integrado a ningún manuscrito</b> y está pendiente de discusión con los coautores. Se incluye porque la pregunta que responde —por qué dos y no uno— es la primera que se hace cualquier lector, y porque el resultado apunta en la misma dirección que el resto. No debe citarse como conclusión establecida.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:20px">El relato completo, con la comparación entre las dos maneras de calcularlo —la que ignora la superficie de la Tierra y la que no— y con las analogías desarrolladas, está en <a href="https://tecnologiacumanesa.blogspot.com/2026/09/el-mapa-invisible-que-dejan-los.html" target="_blank" rel="noopener">El mapa invisible que dejan los terremotos</a>, escrito para leerse sin ser físico.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">10</span><h2>El aparato estadístico</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Un resultado sismológico no se sostiene por la figura que produce, sino por lo que se hizo para <b>intentar tumbarlo</b>. Esta sección reúne las herramientas con las que se pone a prueba cada afirmación de esta página, en el orden en que se aplican.</p>
+
+    <div class="bloque">
+      <h3 class="sub-h">El pre-registro: escribir el criterio antes de mirar</h3>
+      <p>Antes de ejecutar <b>ninguna</b> inversión se escribió un documento, <span class="mono">PRE_REGISTRO.md</span>, y se selló con su huella <span class="mono">SHA-256</span> en la bitácora. Una huella así es una firma digital del contenido: cambiar una coma del documento cambia la huella por completo, de modo que <b>no se puede reescribir a posteriori sin que se note</b>. La huella quedó anotada con fecha: <span class="mono">b995dfe1…7ca4f</span>.</p>
+      <p>Ese documento fija cinco cosas: el <b>estadístico de decisión</b>, la <b>ventana</b> de 20–32 s sobre la que se mide, el <b>umbral</b> <span class="mono">S ≥ 2</span> para declarar que la prueba discrimina, el <b>número de realizaciones</b> de ruido, y el compromiso explícito de <b>publicar el resultado sea cual sea</b>.</p>
+      <div class="aside" style="margin-top:16px">
+        <span class="tag">POR QUÉ</span>
+        <div>
+          <h4>Cierra la puerta a la trampa más común</h4>
+          <p>La trampa no suele ser inventar datos: es <b>elegir el criterio después de ver el resultado</b>, y quedarse con el que sale bien. Si el umbral está escrito y sellado de antemano, esa salida no existe. Las tres desviaciones que hubo respecto al plan están declaradas como tales, con fecha y motivo.</p>
+        </div>
+      </div>
+
+      <h3 class="sub-h">Las cuatro herramientas</h3>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big txt">Bootstrap</div><h3>¿cuánto se movería si repitiera el experimento?</h3><p>Se vuelve a invertir muchas veces, cada vez con un <b>remuestreo</b> de las estaciones —unas entran dos veces, otras ninguna—. La dispersión de los resultados mide la incertidumbre <b>interna</b>. Con 30 remuestras: <span class="mono">f = 0,0044 ± 0,0040</span>, frente al <span class="mono">0,0036</span> observado.</p></div>
+        <div class="box b"><div class="big txt">Jackknife</div><h3>¿depende de una sola estación?</h3><p>Se repite el cálculo <b>quitando una estación cada vez</b>. Si el resultado se apoyara en un solo registro, al retirarlo se desmoronaría. En la retroproyección: <span class="mono">θ̂ = 149 km</span>, dispersión robusta ≈ 8 km, rango intercuartílico <span class="mono">[144, 153]</span>. Las exclusiones llegan a moverlo entre 95 y 242 km, pero <b>nunca vuelve al primer epicentro</b>, que es el punto.</p></div>
+        <div class="box o"><div class="big txt">Controles<br>sintéticos</div><h3>¿sabría reconocer lo contrario?</h3><p>Se fabrican datos falsos con la respuesta <b>conocida</b> —uno con dos rupturas, otro con un frente continuo— y se les aplica el mismo operador. Si el método no distingue escenarios que <i>sabemos</i> distintos, no sirve para el dato real. Los sintéticos se calibran para que se ajusten <b>tan mal como el registro</b>, no mejor.</p></div>
+        <div class="box o"><div class="big txt">Hipótesis<br>nula</div><h3>¿y si no hubiera nada?</h3><p>Un <b>control nulo</b> es el mismo análisis aplicado a datos donde, por construcción, <b>no hay</b> lo que se busca. Si aun así aparece, lo que se ha encontrado es un artefacto del método. Aquí se probaron varios, incluido uno con la forma del propio modelo de falla finita del USGS.</p></div>
+      </div>
+
+      <h3 class="sub-h">Cómo se enuncia el resultado</h3>
+      <p>Con esas piezas, la afirmación central no se enuncia como «la figura muestra un hueco», sino como un <b>test de conteo</b>: de las 20 realizaciones del escenario de frente continuo, <b>ninguna</b> reproduce lo observado — <span class="mono">0/20</span>, <span class="mono">p ≤ 0,048</span> — y la separación entre escenarios da <span class="mono">S = 2,62</span> sobre el umbral pre-registrado de 2. Ese enunciado sobrevive, además, a las <b>tres convenciones</b> distintas de tiempo de origen que se probaron.</p>
+      <p>El hueco de réplicas se somete a lo mismo y con el mismo cuidado: los tramos que rompieron se activaron a <b>×230</b> y <b>×352</b> de su propio fondo de sismicidad, y el tramo intermedio solo a <b>×6</b>. Pero eso obliga a decir también lo contrario, y la página lo dice: <b>×6 sobre el fondo no es silencio</b>. Algo ocurrió ahí; lo que no ocurrió es una ruptura.</p>
+
+      <div class="aside g" style="margin-top:20px">
+        <span class="tag">EN CRISTIANO</span>
+        <div>
+          <h4>De qué sirve todo esto</h4>
+          <p>De que el resultado <b>no dependa de quien lo mira</b>. Se escribe primero qué haría falta para declararlo falso, se sella esa promesa con una firma que no se puede falsificar, se le quitan estaciones al cálculo a ver si aguanta, se le dan datos inventados a ver si distingue lo que debe, y se le dan datos vacíos a ver si inventa. Solo lo que sobrevive a todo eso se cuenta. <b>El resto se descarta y también se cuenta</b> — porque un método que solo publica sus aciertos no es un método.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">11</span><h2>Verificación y controles</h2><span class="rule"></span></div>
     <div class="badges">
       <div class="badge"><span class="dot">✓</span><div><h4>Reproducción exacta del ensamblaje</h4><p>El operador reconstruido devuelve el mismo resultado, con <span class="mono">|m − m_l| = 0</span> y <span class="mono">VR = 21,15 %</span>.</p></div></div>
       <div class="badge"><span class="dot">3</span><div><h4>Robustez en tres ejes independientes</h4><p>La ruptura en dos acumulaciones con hueco se mantiene al variar la <b>malla</b>, la <b>longitud de ventana</b> y la <b>profundidad</b>.</p></div></div>
@@ -669,7 +746,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">10</span><h2>La guía de ondas cortical</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">12</span><h2>La guía de ondas cortical</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Hay una objeción que se hace sola al leer los resultados anteriores. Si la radiación de alta frecuencia del M 7,2 <b>no se aleja más de ~35 km</b> de su epicentro, ¿cómo alimenta el pulso que llega con fuerza al litoral, a <b>~180 km</b>? Parte de la respuesta es de <b>fuente</b> —la directividad—; la otra parte es de <b>propagación</b>, y es de la que trata esta sección.</p>
 
     <div class="bloque">
@@ -680,9 +757,9 @@
       <p>Una onda de cuerpo en un medio infinito reparte su energía sobre una <b>esfera</b> que crece, de área <span class="mono">4πR²</span>; la amplitud cae como <span class="mono">1/R</span>. Pero el pulso del M 7,2 tiene un período largo, <span class="mono">T<sub>p</sub> ≈ 6,5 s</span>, y por tanto una longitud de onda <span class="mono">λ = β·T<sub>p</sub> ≈ 22 km</span>, <b>comparable al espesor de la corteza</b>. En ese régimen la onda queda <b>atrapada</b> entre la superficie libre y el Moho: no puede crecer hacia arriba ni hacia abajo, solo hacia los lados. El frente deja de ser una esfera y pasa a ser un <b>cilindro de altura fija</b>, de área <span class="mono">2πR·H</span>. Como <span class="mono">H</span> está congelada por la guía, el área crece solo con <span class="mono">R</span>, y la amplitud cae como <span class="mono">1/√R</span>.</p>
 
       <figure class="figplate" style="margin-top:20px">
-        <img src="assets/lamina_dispersion_directividad.png" width="2450" height="1085" loading="lazy"
+        <img src="assets/lamina_dispersion_directividad_web.png" width="1500" height="664" loading="lazy"
              alt="Tres paneles: el cilindro de la onda guiada con la energía concentrada al este, el esquema de directividad visto en planta, y la comparación de la caída de amplitud 1/R frente a 1 sobre raíz de R.">
-        <figcaption><b>Supervivencia y puntería.</b> <b>(a)</b> La onda atrapada en la corteza: el frente es un cilindro de altura fija <span class="mono">H</span>, y sobre él la ruptura concentra la energía hacia el este. <b>(b)</b> La directividad vista en planta: al frente el pulso llega <b>corto e intenso</b>, atrás <b>largo y débil</b>, con la misma energía repartida de otro modo. <b>(c)</b> Lo que está en juego con la distancia: a 180 km la onda guiada conserva del orden de <b>tres veces</b> la amplitud que tendría una onda de cuerpo. Son dos efectos <b>distintos</b> —uno de medio, otro de fuente— y conviene no confundirlos.</figcaption>
+        <figcaption><b>Supervivencia y puntería.</b> <b>(a)</b> La onda atrapada en la corteza: el frente es un cilindro de altura fija <span class="mono">H</span>, y sobre él la ruptura concentra la energía hacia el este. <b>(b)</b> La directividad vista en planta: al frente el pulso llega <b>corto e intenso</b>, atrás <b>largo y débil</b>, con la misma energía repartida de otro modo. <b>(c)</b> Lo que está en juego con la distancia: a 180 km la onda guiada conserva del orden de <b>tres veces</b> la amplitud que tendría una onda de cuerpo. Son dos efectos <b>distintos</b> —uno de medio, otro de fuente— y conviene no confundirlos.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/lamina_dispersion_directividad.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
       <h3 class="sub-h">Tres cálculos sobre el modelo cortical local</h3>
@@ -694,9 +771,9 @@
       </div>
 
       <figure class="figplate" style="margin-top:20px">
-        <img src="assets/fig_guia_ondas.png" width="2674" height="750" loading="lazy"
+        <img src="assets/fig_guia_ondas_web.png" width="1500" height="421" loading="lazy"
              alt="Tres paneles: curvas de dispersión de fase y grupo del modo Love, la sección de propagación 2-D SH con el pulso atrapado en la corteza, y el mapa en planta de la amplitud pico.">
-        <figcaption><b>Los tres cálculos, en orden.</b> <b>(a)</b> Dispersión del modo Love fundamental: a <span class="mono">T = 6,5 s</span> la velocidad de grupo es de 3,3 km/s, la misma que se mide en Cajigal. <b>(b)</b> La sección E–O a los 45 s de propagación: el pulso viaja confinado entre la superficie y el Moho y llega a La Guaira sin deshacerse. <b>(c)</b> La amplitud pico en planta: el haz que apunta al este aparece <b>solo cuando la fuente se mueve</b>, no cuando se varía el espesor cortical.</figcaption>
+        <figcaption><b>Los tres cálculos, en orden.</b> <b>(a)</b> Dispersión del modo Love fundamental: a <span class="mono">T = 6,5 s</span> la velocidad de grupo es de 3,3 km/s, la misma que se mide en Cajigal. <b>(b)</b> La sección E–O a los 45 s de propagación: el pulso viaja confinado entre la superficie y el Moho y llega a La Guaira sin deshacerse. <b>(c)</b> La amplitud pico en planta: el haz que apunta al este aparece <b>solo cuando la fuente se mueve</b>, no cuando se varía el espesor cortical.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/fig_guia_ondas.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
       <h3 class="sub-h">Una hipótesis que la propia prueba descarta</h3>
@@ -715,7 +792,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">11</span><h2>La física, interactiva</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">13</span><h2>La física, interactiva</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y de gran amplitud que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
     <p class="note" style="margin:0 0 16px; border-left:3px solid var(--orange); padding-left:14px">
       <b>Es un ejemplo de muestra, no un resultado.</b> El modelo es una <b>fuente lineal cinemática</b>: la falla se
@@ -723,16 +800,16 @@
       cada receptor se suma lo que llega de todas. La directividad aparece sola, porque no es más que <b>efecto Doppler</b>
       aplicado a una fuente que se desplaza. Las amplitudes van en <b>unidades relativas</b>, y no intervienen registros
       reales, funciones de Green ni el resultado de la inversión: sirve para ver a mano el mecanismo que las secciones
-      04–06 miden con los datos. Las cifras del caso real están en el §09.
+      04–06 miden con los datos. Las cifras del caso real están en el §11.
     </p>
     <div class="simframe">
       <iframe id="simframe" src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
     </div>
-    <figcaption>Simulación interactiva (SVG, sin dependencias): <b>adelante</b> la S es un pulso corto y de gran amplitud (PGA máximo); <b>atrás</b>, un tren largo y débil —la misma energía repartida distinto—; con β &gt; 1 aparece el <i>supershear</i>. Las flechas rojas marcan la polarización N–S de la S. También disponible como <a href="assets/lamina_directividad.png">lámina estática</a>.</figcaption>
+    <figcaption>Simulación interactiva (SVG, sin dependencias): <b>adelante</b> la S es un pulso corto y de gran amplitud (PGA máximo); <b>atrás</b>, un tren largo y débil —la misma energía repartida distinto—; con β &gt; 1 aparece el <i>supershear</i>. Las flechas rojas marcan la polarización N–S de la S. También disponible como <a href="assets/lamina_directividad_web.png">lámina estática</a>.</figcaption>
   </section>
 
   <section>
-    <div class="sh"><span class="n">12</span><h2>Cómputo, código y reproducibilidad</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">14</span><h2>Cómputo, código y reproducibilidad</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Esta página expone el <b>método y el resultado</b>. Todo lo relativo a la <b>ejecución</b> —el equipo empleado, los tiempos medidos de cada etapa, la paralelización de la inversión y su comprobación con CUDA en un servidor con GPU, y las pruebas de regresión frente al código original— se documenta aparte, para no mezclar el rendimiento del cálculo con el contenido sismológico.</p>
     <div class="grid2">
       <div class="box"><div class="big txt">Aira_geofisica</div><h3>repositorio de cómputo</h3><p>Hardware comparado (estación de trabajo frente a servidor con dos RTX 3060), tiempos medidos por etapa, paralelización de la Fase B y la validación numérica contra el código original. <b>De acceso restringido mientras los artículos están en preparación.</b><span class="ref">github.com/rommeljose/Aira_geofisica</span></p></div>
@@ -743,7 +820,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">13</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">15</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
     <div class="bloque">
       <p class="note" style="margin:0">Alrededor de este análisis hay una familia de páginas y servicios <b>de creación propia</b> —visores, mapas, réplicas del catálogo y servicios de datos— que sostienen la parte práctica del trabajo. Varias se citan en su sitio a lo largo de esta página; aquí van todas juntas, con lo que aporta cada una. El índice completo, incluidas las que no tratan de sismología, está en la entrada <a href="https://tecnologiacumanesa.blogspot.com/2000/09/mis-paginas-web-publicas.html" target="_blank" rel="noopener">«Mis páginas web públicas»</a> del blog <i>Tecnología Cumanesa</i>.</p>
     </div>
@@ -780,7 +857,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">14</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">16</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Ninguno de los dos artículos trata de normativa, y esta página tampoco. Pero conviene decir hacia dónde apunta el conjunto —el de muchos, no solo el de este trabajo—: que el <b>próximo</b> terremoto encuentre el litoral mejor construido. Y la vía por la que un resultado sismológico llega a cambiar algo en la calle es la <b>norma</b>.</p>
 
     <div class="bloque">
@@ -829,7 +906,7 @@
 
     <h4>Cómo citar</h4>
     <p class="cita">Contreras, R. (2026). <i>Análisis del terremoto de La Guaira en bytes, y su complejidad físico-matemática</i>. Academia de Geohistoria del Estado Sucre (AGHES). <span class="mono">https://bytes.sigeos.org/</span></p>
-    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 13 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
+    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 15 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
   </div>
 
   <div class="footer">
