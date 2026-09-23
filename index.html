@@ -247,6 +247,8 @@
   .figplate.modesta figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line);
     background:var(--panel); max-width:none; line-height:1.58}
   .figplate img{display:block; width:100%; height:auto}
+.box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
+.box ol.pasos li{margin:0 0 5px}
   figcaption{color:var(--muted); font-size:.86rem; margin:12px 2px 0; max-width:none; line-height:1.58}
   figcaption b{color:var(--ink); font-weight:600}
   figure{margin:0}
@@ -809,7 +811,49 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">14</span><h2>Cómputo, código y reproducibilidad</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">14</span><h2>Las dos cadenas de cálculo</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Las secciones 04 a 06 explican <b>qué</b> mide cada método. Esta muestra <b>cómo se ejecuta</b>: los dos encadenamientos de algoritmos —el de la retroproyección y el de la inversión— desde los registros hasta la respuesta, paso por paso, con los puntos donde el cálculo se repartió entre procesos o se llevó a la GPU y, al final, la comprobación de que la versión acelerada devuelve <b>la misma respuesta</b> que la original. Es el mapa; cada paso tendrá después su propia entrada.</p>
+
+    <figure class="figplate modesta">
+      <img src="assets/cadena_algoritmos.svg" width="760" height="740" loading="lazy"
+           alt="Diagrama de dos columnas: los seis pasos de la retroproyección y los seis de la inversión de la tasa de momento, con etiquetas en los pasos paralelizados y un bloque inferior de verificación.">
+      <figcaption><b>Dos columnas, un mismo formato.</b> A la izquierda, la retroproyección: de los registros de la onda P de 24 estaciones a la imagen E(lat, lon, t) de la energía radiada, en seis pasos. A la derecha, la inversión de la tasa de momento: de las formas de onda de banda ancha al operador G, al sistema regularizado con m ≥ 0 y al estadístico de decisión, también en seis. Las etiquetas de color marcan dónde se repartió el cálculo —procesos en paralelo, NumPy vectorizado, cuSPARSE en la GPU— y la flecha que vuelve del paso 5 al 4 es la bisección en λ, que resuelve el sistema ocho veces por cada realización de ruido. El bloque inferior es la verificación: contra el código original importado sin modificar, contra el método independiente de Kikuchi y Kanamori (1991) y sobre la conclusión, que no cambia. Las dimensiones de la columna derecha son las de la <b>prueba de recuperación sintética</b> con que se calibró el método —35 estaciones, ventana de 160 s, 14 000 filas, y una separación S = 226,7 entre los dos escenarios—; sobre el dato real del §06 son 32 estaciones y 7 200 filas, con el mismo operador, y el S = 2,62 del §10 es otro estadístico, el del dato real.<span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/cadena_algoritmos.svg">Ver el diagrama a tamaño completo →</a></span></figcaption>
+    </figure>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="box"><h3>Retroproyección · seis pasos</h3>
+        <ol class="pasos">
+          <li>Registros de la onda P telesísmica: 24 estaciones, filtro 0,5–1,5 Hz, 10 muestras/s.</li>
+          <li>Alineamiento por correlación cruzada: cinco iteraciones contra el apilado, control cc ≥ 0,6.</li>
+          <li>Tiempos de viaje: tabla TauP (P, Pdiff) para una malla de 61 × 91 nodos.</li>
+          <li>Apilado de raíz cuarta: desplazar, interpolar y sumar en 61 × 91 × 951 celdas.</li>
+          <li>Energía en ventana deslizante de ±2,5 s: la imagen E(lat, lon, t).</li>
+          <li>Resolución con fuentes sintéticas: la función de dispersión puntual del arreglo.</li>
+        </ol>
+      </div>
+      <div class="box b"><h3>Inversión · seis pasos</h3>
+        <ol class="pasos">
+          <li>Formas de onda de banda ancha, 0,02–0,5 Hz, Δt = 0,4 s.</li>
+          <li>La matriz G: 27 nodos × 81 instantes; TauP, patrón de radiación P y triángulo de 2 s.</li>
+          <li>El sistema regularizado con m ≥ 0: laplaciano en (ξ, t), adimensionalizado.</li>
+          <li>lsq_linear (TRF) sobre LSMR: el núcleo son los productos dispersos A·x y Aᵀ·y.</li>
+          <li>λ por principio de discrepancia: bisección en log₁₀ λ, ocho resoluciones por realización.</li>
+          <li>Dos escenarios × 20 realizaciones: 320 resoluciones y el estadístico de decisión.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="aside" style="margin-top:20px">
+      <span class="tag">EN CONSTRUCCIÓN</span>
+      <div>
+        <h4>Cada paso, en su momento</h4>
+        <p>Esta entrada fija el índice. Cada uno de los doce pasos se irá desarrollando en su propia nota —qué entra, qué sale, qué decisión se tomó y por qué—, en el orden del diagrama. Lo relativo a la ejecución (equipos, tiempos, pruebas de regresión) sigue en el repositorio de cómputo de la sección 15.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><span class="n">15</span><h2>Cómputo, código y reproducibilidad</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Esta página expone el <b>método y el resultado</b>. Todo lo relativo a la <b>ejecución</b> —el equipo empleado, los tiempos medidos de cada etapa, la paralelización de la inversión y su comprobación con CUDA en un servidor con GPU, y las pruebas de regresión frente al código original— se documenta aparte, para no mezclar el rendimiento del cálculo con el contenido sismológico.</p>
     <div class="grid2">
       <div class="box"><div class="big txt">Aira_geofisica</div><h3>repositorio de cómputo</h3><p>Hardware comparado (estación de trabajo frente a servidor con dos RTX 3060), tiempos medidos por etapa, paralelización de la Fase B y la validación numérica contra el código original. <b>De acceso restringido mientras los artículos están en preparación.</b><span class="ref">github.com/rommeljose/Aira_geofisica</span></p></div>
@@ -820,7 +864,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">15</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">16</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
     <div class="bloque">
       <p class="note" style="margin:0">Alrededor de este análisis hay una familia de páginas y servicios <b>de creación propia</b> —visores, mapas, réplicas del catálogo y servicios de datos— que sostienen la parte práctica del trabajo. Varias se citan en su sitio a lo largo de esta página; aquí van todas juntas, con lo que aporta cada una. El índice completo, incluidas las que no tratan de sismología, está en la entrada <a href="https://tecnologiacumanesa.blogspot.com/2000/09/mis-paginas-web-publicas.html" target="_blank" rel="noopener">«Mis páginas web públicas»</a> del blog <i>Tecnología Cumanesa</i>.</p>
     </div>
@@ -857,7 +901,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">16</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">17</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Ninguno de los dos artículos trata de normativa, y esta página tampoco. Pero conviene decir hacia dónde apunta el conjunto —el de muchos, no solo el de este trabajo—: que el <b>próximo</b> terremoto encuentre el litoral mejor construido. Y la vía por la que un resultado sismológico llega a cambiar algo en la calle es la <b>norma</b>.</p>
 
     <div class="bloque">
@@ -906,7 +950,7 @@
 
     <h4>Cómo citar</h4>
     <p class="cita">Contreras, R. (2026). <i>Análisis del terremoto de La Guaira en bytes, y su complejidad físico-matemática</i>. Academia de Geohistoria del Estado Sucre (AGHES). <span class="mono">https://bytes.sigeos.org/</span></p>
-    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 15 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
+    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 16 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
   </div>
 
   <div class="footer">

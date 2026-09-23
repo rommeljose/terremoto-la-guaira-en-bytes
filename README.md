@@ -29,6 +29,7 @@ metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundid
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
 metodo/relocalizacion.html       · 08 · hypoDD, con el visor 3-D de réplicas embebido
 sim/                             · 13 · simulación interactiva (directividad y balance energético)
+assets/cadena_algoritmos.svg     · 14 · las dos cadenas de cálculo (diagrama traído de Aira_geofisica)
 assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
                                    tarjeta social og_card.png, mapa de estaciones y las cuatro
                                    figuras de §07 y §10 (ver «Las figuras traídas de otros repos»)
@@ -86,9 +87,10 @@ volver a copiarlas a mano.
 | `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
 | `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §10 · esfera frente a cilindro, y directividad |
 | `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §10 · los tres cálculos de la propagación guiada |
-| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §16 · espesores de Caraballeda y el límite de la gravimetría |
+| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §17 · espesores de Caraballeda y el límite de la gravimetría |
 | `fig_dcfs_mapa.png` | `coulomb_dCFS/figuras/dcfs_mapa_okada.png` | §09 · el mapa de ΔCFS del primer evento |
 | `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
+| `cadena_algoritmos.svg` | `Aira_geofisica`, `figuras/cadena_algoritmos.svg` (el mismo de la propuesta del artículo computacional) | §14 · las dos cadenas de cálculo, retroproyección e inversión, con la verificación |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
 artículo 1 y puente con el 2—, y la sección lo dice de forma explícita. La hipótesis de guía

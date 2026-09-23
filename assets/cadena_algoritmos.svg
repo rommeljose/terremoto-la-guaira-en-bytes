@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 740" width="760" height="740" font-family="DejaVu Sans, Arial, sans-serif">
+  <defs>
+    <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6675"/>
+    </marker>
+    <style>
+      .tit { font-size: 12.5px; font-weight: bold; fill: #16202b; }
+      .det { font-size: 10.8px; fill: #3a4552; }
+      .cab { font-size: 14px; font-weight: bold; fill: #ffffff; }
+      .sub { font-size: 10.8px; fill: #ffffff; font-style: italic; }
+      .bdg { font-size: 10px; font-weight: bold; fill: #ffffff; }
+      .ver { font-size: 10.6px; fill: #16202b; }
+      .vtit { font-size: 12.5px; font-weight: bold; fill: #16202b; }
+    </style>
+  </defs>
+
+  <!-- ===================== RETROPROYECCION ===================== -->
+  <rect x="20" y="10" width="350" height="48" rx="7" fill="#1b7f79"/>
+  <text x="195" y="31" text-anchor="middle" class="cab">Retroproyección (back-projection)</text>
+  <text x="195" y="49" text-anchor="middle" class="sub">¿dónde y cuándo se liberó la energía?</text>
+
+  <g>
+    <rect x="20" y="78" width="350" height="64" rx="6" fill="#eef7f6" stroke="#1b7f79" stroke-width="1.3"/>
+    <text x="32" y="98" class="tit">1 · Registros de la onda P telesísmica</text>
+    <text x="32" y="116" class="det">24 estaciones (Norteamérica 18, Europa 6)</text>
+    <text x="32" y="132" class="det">filtro 0,5–1,5 Hz · 10 muestras/s</text>
+
+    <rect x="20" y="164" width="350" height="64" rx="6" fill="#eef7f6" stroke="#1b7f79" stroke-width="1.3"/>
+    <text x="32" y="184" class="tit">2 · Alineamiento por correlación cruzada</text>
+    <text x="32" y="202" class="det">5 iteraciones contra el apilado → correcciones</text>
+    <text x="32" y="218" class="det">empíricas por estación · control de calidad cc ≥ 0,6</text>
+
+    <rect x="20" y="250" width="350" height="64" rx="6" fill="#eef7f6" stroke="#1b7f79" stroke-width="1.3"/>
+    <text x="32" y="270" class="tit">3 · Tiempos de viaje</text>
+    <text x="32" y="288" class="det">tabla TauP (P, Pdiff) · distancia nodo–estación</text>
+    <text x="32" y="304" class="det">en una malla de 61 × 91 nodos (lat × lon)</text>
+    <rect x="228" y="257" width="134" height="18" rx="9" fill="#6b4fa0"/>
+    <text x="295" y="270" text-anchor="middle" class="bdg">procesos en paralelo</text>
+
+    <rect x="20" y="336" width="350" height="64" rx="6" fill="#eef7f6" stroke="#1b7f79" stroke-width="1.3"/>
+    <text x="32" y="356" class="tit">4 · Apilado de raíz cuarta</text>
+    <text x="32" y="374" class="det">por nodo e instante: desplazar, interpolar y sumar</text>
+    <text x="32" y="390" class="det">61 × 91 × 951 celdas (lat × lon × tiempo)</text>
+    <rect x="244" y="343" width="118" height="18" rx="9" fill="#b85c00"/>
+    <text x="303" y="356" text-anchor="middle" class="bdg">NumPy vectorizado</text>
+
+    <rect x="20" y="422" width="350" height="64" rx="6" fill="#eef7f6" stroke="#1b7f79" stroke-width="1.3"/>
+    <text x="32" y="442" class="tit">5 · Energía en ventana deslizante</text>
+    <text x="32" y="460" class="det">± 2,5 s → imagen E(lat, lon, t)</text>
+    <text x="32" y="476" class="det">de la liberación de energía durante la ruptura</text>
+
+    <rect x="20" y="508" width="350" height="64" rx="6" fill="#eef7f6" stroke="#1b7f79" stroke-width="1.3"/>
+    <text x="32" y="528" class="tit">6 · Resolución con fuentes sintéticas</text>
+    <text x="32" y="546" class="det">pulsos de Ricker en posiciones conocidas</text>
+    <text x="32" y="562" class="det">(función de dispersión puntual del arreglo)</text>
+  </g>
+  <g stroke="#5b6675" stroke-width="1.5" marker-end="url(#fl)">
+    <line x1="195" y1="58" x2="195" y2="76"/>
+    <line x1="195" y1="142" x2="195" y2="162"/>
+    <line x1="195" y1="228" x2="195" y2="248"/>
+    <line x1="195" y1="314" x2="195" y2="334"/>
+    <line x1="195" y1="400" x2="195" y2="420"/>
+    <line x1="195" y1="486" x2="195" y2="506"/>
+  </g>
+
+  <!-- ===================== INVERSION ===================== -->
+  <rect x="390" y="10" width="350" height="48" rx="7" fill="#2a5d8f"/>
+  <text x="565" y="31" text-anchor="middle" class="cab">Inversión de la tasa de momento</text>
+  <text x="565" y="49" text-anchor="middle" class="sub">¿cómo se distribuyó el deslizamiento en ξ y t?</text>
+
+  <g>
+    <rect x="390" y="78" width="350" height="64" rx="6" fill="#eef3f9" stroke="#2a5d8f" stroke-width="1.3"/>
+    <text x="402" y="98" class="tit">1 · Formas de onda de banda ancha</text>
+    <text x="402" y="116" class="det">35 estaciones · 0,02–0,5 Hz · Δt = 0,4 s</text>
+    <text x="402" y="132" class="det">ventana de −20 a 140 s en torno a la P</text>
+
+    <rect x="390" y="164" width="350" height="64" rx="6" fill="#eef3f9" stroke="#2a5d8f" stroke-width="1.3"/>
+    <text x="402" y="184" class="tit">2 · Matriz G (14 000 × 2 187)</text>
+    <text x="402" y="202" class="det">27 nodos del eje ξ × 81 instantes de radiación</text>
+    <text x="402" y="218" class="det">TauP + patrón de radiación P + triángulo de 2 s</text>
+
+    <rect x="390" y="250" width="350" height="64" rx="6" fill="#eef3f9" stroke="#2a5d8f" stroke-width="1.3"/>
+    <text x="402" y="270" class="tit">3 · Sistema regularizado, m ≥ 0</text>
+    <text x="402" y="288" class="det">min ‖W(Gm − d)‖² + λ² ‖Lm‖²</text>
+    <text x="402" y="304" class="det">L: laplaciano en (ξ, t) · sistema adimensionalizado</text>
+
+    <rect x="390" y="336" width="350" height="64" rx="6" fill="#eef3f9" stroke="#2a5d8f" stroke-width="2.2"/>
+    <text x="402" y="356" class="tit">4 · lsq_linear (TRF) + LSMR</text>
+    <text x="402" y="374" class="det">núcleo: productos dispersos A·x y Aᵀ·y</text>
+    <text x="402" y="390" class="det">A = [G ; λL], de 18 158 × 2 187</text>
+    <rect x="626" y="343" width="106" height="18" rx="9" fill="#4d7c0f"/>
+    <text x="679" y="356" text-anchor="middle" class="bdg">GPU · cuSPARSE</text>
+
+    <rect x="390" y="422" width="350" height="64" rx="6" fill="#eef3f9" stroke="#2a5d8f" stroke-width="1.3"/>
+    <text x="402" y="442" class="tit">5 · λ por principio de discrepancia</text>
+    <text x="402" y="460" class="det">bisección en log₁₀ λ: 8 resoluciones del paso 4</text>
+    <text x="402" y="476" class="det">por cada realización de ruido</text>
+
+    <rect x="390" y="508" width="350" height="64" rx="6" fill="#eef3f9" stroke="#2a5d8f" stroke-width="1.3"/>
+    <text x="402" y="528" class="tit">6 · 2 escenarios × 20 realizaciones</text>
+    <text x="402" y="546" class="det">40 realizaciones → 320 resoluciones</text>
+    <text x="402" y="562" class="det">→ estadístico S y conclusión científica</text>
+    <rect x="662" y="515" width="70" height="18" rx="9" fill="#6b4fa0"/>
+    <text x="697" y="528" text-anchor="middle" class="bdg">4 procesos</text>
+  </g>
+  <g stroke="#5b6675" stroke-width="1.5" marker-end="url(#fl)">
+    <line x1="565" y1="58" x2="565" y2="76"/>
+    <line x1="565" y1="142" x2="565" y2="162"/>
+    <line x1="565" y1="228" x2="565" y2="248"/>
+    <line x1="565" y1="314" x2="565" y2="334"/>
+    <line x1="565" y1="400" x2="565" y2="420"/>
+    <line x1="565" y1="486" x2="565" y2="506"/>
+  </g>
+  <!-- bucle: la biseccion repite el paso 4 -->
+  <path d="M740,454 C762,454 762,368 742,368" fill="none" stroke="#5b6675" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#fl)"/>
+
+  <!-- ===================== VERIFICACION ===================== -->
+  <g stroke="#5b6675" stroke-width="1.5" marker-end="url(#fl)">
+    <line x1="195" y1="572" x2="195" y2="598"/>
+    <line x1="565" y1="572" x2="565" y2="598"/>
+  </g>
+  <rect x="20" y="600" width="720" height="130" rx="7" fill="#f6f4ee" stroke="#8a7a4f" stroke-width="1.5"/>
+  <text x="380" y="622" text-anchor="middle" class="vtit">Verificación: el código acelerado debe dar la misma respuesta</text>
+  <line x1="260" y1="634" x2="260" y2="720" stroke="#cfc6ad"/>
+  <line x1="500" y1="634" x2="500" y2="720" stroke="#cfc6ad"/>
+
+  <text x="32" y="648" class="vtit" style="font-size:11.5px">Contra el código original</text>
+  <text x="32" y="666" class="ver">importado sin modificar</text>
+  <text x="32" y="684" class="ver">retroproyección: 0,0 (bit a bit)</text>
+  <text x="32" y="702" class="ver">inversión: λ idénticos,</text>
+  <text x="32" y="718" class="ver">‖Δm‖/‖m‖ ≤ 1,5 × 10⁻⁶</text>
+
+  <text x="272" y="648" class="vtit" style="font-size:11.5px">Kikuchi &amp; Kanamori (1991)</text>
+  <text x="272" y="666" class="ver">inversión independiente de</text>
+  <text x="272" y="684" class="ver">subeventos, en Fortran,</text>
+  <text x="272" y="702" class="ver">compilada con LAPACK y</text>
+  <text x="272" y="718" class="ver">verificada con Denali 2002</text>
+
+  <text x="512" y="648" class="vtit" style="font-size:11.5px">Conclusión invariante</text>
+  <text x="512" y="666" class="ver">S = 226,7172 (CPU original)</text>
+  <text x="512" y="684" class="ver">S = 226,7173 (GPU)</text>
+  <text x="512" y="702" class="ver">la decisión científica</text>
+  <text x="512" y="718" class="ver">no cambia</text>
+</svg>
