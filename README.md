@@ -98,7 +98,8 @@ volver a copiarlas a mano.
 | `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
 | `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §12 · esfera frente a cilindro, y directividad |
 | `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §12 · los tres cálculos de la propagación guiada |
-| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §16 · espesores de Caraballeda y el límite de la gravimetría |
+| `lamina_redes_propuestas.png` | `Norma_Emergencia/trabajo/03_salidas/lamina_redes_paper3.png` (guion `02_scripts/lamina_redes_paper3.py`) | §16 · las redes de medición propuestas: ReMi, H/V, gravimetría y sondeos; a qué se aspira, investigar in situ |
+| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | antes en §16 (espesores de Caraballeda); sustituida el 24-sep-2026 por la lámina de redes, se conserva el archivo |
 | `fig_dcfs_mapa.png` | `coulomb_dCFS/figuras/dcfs_mapa_okada.png` | §09 · el mapa de ΔCFS del primer evento |
 | `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
 | `cadena_algoritmos.svg` | `Aira_geofisica`, `figuras/cadena_algoritmos.svg` (el mismo de la propuesta del artículo computacional) | `metodo/cadenas.html` · las dos cadenas de cálculo, retroproyección e inversión, con la verificación |
