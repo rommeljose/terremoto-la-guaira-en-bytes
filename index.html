@@ -248,6 +248,7 @@
     background:var(--panel); max-width:none; line-height:1.58}
   .figplate img{display:block; width:100%; height:auto}
 .figplate.mini{max-width:560px; margin:16px auto 0}
+  .figplate.mini.oscura{background:#0f1826; border-color:#26313f}
   .figplate.mini figcaption{margin:0; padding:11px 15px 13px; border-top:1px solid var(--line);
     background:var(--panel); max-width:none; line-height:1.55; font-size:.83rem}
 .box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
@@ -573,10 +574,10 @@
   <section>
     <div class="sh"><span class="n">09</span><h2>Transferencia de esfuerzo · ΔCFS</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Queda una pregunta que las secciones anteriores no responden: <b>¿por qué hubo un segundo?</b> Cuando una falla rompe no descarga la tensión por igual en todas partes — deja unos tramos <b>más cargados</b> y otros <b>relajados</b>. El mapa de ese reparto se llama <b>ΔCFS</b>, cambio en el esfuerzo de Coulomb. Se calculó de dos maneras —con la función de Green de Kelvin, que ignora la superficie de la Tierra, y con las soluciones de Okada, que la incluyen— y las dos dicen lo mismo: el pétalo cargado que deja el M 7,2 apunta hacia donde rompió el M 7,5, y el tramo intermedio quedó <b>en sombra</b>, apretado por sus dos vecinos. El cálculo es nuestro; del USGS entran los dos epicentros y el modelo de falla finita del segundo sismo.</p>
-    <figure class="figplate mini">
-      <img src="assets/fig_dcfs_mapa_web.png" width="1500" height="982" loading="lazy"
-           alt="Mapa del cambio de esfuerzo de Coulomb dejado por el primer terremoto, con lóbulos rojos a lo largo de la falla y azules a los lados, y las dos estrellas de los epicentros.">
-      <figcaption><b>El empujón que dejó el primero</b> (Okada, con superficie libre). Rojo acerca a romper, azul aleja; el pétalo rojo hacia el este llega justo hasta donde rompió el segundo. Epicentros y geometría del <b>USGS</b>.</figcaption>
+    <figure class="figplate mini oscura">
+      <img src="assets/teaser_coulomb.svg" width="760" height="300" loading="lazy"
+           alt="Lámina: una falla con dos tramos que rompieron, M 7,2 al oeste y M 7,5 al este, y en medio un tramo con un signo de interrogación.">
+      <figcaption><b>El mapa está adentro.</b> Qué dejó cargado el primer sismo, qué quedó en sombra, y con qué insumos se calculó.</figcaption>
     </figure>
     <a class="metodo-link" href="metodo/coulomb.html" style="margin-top:16px">Leer el método completo — Kelvin, Okada y el tramo en sombra →</a>
   </section>
@@ -616,36 +617,20 @@
     <a class="metodo-link" href="metodo/guia-ondas.html" style="margin-top:16px">Leer el método completo — el modo Love, la sección 2-D y la hipótesis descartada →</a>
   </section>
 
-  <section>
-    <div class="sh"><span class="n">13</span><h2>La física, interactiva</h2><span class="rule"></span></div>
-    <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y de gran amplitud que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
-    <p class="note" style="margin:0 0 16px; border-left:3px solid var(--orange); padding-left:14px">
-      <b>Es un ejemplo de muestra, no un resultado.</b> El modelo es una <b>fuente lineal cinemática</b>: la falla se
-      representa como una fila de subfuentes puntuales que se encienden una tras otra a la velocidad V<sub>r</sub>, y en
-      cada receptor se suma lo que llega de todas. La directividad aparece sola, porque no es más que <b>efecto Doppler</b>
-      aplicado a una fuente que se desplaza. Las amplitudes van en <b>unidades relativas</b>, y no intervienen registros
-      reales, funciones de Green ni el resultado de la inversión: sirve para ver a mano el mecanismo que las secciones
-      04–06 miden con los datos. Las cifras del caso real están en el §11.
-    </p>
-    <div class="simframe">
-      <iframe id="simframe" src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
-    </div>
-    <figcaption>Simulación interactiva (SVG, sin dependencias): <b>adelante</b> la S es un pulso corto y de gran amplitud (PGA máximo); <b>atrás</b>, un tren largo y débil —la misma energía repartida distinto—; con β &gt; 1 aparece el <i>supershear</i>. Las flechas rojas marcan la polarización N–S de la S. También disponible como <a href="assets/lamina_directividad_web.png">lámina estática</a>.</figcaption>
-  </section>
 
   <section>
-    <div class="sh"><span class="n">14</span><h2>Las dos cadenas de cálculo</h2><span class="rule"></span></div>
-    <p class="note" style="margin:0 0 16px">Las secciones 04 a 06 explican <b>qué</b> mide cada método. Esta muestra <b>cómo se ejecuta</b>: los dos encadenamientos de algoritmos —el de la retroproyección y el de la inversión— desde los registros hasta la respuesta, en seis pasos cada uno, con los puntos donde el cálculo se repartió entre procesos o se llevó a la GPU y, al final, la comprobación de que la versión acelerada devuelve <b>la misma respuesta</b> que la original. La página interna desarrolla los doce pasos uno por uno: qué entra, qué sale y qué decisión hay en cada eslabón.</p>
-    <figure class="figplate modesta">
-      <img src="assets/cadena_algoritmos.svg" width="760" height="740" loading="lazy"
-           alt="Diagrama de dos columnas: los seis pasos de la retroproyección y los seis de la inversión de la tasa de momento, con etiquetas en los pasos paralelizados y un bloque inferior de verificación.">
-      <figcaption><b>Dos columnas, un mismo formato.</b> A la izquierda, la retroproyección: de los registros de la onda P a la imagen E(lat, lon, t). A la derecha, la inversión: de las formas de onda al operador G, al sistema regularizado con m ≥ 0 y al estadístico de decisión. Las etiquetas de color marcan dónde se repartió el cálculo; el bloque inferior es la verificación. Las dimensiones de la columna derecha son las de la prueba de recuperación sintética, no las del dato real de la sección 06.<span style="display:block; margin-top:9px; font-size:.8rem"><a href="assets/cadena_algoritmos.svg">Ver el diagrama a tamaño completo →</a></span></figcaption>
+    <div class="sh"><span class="n">13</span><h2>Las dos cadenas de cálculo</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Las secciones 04 a 06 explican <b>qué</b> mide cada método. Esta muestra <b>cómo se ejecuta</b>: los dos encadenamientos de algoritmos —el de la retroproyección y el de la inversión— desde los registros hasta la respuesta, en seis pasos cada uno, con los puntos donde el cálculo se repartió entre procesos o se llevó a la GPU y, al final, la comprobación de que la versión acelerada devuelve <b>la misma respuesta</b> que la original. La página interna trae el diagrama completo y desarrolla los doce pasos uno por uno: qué entra, qué sale y qué decisión hay en cada eslabón.</p>
+    <figure class="figplate mini oscura">
+      <img src="assets/teaser_cadenas.svg" width="760" height="300" loading="lazy"
+           alt="Lámina: dos hileras de seis eslabones, una verde para la retroproyección y otra azul para la inversión, que convergen en un sello de igualdad.">
+      <figcaption><b>El diagrama está adentro.</b> Los doce pasos, las etiquetas de dónde se repartió el cálculo y la verificación por niveles.</figcaption>
     </figure>
     <a class="metodo-link" href="metodo/cadenas.html" style="margin-top:16px">Leer el método completo — los doce pasos, uno por uno →</a>
   </section>
 
   <section>
-    <div class="sh"><span class="n">15</span><h2>Cómputo, código y reproducibilidad</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">14</span><h2>Cómputo, código y reproducibilidad</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Esta página expone el <b>método y el resultado</b>. Todo lo relativo a la <b>ejecución</b> —el equipo empleado, los tiempos medidos de cada etapa, la paralelización de la inversión y su comprobación con CUDA en un servidor con GPU, y las pruebas de regresión frente al código original— se documenta aparte, para no mezclar el rendimiento del cálculo con el contenido sismológico.</p>
     <div class="grid2">
       <div class="box"><div class="big txt">Aira_geofisica</div><h3>repositorio de cómputo</h3><p>Hardware comparado (estación de trabajo frente a servidor con dos RTX 3060), tiempos medidos por etapa, paralelización de la Fase B y la validación numérica contra el código original. <b>De acceso restringido mientras los artículos están en preparación.</b><span class="ref">github.com/rommeljose/Aira_geofisica</span></p></div>
@@ -656,7 +641,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">16</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">15</span><h2>Herramientas y páginas de apoyo</h2><span class="rule"></span></div>
     <div class="bloque">
       <p class="note" style="margin:0">Alrededor de este análisis hay una familia de páginas y servicios <b>de creación propia</b> —visores, mapas, réplicas del catálogo y servicios de datos— que sostienen la parte práctica del trabajo. Varias se citan en su sitio a lo largo de esta página; aquí van todas juntas, con lo que aporta cada una. El índice completo, incluidas las que no tratan de sismología, está en la entrada <a href="https://tecnologiacumanesa.blogspot.com/2000/09/mis-paginas-web-publicas.html" target="_blank" rel="noopener">«Mis páginas web públicas»</a> del blog <i>Tecnología Cumanesa</i>.</p>
     </div>
@@ -693,7 +678,7 @@
   </section>
 
   <section>
-    <div class="sh"><span class="n">17</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
+    <div class="sh"><span class="n">16</span><h2>Para qué, al final: la norma</h2><span class="rule"></span></div>
     <p class="note" style="margin:0 0 16px">Ninguno de los dos artículos trata de normativa, y esta página tampoco. Pero conviene decir hacia dónde apunta el conjunto —el de muchos, no solo el de este trabajo—: que el <b>próximo</b> terremoto encuentre el litoral mejor construido. Y la vía por la que un resultado sismológico llega a cambiar algo en la calle es la <b>norma</b>.</p>
 
     <div class="bloque">
@@ -727,6 +712,23 @@
     </div>
   </section>
 
+  <section>
+    <div class="sh"><span class="n">17</span><h2>La física, interactiva</h2><span class="rule"></span></div>
+    <p class="note" style="margin:0 0 16px">Detrás de las cifras hay física que puedes <b>manipular</b>. Mueve los controles —velocidad de ruptura β = V<sub>r</sub>/c, longitud de falla, energía radiada— y observa en vivo la <b>directividad</b> (el pulso corto y de gran amplitud que recibe La Guaira al frente de la ruptura), el <b>balance de energía</b> y la <b>polarización de la onda S</b>:</p>
+    <p class="note" style="margin:0 0 16px; border-left:3px solid var(--orange); padding-left:14px">
+      <b>Es un ejemplo de muestra, no un resultado.</b> El modelo es una <b>fuente lineal cinemática</b>: la falla se
+      representa como una fila de subfuentes puntuales que se encienden una tras otra a la velocidad V<sub>r</sub>, y en
+      cada receptor se suma lo que llega de todas. La directividad aparece sola, porque no es más que <b>efecto Doppler</b>
+      aplicado a una fuente que se desplaza. Las amplitudes van en <b>unidades relativas</b>, y no intervienen registros
+      reales, funciones de Green ni el resultado de la inversión: sirve para ver a mano el mecanismo que las secciones
+      04–06 miden con los datos. Las cifras del caso real están en el §11.
+    </p>
+    <div class="simframe">
+      <iframe id="simframe" src="sim/" title="Simulación interactiva: balance energético y directividad de la ruptura" loading="lazy"></iframe>
+    </div>
+    <figcaption>Simulación interactiva (SVG, sin dependencias): <b>adelante</b> la S es un pulso corto y de gran amplitud (PGA máximo); <b>atrás</b>, un tren largo y débil —la misma energía repartida distinto—; con β &gt; 1 aparece el <i>supershear</i>. Las flechas rojas marcan la polarización N–S de la S. También disponible como <a href="assets/lamina_directividad_web.png">lámina estática</a>.</figcaption>
+  </section>
+
   <div class="licencia">
     <h3>Licencia y autoría</h3>
     <span class="cc">CC BY-NC-SA 4.0</span>
@@ -742,7 +744,7 @@
 
     <h4>Cómo citar</h4>
     <p class="cita">Contreras, R. (2026). <i>Análisis del terremoto de La Guaira en bytes, y su complejidad físico-matemática</i>. Academia de Geohistoria del Estado Sucre (AGHES). <span class="mono">https://bytes.sigeos.org/</span></p>
-    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 16 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
+    <p style="margin-top:12px">Las páginas y servicios enlazados en la sección 15 son también de creación propia y se rigen por esta misma licencia, salvo indicación en contrario en cada uno. El texto legal completo está en el fichero <a href="LICENSE">LICENSE</a> del repositorio.</p>
   </div>
 
   <div class="footer">

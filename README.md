@@ -33,9 +33,9 @@ metodo/coulomb.html              · 09 · ΔCFS: mariposa, tramo en sombra, barr
 metodo/estadistica.html          · 10 · pre-registro sellado, bootstrap, jackknife, controles sintéticos, hipótesis nula
 metodo/verificacion.html         · 11 · reproducción del ensamblaje, la VR y la calibración del control
 metodo/guia-ondas.html           · 12 · el modo Love, la sección 2-D SH y la hipótesis de guía lateral descartada
-sim/                             · 13 · simulación interactiva (directividad y balance energético)
-metodo/cadenas.html              · 14 · las dos cadenas de cálculo, doce pasos uno por uno, y la verificación por niveles
-assets/cadena_algoritmos.svg     ·  ↳ el diagrama (traído de Aira_geofisica)
+metodo/cadenas.html              · 13 · las dos cadenas de cálculo, doce pasos uno por uno, y la verificación por niveles
+assets/cadena_algoritmos.svg     ·  ↳ el diagrama (traído de Aira_geofisica); en la portada solo va la lámina-anzuelo
+sim/                             · 17 · simulación interactiva (directividad y balance energético), al final
 assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
                                    tarjeta social og_card.png, mapa de estaciones y las cuatro
                                    figuras de §07 y §12 (ver «Las figuras traídas de otros repos»)
@@ -98,10 +98,11 @@ volver a copiarlas a mano.
 | `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
 | `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §12 · esfera frente a cilindro, y directividad |
 | `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §12 · los tres cálculos de la propagación guiada |
-| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §17 · espesores de Caraballeda y el límite de la gravimetría |
+| `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §16 · espesores de Caraballeda y el límite de la gravimetría |
 | `fig_dcfs_mapa.png` | `coulomb_dCFS/figuras/dcfs_mapa_okada.png` | §09 · el mapa de ΔCFS del primer evento |
 | `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
-| `cadena_algoritmos.svg` | `Aira_geofisica`, `figuras/cadena_algoritmos.svg` (el mismo de la propuesta del artículo computacional) | §14 · las dos cadenas de cálculo, retroproyección e inversión, con la verificación |
+| `cadena_algoritmos.svg` | `Aira_geofisica`, `figuras/cadena_algoritmos.svg` (el mismo de la propuesta del artículo computacional) | `metodo/cadenas.html` · las dos cadenas de cálculo, retroproyección e inversión, con la verificación |
+| `teaser_coulomb.svg`, `teaser_cadenas.svg` | hechos a mano para este sitio | §09 y §13 · láminas-anzuelo de la portada: anuncian el contenido sin mostrar el mapa ni el diagrama, que solo se ven al entrar |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
 artículo 1 y puente con el 2—, y la sección lo dice de forma explícita. La hipótesis de guía

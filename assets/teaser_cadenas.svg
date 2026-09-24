@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" role="img" aria-labelledby="t d">
+  <title id="t">Dos cadenas de cálculo, doce pasos, una misma respuesta</title>
+  <desc id="d">Lámina de anuncio: dos hileras de seis eslabones, una verde y otra azul, que convergen en un sello de igualdad.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#132238"/></linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#ffffff" stroke-opacity=".045"/></pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="ar-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5fd3a5"/></marker>
+    <marker id="ar-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7fc0ff"/></marker>
+  </defs>
+  <rect width="760" height="300" rx="14" fill="url(#bg)"/>
+  <rect width="760" height="300" rx="14" fill="url(#grid)"/>
+
+  <text x="40" y="52" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f2f6fb">12 pasos · 2 cadenas · 1 respuesta</text>
+  <text x="40" y="76" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12.5" fill="#93a4bc" letter-spacing=".12em">DE LOS REGISTROS A LA RESPUESTA, ESLABÓN POR ESLABÓN</text>
+
+  <!-- cadena verde: retroproyección -->
+  <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12" font-weight="600">
+    <text x="40" y="133" fill="#5fd3a5" letter-spacing=".1em">BP</text>
+    <line x1="78" y1="128" x2="522" y2="128" stroke="#5fd3a5" stroke-opacity=".35" stroke-width="2"/>
+    <g fill="#0e2a22" stroke="#5fd3a5" stroke-width="2">
+      <rect x="96" y="112" width="52" height="32" rx="8"/><rect x="176" y="112" width="52" height="32" rx="8"/>
+      <rect x="256" y="112" width="52" height="32" rx="8"/><rect x="336" y="112" width="52" height="32" rx="8"/>
+      <rect x="416" y="112" width="52" height="32" rx="8"/><rect x="496" y="112" width="52" height="32" rx="8"/>
+    </g>
+    <g fill="#dff7ec" text-anchor="middle"><text x="122" y="133">1</text><text x="202" y="133">2</text><text x="282" y="133">3</text><text x="362" y="133">4</text><text x="442" y="133">5</text><text x="522" y="133">6</text></g>
+    <g stroke="#5fd3a5" stroke-width="2" marker-end="url(#ar-g)"><line x1="150" y1="128" x2="174" y2="128"/><line x1="230" y1="128" x2="254" y2="128"/><line x1="310" y1="128" x2="334" y2="128"/><line x1="390" y1="128" x2="414" y2="128"/><line x1="470" y1="128" x2="494" y2="128"/></g>
+    <!-- chispas: paralelo / vectorizado -->
+    <circle cx="300" cy="110" r="4" fill="#c58cff" filter="url(#glow)"/><circle cx="380" cy="110" r="4" fill="#ffb454" filter="url(#glow)"/>
+  </g>
+
+  <!-- cadena azul: inversión -->
+  <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12" font-weight="600">
+    <text x="40" y="203" fill="#7fc0ff" letter-spacing=".1em">INV</text>
+    <line x1="78" y1="198" x2="522" y2="198" stroke="#7fc0ff" stroke-opacity=".35" stroke-width="2"/>
+    <g fill="#0f2238" stroke="#7fc0ff" stroke-width="2">
+      <rect x="96" y="182" width="52" height="32" rx="8"/><rect x="176" y="182" width="52" height="32" rx="8"/>
+      <rect x="256" y="182" width="52" height="32" rx="8"/><rect x="336" y="182" width="52" height="32" rx="8"/>
+      <rect x="416" y="182" width="52" height="32" rx="8"/><rect x="496" y="182" width="52" height="32" rx="8"/>
+    </g>
+    <g fill="#e6f0ff" text-anchor="middle"><text x="122" y="203">1</text><text x="202" y="203">2</text><text x="282" y="203">3</text><text x="362" y="203">4</text><text x="442" y="203">5</text><text x="522" y="203">6</text></g>
+    <g stroke="#7fc0ff" stroke-width="2" marker-end="url(#ar-b)"><line x1="150" y1="198" x2="174" y2="198"/><line x1="230" y1="198" x2="254" y2="198"/><line x1="310" y1="198" x2="334" y2="198"/><line x1="390" y1="198" x2="414" y2="198"/><line x1="470" y1="198" x2="494" y2="198"/></g>
+    <!-- lazo 5 → 4 (bisección en λ) -->
+    <path d="M442 216 C442 244 362 244 362 216" fill="none" stroke="#ffb454" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#ar-b)"/>
+    <text x="402" y="252" fill="#ffb454" font-size="12" text-anchor="middle" font-style="italic">λ</text>
+    <circle cx="380" cy="180" r="4" fill="#5fd3a5" filter="url(#glow)"/><circle cx="540" cy="180" r="4" fill="#c58cff" filter="url(#glow)"/>
+  </g>
+
+  <!-- convergencia y sello -->
+  <path d="M548 128 C600 128 600 163 640 163" fill="none" stroke="#5fd3a5" stroke-width="2" stroke-opacity=".8"/>
+  <path d="M548 198 C600 198 600 163 640 163" fill="none" stroke="#7fc0ff" stroke-width="2" stroke-opacity=".8"/>
+  <g filter="url(#glow)">
+    <circle cx="676" cy="163" r="34" fill="#1a2a44" stroke="#ffb454" stroke-width="2.5"/>
+    <text x="676" y="174" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="30" font-weight="700" fill="#ffb454" text-anchor="middle">≡</text>
+  </g>
+  <text x="676" y="222" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11.5" fill="#dde6f1" text-anchor="middle">misma respuesta</text>
+
+  <text x="40" y="276" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13" fill="#93a4bc">Qué entra, qué sale y qué decisión hay en cada paso — y dónde se aceleró sin que cambiara el resultado.</text>
+</svg>
