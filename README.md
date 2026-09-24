@@ -27,14 +27,25 @@ metodo/radiacion-doble-par.html  ·  ↳ ampliación avanzada: de la fuerza punt
 metodo/retroproyeccion.html      · 04 · delay-and-stack: dónde y cuándo radía la ruptura
 metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundidad
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
+metodo/profundidad.html          · 07 · tres cifras para el foco, pP y sP, y la prueba de que el hueco no depende de ella
 metodo/relocalizacion.html       · 08 · hypoDD, con el visor 3-D de réplicas embebido
+metodo/coulomb.html              · 09 · ΔCFS: mariposa, tramo en sombra, barrera; Kelvin frente a Okada con insumos del USGS
+metodo/estadistica.html          · 10 · pre-registro sellado, bootstrap, jackknife, controles sintéticos, hipótesis nula
+metodo/verificacion.html         · 11 · reproducción del ensamblaje, la VR y la calibración del control
+metodo/guia-ondas.html           · 12 · el modo Love, la sección 2-D SH y la hipótesis de guía lateral descartada
 sim/                             · 13 · simulación interactiva (directividad y balance energético)
-assets/cadena_algoritmos.svg     · 14 · las dos cadenas de cálculo (diagrama traído de Aira_geofisica)
+metodo/cadenas.html              · 14 · las dos cadenas de cálculo, doce pasos uno por uno, y la verificación por niveles
+assets/cadena_algoritmos.svg     ·  ↳ el diagrama (traído de Aira_geofisica)
 assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
                                    tarjeta social og_card.png, mapa de estaciones y las cuatro
-                                   figuras de §07 y §10 (ver «Las figuras traídas de otros repos»)
+                                   figuras de §07 y §12 (ver «Las figuras traídas de otros repos»)
 herramientas/                    · generador del mapa (§01) y sus datos de entrada
 ```
+
+Criterio de la portada (desde el 24-sep-2026): cada sección de método lleva en `index.html`
+una introducción corta, una imagen pequeña que evoque el contenido cuando la hay, y el botón
+«Leer el método completo»; el desglose vive en su página de `metodo/`. Las secciones 01, 03 y 17
+son narrativas (dónde ocurrió, las estaciones, la norma) y se quedan enteras en la portada.
 
 Todo es autocontenido: sin frameworks ni proceso de compilación. Hay **tema claro y
 oscuro** (botón arriba a la derecha) y se respeta `prefers-reduced-motion`.
@@ -85,8 +96,8 @@ volver a copiarlas a mano.
 | `fig_mapa_estaciones.png` | `Aira_geofisica`, `codigo/aceleracion/fig_mapa_estaciones.py` | §03 · cobertura telesísmica y epicentros |
 | `fig_profundidad_test.png` | `Sismos_latinos`, `resultados/faseB_paso2/` | §07 · la prueba de profundidad con dato sintético |
 | `fig_profundidad_canonica.png` | suplemento del artículo 1, `figS_profundidad_canonica.png` | §07 · la profundidad como parámetro sobre el dato real |
-| `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §10 · esfera frente a cilindro, y directividad |
-| `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §10 · los tres cálculos de la propagación guiada |
+| `lamina_dispersion_directividad.png` | `guia_ondas_cortical/lamina_didactica_esfera_vs_cilindro.py` | §12 · esfera frente a cilindro, y directividad |
+| `fig_guia_ondas.png` | `guia_ondas_cortical/sintesis_figura.py` (`figP_propagacion_guiada.png`) | §12 · los tres cálculos de la propagación guiada |
 | `fig_caraballeda_espesores.png` | `paper2_directividad/figuras/caraballeda_integrada.png` | §17 · espesores de Caraballeda y el límite de la gravimetría |
 | `fig_dcfs_mapa.png` | `coulomb_dCFS/figuras/dcfs_mapa_okada.png` | §09 · el mapa de ΔCFS del primer evento |
 | `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
@@ -118,7 +129,7 @@ nada que citar y caía en lo primero que encontraba como texto, que era el comen
 variables del bloque `<style>`. De ahí el `/* Lámina AGHES — tema claro … */ :root{ --ground:#e7eaef;`
 que aparecía en la vista previa.
 
-Ahora las nueve páginas (`index.html`, las siete de `metodo/` y `sim/`) llevan `description`,
+Ahora todas las páginas (`index.html`, las trece de `metodo/` y `sim/`) llevan `description`,
 `canonical`, Open Graph y `twitter:card`, cada una con su propio título y resumen.
 
 La imagen es `assets/og_card.png`, 1200 × 630 (la relación 1,91:1 que piden los rastreadores),

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Hereda el tema elegido en la portada (mismo localStorage que index.html).
+   Va antes del primer pintado para que no haya destello del tema contrario. */
+(function(){try{var t=localStorage.getItem('lg-theme');
+  if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>El aparato estadístico — método</title>
+<meta name="description" content="Pre-registro sellado con SHA-256, bootstrap, jackknife, controles sintéticos e hipótesis nula: las herramientas con que se pone a prueba cada afirmación del estudio, y cómo se enuncia el resultado.">
+<meta name="author" content="Rommel Contreras">
+<link rel="canonical" href="https://bytes.sigeos.org/metodo/estadistica.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="La Guaira en bytes — AGHES">
+<meta property="og:locale" content="es_VE">
+<meta property="og:url" content="https://bytes.sigeos.org/metodo/estadistica.html">
+<meta property="og:title" content="El aparato estadístico">
+<meta property="og:description" content="Pre-registro sellado con SHA-256, bootstrap, jackknife, controles sintéticos e hipótesis nula: las herramientas con que se pone a prueba cada afirmación del estudio, y cómo se enuncia el resultado.">
+<meta property="og:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tarjeta de bytes.sigeos.org: sobre la costa central de Venezuela, la traza del enlace San Sebastián–Morón–Boconó con las dos estrellas de los epicentros M 7,2 y M 7,5.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El aparato estadístico">
+<meta name="twitter:description" content="Pre-registro sellado con SHA-256, bootstrap, jackknife, controles sintéticos e hipótesis nula: las herramientas con que se pone a prueba cada afirmación del estudio, y cómo se enuncia el resultado.">
+<meta name="twitter:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  td.n{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--blue); white-space:nowrap}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+<style>
+  /* Clases traídas de la portada (index.html), adaptadas a las variables de esta plantilla */
+  .note{margin:0 0 16px; color:var(--muted); font-size:1rem; line-height:1.62}
+  .note b{color:var(--ink); font-weight:600}
+  h3.sub-h{margin:32px 0 8px; font-size:1.12rem; font-weight:700; color:var(--strong)}
+  .bloque p{margin:0 0 14px}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:16px 0}
+  .box{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--paper)}
+  .box.o{border-top:3px solid var(--amber)} .box.b{border-top:3px solid var(--blue)}
+  .box .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.6rem; color:var(--strong); letter-spacing:-.02em; line-height:1.05}
+  .box .big.txt{font-size:1.02rem; letter-spacing:0}
+  .box h3{margin:2px 0 0; font-size:.9rem; font-weight:700; color:var(--ink)}
+  .box p{margin:7px 0 0; font-size:.88rem; color:var(--muted)}
+  .box p b{color:var(--ink); font-weight:600}
+  .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px; margin:18px 0;
+    border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--paper)}
+  .aside .tag{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.72rem;
+    letter-spacing:.06em; color:#fff; background:var(--blue); border-radius:5px; padding:4px 8px; margin-top:2px}
+  .aside h4{margin:0 0 5px; font-size:1rem; font-weight:700; color:var(--strong); font-family:"IBM Plex Sans",sans-serif}
+  .aside p{margin:0 0 8px; font-size:.93rem; color:var(--muted)} .aside p:last-child{margin-bottom:0}
+  .aside b{color:var(--ink); font-weight:600}
+  .aside.o{border-left-color:var(--amber)} .aside.o .tag{background:var(--amber); color:#fff}
+  .aside.g{border-left-color:var(--green)} .aside.g .tag{background:var(--green); color:#fff}
+  .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .figplate img{display:block; width:100%; height:auto}
+  .figplate figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line); background:var(--paper)}
+  .figplate.modesta{max-width:780px; margin:18px auto 0}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px; margin:14px 0}
+  .tbl-wrap table{margin:0; min-width:540px}
+  th .sub,td .sub{display:block; font-size:.75rem; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0; margin-top:2px}
+  .badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:13px; margin:18px 0}
+  .badge{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line);
+    border-left:4px solid var(--green); border-radius:8px; padding:15px 17px; background:var(--paper)}
+  .badge.b{border-left-color:var(--blue)}
+  .badge .dot{flex:none; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.85rem}
+  .badge.b .dot{background:var(--blue)}
+  .badge h4{margin:0 0 3px; font-size:.9rem; color:var(--ink); font-weight:700; font-family:"IBM Plex Sans",sans-serif}
+  .badge p{margin:0; font-size:.86rem; color:var(--muted)}
+  .box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
+  .box ol.pasos li{margin:0 0 5px}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← La Guaira en bytes</a>
+  <header>
+    <p class="eyebrow">Método · el aparato estadístico — La Guaira, 24-jun-2026</p>
+    <h1>El aparato estadístico</h1>
+    <p class="sub">Un resultado no se sostiene por la figura que produce sino por lo que se hizo para <em class="term">intentar tumbarlo</em>: el pre-registro, las cuatro herramientas y la forma en que se enuncia lo que sobrevive.</p>
+  </header>
+
+    <p class="lead">Un resultado sismológico no se sostiene por la figura que produce, sino por lo que se hizo para <b>intentar tumbarlo</b>. Esta sección reúne las herramientas con las que se pone a prueba cada afirmación de la portada, en el orden en que se aplican.</p>
+
+    <div class="bloque">
+      <h3 class="sub-h">El pre-registro: escribir el criterio antes de mirar</h3>
+      <p>Antes de ejecutar <b>ninguna</b> inversión se escribió un documento, <span class="mono">PRE_REGISTRO.md</span>, y se selló con su huella <span class="mono">SHA-256</span> en la bitácora. Una huella así es una firma digital del contenido: cambiar una coma del documento cambia la huella por completo, de modo que <b>no se puede reescribir a posteriori sin que se note</b>. La huella quedó anotada con fecha: <span class="mono">b995dfe1…7ca4f</span>.</p>
+      <p>Ese documento fija cinco cosas: el <b>estadístico de decisión</b>, la <b>ventana</b> de 20–32 s sobre la que se mide, el <b>umbral</b> <span class="mono">S ≥ 2</span> para declarar que la prueba discrimina, el <b>número de realizaciones</b> de ruido, y el compromiso explícito de <b>publicar el resultado sea cual sea</b>.</p>
+      <div class="aside" style="margin-top:16px">
+        <span class="tag">POR QUÉ</span>
+        <div>
+          <h4>Cierra la puerta a la trampa más común</h4>
+          <p>La trampa no suele ser inventar datos: es <b>elegir el criterio después de ver el resultado</b>, y quedarse con el que sale bien. Si el umbral está escrito y sellado de antemano, esa salida no existe. Las tres desviaciones que hubo respecto al plan están declaradas como tales, con fecha y motivo.</p>
+        </div>
+      </div>
+
+      <h3 class="sub-h">Las cuatro herramientas</h3>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big txt">Bootstrap</div><h3>¿cuánto se movería si repitiera el experimento?</h3><p>Se vuelve a invertir muchas veces, cada vez con un <b>remuestreo</b> de las estaciones —unas entran dos veces, otras ninguna—. La dispersión de los resultados mide la incertidumbre <b>interna</b>. Con 30 remuestras: <span class="mono">f = 0,0044 ± 0,0040</span>, frente al <span class="mono">0,0036</span> observado.</p></div>
+        <div class="box b"><div class="big txt">Jackknife</div><h3>¿depende de una sola estación?</h3><p>Se repite el cálculo <b>quitando una estación cada vez</b>. Si el resultado se apoyara en un solo registro, al retirarlo se desmoronaría. En la retroproyección: <span class="mono">θ̂ = 149 km</span>, dispersión robusta ≈ 8 km, rango intercuartílico <span class="mono">[144, 153]</span>. Las exclusiones llegan a moverlo entre 95 y 242 km, pero <b>nunca vuelve al primer epicentro</b>, que es el punto.</p></div>
+        <div class="box o"><div class="big txt">Controles<br>sintéticos</div><h3>¿sabría reconocer lo contrario?</h3><p>Se fabrican datos falsos con la respuesta <b>conocida</b> —uno con dos rupturas, otro con un frente continuo— y se les aplica el mismo operador. Si el método no distingue escenarios que <i>sabemos</i> distintos, no sirve para el dato real. Los sintéticos se calibran para que se ajusten <b>tan mal como el registro</b>, no mejor.</p></div>
+        <div class="box o"><div class="big txt">Hipótesis<br>nula</div><h3>¿y si no hubiera nada?</h3><p>Un <b>control nulo</b> es el mismo análisis aplicado a datos donde, por construcción, <b>no hay</b> lo que se busca. Si aun así aparece, lo que se ha encontrado es un artefacto del método. Aquí se probaron varios, incluido uno con la forma del propio modelo de falla finita del USGS.</p></div>
+      </div>
+
+      <h3 class="sub-h">Cómo se enuncia el resultado</h3>
+      <p>Con esas piezas, la afirmación central no se enuncia como «la figura muestra un hueco», sino como un <b>test de conteo</b>: de las 20 realizaciones del escenario de frente continuo, <b>ninguna</b> reproduce lo observado — <span class="mono">0/20</span>, <span class="mono">p ≤ 0,048</span> — y la separación entre escenarios da <span class="mono">S = 2,62</span> sobre el umbral pre-registrado de 2. Ese enunciado sobrevive, además, a las <b>tres convenciones</b> distintas de tiempo de origen que se probaron.</p>
+      <p>El hueco de réplicas se somete a lo mismo y con el mismo cuidado: los tramos que rompieron se activaron a <b>×230</b> y <b>×352</b> de su propio fondo de sismicidad, y el tramo intermedio solo a <b>×6</b>. Pero eso obliga a decir también lo contrario, y la página lo dice: <b>×6 sobre el fondo no es silencio</b>. Algo ocurrió ahí; lo que no ocurrió es una ruptura.</p>
+
+      <div class="aside g" style="margin-top:20px">
+        <span class="tag">EN CRISTIANO</span>
+        <div>
+          <h4>De qué sirve todo esto</h4>
+          <p>De que el resultado <b>no dependa de quien lo mira</b>. Se escribe primero qué haría falta para declararlo falso, se sella esa promesa con una firma que no se puede falsificar, se le quitan estaciones al cálculo a ver si aguanta, se le dan datos inventados a ver si distingue lo que debe, y se le dan datos vacíos a ver si inventa. Solo lo que sobrevive a todo eso se cuenta. <b>El resto se descarta y también se cuenta</b> — porque un método que solo publica sus aciertos no es un método.</p>
+        </div>
+      </div>
+    </div>
+
+  <div class="foot">
+    <span>Método · el aparato estadístico · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>

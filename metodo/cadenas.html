@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function(){try{var t=localStorage.getItem('lg-theme');
+  if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>Las dos cadenas de cálculo — método</title>
+<meta name="description" content="Paso a paso, los dos encadenamientos de algoritmos del estudio de La Guaira 2026: la retroproyección y la inversión de la tasa de momento, con los puntos donde se aceleró el cálculo y cómo se verificó que la respuesta no cambia.">
+<meta name="author" content="Rommel Contreras">
+<link rel="canonical" href="https://bytes.sigeos.org/metodo/cadenas.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="La Guaira en bytes — AGHES">
+<meta property="og:locale" content="es_VE">
+<meta property="og:url" content="https://bytes.sigeos.org/metodo/cadenas.html">
+<meta property="og:title" content="Las dos cadenas de cálculo">
+<meta property="og:description" content="Paso a paso, la retroproyección y la inversión de la tasa de momento: qué entra, qué sale y qué decisión hay en cada eslabón, dónde se aceleró y cómo se verificó.">
+<meta property="og:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tarjeta de bytes.sigeos.org: sobre la costa central de Venezuela, la traza del enlace San Sebastián–Morón–Boconó con las dos estrellas de los epicentros M 7,2 y M 7,5.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Las dos cadenas de cálculo">
+<meta name="twitter:description" content="Paso a paso, la retroproyección y la inversión de la tasa de momento: qué entra, qué sale y qué decisión hay en cada eslabón, dónde se aceleró y cómo se verificó.">
+<meta name="twitter:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+    svg: { fontCache: 'global' }, options: { renderActions: { addMenu: [] } }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  td.n{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--blue); white-space:nowrap}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+<style>
+  /* Clases traídas de la portada (index.html), adaptadas a las variables de esta plantilla */
+  .note{margin:0 0 16px; color:var(--muted); font-size:1rem; line-height:1.62}
+  .note b{color:var(--ink); font-weight:600}
+  h3.sub-h{margin:32px 0 8px; font-size:1.12rem; font-weight:700; color:var(--strong)}
+  .bloque p{margin:0 0 14px}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:16px 0}
+  .box{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--paper)}
+  .box.o{border-top:3px solid var(--amber)} .box.b{border-top:3px solid var(--blue)}
+  .box .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.6rem; color:var(--strong); letter-spacing:-.02em; line-height:1.05}
+  .box .big.txt{font-size:1.02rem; letter-spacing:0}
+  .box h3{margin:2px 0 0; font-size:.9rem; font-weight:700; color:var(--ink)}
+  .box p{margin:7px 0 0; font-size:.88rem; color:var(--muted)}
+  .box p b{color:var(--ink); font-weight:600}
+  .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px; margin:18px 0;
+    border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--paper)}
+  .aside .tag{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.72rem;
+    letter-spacing:.06em; color:#fff; background:var(--blue); border-radius:5px; padding:4px 8px; margin-top:2px}
+  .aside h4{margin:0 0 5px; font-size:1rem; font-weight:700; color:var(--strong); font-family:"IBM Plex Sans",sans-serif}
+  .aside p{margin:0 0 8px; font-size:.93rem; color:var(--muted)} .aside p:last-child{margin-bottom:0}
+  .aside b{color:var(--ink); font-weight:600}
+  .aside.o{border-left-color:var(--amber)} .aside.o .tag{background:var(--amber); color:#fff}
+  .aside.g{border-left-color:var(--green)} .aside.g .tag{background:var(--green); color:#fff}
+  .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .figplate img{display:block; width:100%; height:auto}
+  .figplate figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line); background:var(--paper)}
+  .figplate.modesta{max-width:780px; margin:18px auto 0}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px; margin:14px 0}
+  .tbl-wrap table{margin:0; min-width:540px}
+  th .sub,td .sub{display:block; font-size:.75rem; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0; margin-top:2px}
+  .badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:13px; margin:18px 0}
+  .badge{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line);
+    border-left:4px solid var(--green); border-radius:8px; padding:15px 17px; background:var(--paper)}
+  .badge.b{border-left-color:var(--blue)}
+  .badge .dot{flex:none; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.85rem}
+  .badge.b .dot{background:var(--blue)}
+  .badge h4{margin:0 0 3px; font-size:.9rem; color:var(--ink); font-weight:700; font-family:"IBM Plex Sans",sans-serif}
+  .badge p{margin:0; font-size:.86rem; color:var(--muted)}
+  .box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
+  .box ol.pasos li{margin:0 0 5px}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← La Guaira en bytes</a>
+  <header>
+    <p class="eyebrow">Método · las dos cadenas de cálculo — La Guaira, 24-jun-2026</p>
+    <h1>Las dos cadenas de cálculo, paso a paso</h1>
+    <p class="sub">De los registros a la respuesta: qué entra, qué sale y qué decisión hay en cada eslabón de la <em class="term">retroproyección</em> y de la <em class="term">inversión</em> — y dónde se aceleró el cálculo sin que cambiara el resultado.</p>
+  </header>
+
+  <p class="lead">Las páginas de la <a href="retroproyeccion.html">retroproyección</a> y de la <a href="inversion.html">inversión</a> explican la física de cada método. Esta explica la <strong>ejecución</strong>: los dos encadenamientos de algoritmos tal como corren en el código, con las dimensiones reales de cada objeto intermedio. Desde el punto de vista computacional son dos problemas distintos. La retroproyección es una <strong>suma masiva de señales interpoladas</strong> sobre una malla de espacio y tiempo: muy paralelizable, pero barata. La inversión es un problema de <strong>mínimos cuadrados disperso con restricción de no negatividad</strong> que hay que resolver cientos de veces; su costo lo dominan los productos matriz-vector y lo limita el ancho de banda de memoria, no la capacidad de cálculo. Ahí está casi todo el tiempo.</p>
+
+  <figure>
+    <div class="fig" style="background:#fff">
+      <img src="../assets/cadena_algoritmos.svg" width="760" height="740" alt="Diagrama de dos columnas: los seis pasos de la retroproyección y los seis de la inversión, con etiquetas en los pasos paralelizados y un bloque inferior de verificación." style="display:block; margin:0 auto; max-width:100%; height:auto">
+    </div>
+    <figcaption><b>Las dos cadenas.</b> Cada caja es un paso; las etiquetas de color marcan dónde se repartió el cálculo (procesos en paralelo, NumPy vectorizado, cuSPARSE en la GPU); la flecha que vuelve del paso 5 al 4 de la inversión es la bisección en λ. El bloque inferior es la verificación. Las dimensiones de la columna derecha son las de la <b>prueba de recuperación sintética</b>, que fue la carga de trabajo acelerada; la variante sobre el dato real se describe en la sección 4.</figcaption>
+  </figure>
+
+  <h2><span class="no">1</span> La retroproyección, en seis pasos</h2>
+  <p>El código es <code>retroproyeccion.py</code>. Devuelve una imagen $E(\text{lat},\text{lon},t)$ de dónde y cuándo se liberó energía, sin suponer cuántas fuentes hay. Todo el cálculo se hace <strong>en relativo</strong>: las trazas se alinean sobre la P del primer sismo, de modo que la imagen no depende de la exactitud absoluta del modelo de Tierra.</p>
+
+  <h3>1 · Registros de la onda P telesísmica</h3>
+  <p><strong>Entra:</strong> las componentes verticales de las estaciones en el rango telesísmico, 30°–95°. El arreglo útil es <strong>Norteamérica</strong>, 20 estaciones entre 31° y 78° de distancia, de las que 18 superan el control de calidad del paso 2; <strong>Europa</strong> aporta 6 más como contraste independiente: 24 en total. Las dos ventanas de cada estación (una por sismo) se unen en un registro continuo de unos 400 s; se filtra en la banda <span class="mono">0,5–1,5 Hz</span> (Butterworth de cuatro polos) y se remuestrea a <span class="mono">10 muestras/s</span>.</p>
+  <p><strong>Sale:</strong> una lista de trazas, cada una con su tiempo de inicio, sus muestras y las coordenadas de la estación. Hay una circunstancia favorable que conviene decir aquí: los dos epicentros se separan casi exactamente hacia el este, y el arreglo mira desde el norte, de modo que la separación cae en la dirección transversal, que es la que mejor resuelve la apertura acimutal.</p>
+
+  <h3>2 · Alineamiento por correlación cruzada</h3>
+  <p><strong>Entra:</strong> las trazas y el tiempo teórico de la P del M 7,2 en cada una. Se recorta una ventana de <span class="mono">−3 a +12 s</span> en torno a esa P, se correlaciona cada traza contra el apilado de todas, se desplaza según el mejor desfase (máximo admitido, 4 s) y se repite <strong>cinco veces</strong>, reconstruyendo el apilado en cada vuelta.</p>
+  <p><strong>Decisión:</strong> entran al apilado solo las trazas con coherencia <span class="mono">cc ≥ 0,60</span>; en Norteamérica quedan 18 de 20, con cc mediana 0,81. Una comprobación añadida por el Dr. Mocquet descarta además la traza cuyo máximo alineado cae más de 0,3 s antes de la P teórica, síntoma de que la correlación enganchó ruido.</p>
+  <p><strong>Sale:</strong> una corrección empírica por estación, entre −1,5 y +1,1 s. Absorbe la estructura tridimensional bajo cada sitio y los errores de reloj, y queda referida al hipocentro del M 7,2: por eso la imagen final es relativa a ese punto.</p>
+
+  <h3>3 · Tiempos de viaje</h3>
+  <p><strong>Entra:</strong> la malla de fuentes posibles —<span class="mono">61 × 91</span> nodos, de 9° a 12° N y de 70° a 65,5° O cada 0,05°— y las coordenadas de las estaciones. Se tabula una sola vez el tiempo de viaje de <span class="mono">P</span> y <span class="mono">Pdiff</span> (TauP, modelo IASP91) de 27° a 98° cada 0,05°, y para cada par nodo–estación se calcula la distancia epicentral sobre el elipsoide.</p>
+  <p><strong>Sale:</strong> un arreglo de distancias de 61 × 91 × <i>n</i> estaciones. <strong>Paralelización:</strong> este cálculo geodésico es el que se reparte entre procesos, por filas de latitud; cada proceso ejecuta la misma función sobre su bloque, y el resultado es idéntico al de la versión en serie.</p>
+
+  <h3>4 · Apilado de raíz cuarta</h3>
+  <p><strong>Entra:</strong> las trazas alineadas, las correcciones y las distancias. Para cada nodo y cada uno de los <span class="mono">951</span> instantes de radiación (de −5 a 90 s cada 0,1 s), cada traza se desplaza el tiempo de viaje al nodo más su corrección, se interpola y se suma. La suma no es de las trazas sino de sus <strong>raíces cuartas con signo</strong>; el resultado se divide por el número de estaciones y se eleva de nuevo a la cuarta. La raíz comprime las amplitudes grandes, de modo que una sola traza fuera de fase no puede dominar la suma y lo incoherente se suprime.</p>
+  <p><strong>Sale:</strong> el apilado $S(\text{lat},\text{lon},t)$, de 61 × 91 × 951 celdas. <strong>Paralelización:</strong> la versión original recorre nodo por nodo en tres bucles; la vectorizada con NumPy interpola cada estación sobre la malla completa de una vez y suma las estaciones <strong>en el mismo orden</strong>, así que el apilado es idéntico elemento a elemento (diferencia 0,0, bit a bit).</p>
+
+  <h3>5 · Energía en ventana deslizante</h3>
+  <p><strong>Entra:</strong> el apilado. Se eleva al cuadrado y se promedia en una ventana de <span class="mono">±2,5 s</span> (51 muestras).</p>
+  <p><strong>Sale:</strong> la imagen $E(\text{lat},\text{lon},t)$: unos 5,3 millones de celdas. Leerla es buscar, para cada instante, dónde está el máximo de $E$; eso da la trayectoria de la radiación durante la ruptura, que es lo que muestra la sección 04 de la portada.</p>
+
+  <h3>6 · Resolución con fuentes sintéticas</h3>
+  <p><strong>Entra:</strong> fuentes de posición y tiempo conocidos. Para cada estación se construye una traza sintética con pulsos de Ricker (frecuencia central 1 Hz) colocados en el tiempo de llegada teórico más <strong>la misma corrección de estación</strong> del paso 2, sobre <strong>el mismo eje de tiempo</strong> del registro real. Después se pasan por los pasos 3 a 5 exactamente igual que los datos.</p>
+  <p><strong>Sale:</strong> la función de dispersión puntual del arreglo: cuánto se ensancha y hacia dónde se desplaza una fuente puntual vista por esta geometría. Es lo que permite decir que los 149 km entre las dos fuentes se resuelven, y es también la base del control nulo de la sección 11.</p>
+
+  <h2><span class="no">2</span> La inversión de la tasa de momento, en seis pasos</h2>
+  <p>El código base es <code>faseB/fb_comun.py</code>, <code>fb_sinteticos.py</code> y <code>fb_inversion.py</code>. Lo que sigue es la cadena de la <strong>prueba de recuperación sintética</strong>: la pregunta previa de si la cobertura disponible distingue un hueco de 12 s, contestada antes de tocar el dato real. Todos los parámetros están fijados en el pre-registro (sección 10 de la portada).</p>
+
+  <h3>1 · Formas de onda de banda ancha</h3>
+  <p><strong>Entra:</strong> las verticales entre 30° y 90°, filtradas a <span class="mono">0,02–0,5 Hz</span> y remuestreadas a <span class="mono">Δt = 0,4 s</span>. <strong>Decisión:</strong> se exige una relación señal/ruido ≥ 3, medida con 60 s de ruido antes de la P frente a la señal que sigue; de 35 candidatas quedan 32 sobre el dato real. La ventana de análisis va de <span class="mono">−20 a 140 s</span> en torno a la P: 400 muestras por estación.</p>
+  <p><strong>Sale:</strong> el vector de datos $\mathbf{d}$ —35 estaciones × 400 muestras = <span class="mono">14 000</span> filas en la prueba sintética— y una matriz diagonal de pesos $W$ con la inversa de la desviación típica del ruido pre-evento de cada estación: una estación ruidosa pesa menos.</p>
+
+  <h3>2 · La matriz G</h3>
+  <p><strong>Entra:</strong> la geometría de la fuente y el modelo directo. La fuente es una <strong>línea de nodos sobre la traza cartografiada</strong>: ξ de 0 a 260 km cada 10 km (<span class="mono">27</span> nodos, medidos desde el hipocentro del M 7,2) y $t_k$ de 0 a 80 s cada 1 s (<span class="mono">81</span> instantes). La fuente elemental es un triángulo de 2 s de base. El mecanismo se fija —rumbo 81°, buzamiento 78°, deslizamiento −175°— y no se invierte.</p>
+  <p>Cada columna de $G$ es lo que produciría en todas las estaciones <i>un</i> nodo encendido en <i>un</i> instante: el desplazamiento de campo lejano de la onda P de un doble par,</p>
+  $$ u(t) \;=\; \frac{F_P(\varphi,i)\,g(\Delta)}{4\pi\rho\alpha^{3}}\;\dot M\!\left(t - T - \delta\tau\right), $$
+  <p>con $F_P$ el patrón de radiación, $g(\Delta)$ la expansión geométrica, $T$ el tiempo de viaje (TauP) y $\delta\tau$ la corrección empírica de la estación. Por ser lineal en el momento, apilar una columna por cada par (nodo, instante) da directamente $G$.</p>
+  <p><strong>Sale:</strong> $G$ de <span class="mono">14 000 × 2 187</span>, dispersa: cada columna solo tiene valores en la ventana de 2 s de cada estación. Sobre el dato real las columnas se sustituyen por <a href="green.html">funciones de Green de AxiSEM</a>, que contienen las fases <span class="mono">pP</span> y <span class="mono">sP</span>; el ensamblaje es el mismo.</p>
+
+  <h3>3 · El sistema regularizado, con m ≥ 0</h3>
+  <p><strong>Entra:</strong> $G$, $\mathbf{d}$ y $W$. El problema que se resuelve es</p>
+  $$ \min_{\mathbf{m}\,\ge\,0}\; \| W(G\mathbf{m}-\mathbf{d}) \|^{2} \;+\; \lambda^{2}\,\| L\mathbf{m} \|^{2}, $$
+  <p>donde $L$ es el laplaciano de segundas diferencias en ξ y en $t$ —dos bloques, construidos como productos de Kronecker— y $\mathbf{m}\ge 0$ dice que el momento no puede ser negativo. <strong>Decisión imprescindible:</strong> el sistema se <strong>adimensionaliza</strong>. Las incógnitas son momentos de ~10<sup>18</sup> N·m y los coeficientes de $G$ de ~10<sup>−14</sup>; con esa disparidad los solvers iterativos se estancan y devuelven soluciones peores que el propio modelo verdadero, que es factible. Se reescala a incógnitas de orden 1 (10<sup>18</sup> N·m por celda) y a dato de orden 1 (norma de $W\mathbf{d}$ por muestra).</p>
+  <p><strong>Sale:</strong> el sistema aumentado $A = [\,WG\,;\;\lambda L\,]$, de <span class="mono">18 158 × 2 187</span>: las 14 000 filas del dato más las 4 158 del laplaciano.</p>
+
+  <h3>4 · lsq_linear (TRF) sobre LSMR</h3>
+  <p><strong>Entra:</strong> $A$, el dato escalado y un valor de λ. Se resuelve con <code>scipy.optimize.lsq_linear</code>, método de región de confianza reflexivo (TRF) con cotas $(0,\infty)$, que en cada subproblema llama al solver iterativo <strong>LSMR</strong>; tolerancia automática, 250 iteraciones como máximo.</p>
+  <p><strong>Dónde está el costo:</strong> LSMR no factoriza nada; solo necesita los productos $A\mathbf{x}$ y $A^{\mathsf T}\mathbf{y}$, y los repite decenas de veces por resolución. Con una matriz dispersa de este tamaño, cada producto es un recorrido por memoria más que un cálculo. <strong>GPU:</strong> la versión acelerada sustituye <i>solo</i> ese operador —$A$ se entrega a <code>lsq_linear</code> como un <code>LinearOperator</code> cuyos productos calcula cuSPARSE— y deja intactos el algoritmo, sus parámetros y la construcción de $A$. Los resultados difieren del original únicamente por redondeo, porque cuSPARSE suma en otro orden que SciPy.</p>
+  <p><strong>Sale:</strong> $\mathbf{m}$ en unidades físicas, tras deshacer el escalado.</p>
+
+  <h3>5 · λ por principio de discrepancia</h3>
+  <p><strong>Entra:</strong> el desajuste RMS ponderado del ruido añadido en esa realización, que es el <strong>objetivo</strong>: una solución no debe ajustar mejor que lo que permite el ruido. Se busca el <strong>mayor</strong> λ cuyo desajuste no supere el objetivo, por bisección en $\log_{10}\lambda$ entre 10<sup>−5</sup> y 10, en siete pasos.</p>
+  <p><strong>Decisión:</strong> cuando el dato contiene energía que $G$ no puede explicar, el objetivo es inalcanzable y la bisección colapsaría al λ mínimo. Se aplica entonces el principio de discrepancia <strong>generalizado</strong>: se mide primero el suelo de desajuste alcanzable y, si supera el objetivo, se toma como objetivo 1,05 veces ese suelo. Y una regla que no se negocia: <strong>el mismo criterio para los dos escenarios</strong>; queda prohibido ajustar λ por escenario.</p>
+  <p><strong>Sale:</strong> λ y su $\mathbf{m}$. Cuesta unas <strong>ocho resoluciones</strong> del paso 4 por cada realización de ruido: la flecha de retorno del diagrama.</p>
+
+  <h3>6 · Dos escenarios × veinte realizaciones</h3>
+  <p><strong>Entra:</strong> dos historias de ruptura con el <strong>mismo momento total</strong> (2,54 × 10<sup>20</sup> N·m, el del tensor de momento del USGS): <b>(a)</b> un doblete con hueco —el M 7,2 al oeste, silencio entre 20 y 32 s, el M 7,5 al este— y <b>(b)</b> un frente continuo a 3,3 km/s. Cada una se convierte en sismogramas con la misma $G$, se le añade <strong>ruido real</strong> de cada estación (su ruido pre-evento) y se invierte con los pasos 3 a 5; veinte realizaciones de ruido por escenario.</p>
+  <p><strong>Sale:</strong> 40 realizaciones, 320 resoluciones del solver, y el estadístico de decisión: la fracción $f$ del momento que la inversión coloca en la ventana 20–32 s, y la separación entre escenarios</p>
+  $$ S \;=\; \frac{\mu_b-\mu_a}{\sqrt{\sigma_a^{2}+\sigma_b^{2}}}, $$
+  <p>con el criterio pre-registrado $S \ge 2$. Resultado: $S = 226{,}7$; la cobertura distingue el hueco, y se procede al dato real. <strong>Paralelización:</strong> las realizaciones se reparten entre cuatro procesos; cada uno llama exactamente a la misma función con los mismos argumentos que el original, con un solo hilo BLAS por proceso, de modo que el paralelismo está en los procesos y no en las bibliotecas.</p>
+
+  <h2><span class="no">3</span> Cómo se demostró que la versión acelerada da la misma respuesta</h2>
+  <p>«Da la misma respuesta» no puede quedar como una impresión visual. Se definió con cuatro reglas. <strong>El oráculo es el código original, sin tocarlo:</strong> las pruebas importan los módulos originales tal como están y los ejecutan con las mismas entradas; no se compara contra una copia ni contra una reimplementación. <strong>Se acelera lo mínimo:</strong> en la inversión solo se sustituyó el operador lineal; el solver, la selección de λ y el estadístico son el código original, así que lo que hay que verificar es pequeño y está aislado. <strong>Se verifica por niveles</strong>, de la operación más pequeña a la conclusión científica. Y <strong>la tolerancia depende de la aritmética:</strong> donde la versión acelerada hace las mismas operaciones en el mismo orden se exige igualdad bit a bit; donde cambia el orden de las sumas se exige una cota relativa explícita; y en todos los casos la conclusión no debe cambiar.</p>
+
+  <table>
+    <thead><tr><th>Nivel</th><th>Qué se compara</th><th>Criterio</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1 · operación</td><td>productos <i>A</i><b>x</b> y <i>A</i><sup>T</sup><b>y</b> en GPU frente a SciPy</td><td>cota relativa 10<sup>−12</sup></td><td>cumple</td></tr>
+      <tr><td class="n">2 · componente</td><td>una resolución completa del solver con datos reales</td><td>mismo <b>m</b> y mismo número de iteraciones</td><td>‖Δm‖/‖m‖ = 2–6 × 10<sup>−10</sup>; 22 iteraciones en ambos</td></tr>
+      <tr><td class="n">3 · corrida</td><td>las 40 realizaciones frente al resultado canónico</td><td>λ idénticos; <i>f</i> y <b>m</b> dentro de cota</td><td>λ ≤ 7 × 10<sup>−14</sup>; |Δf| ≤ 5 × 10<sup>−9</sup>; ‖Δm‖/‖m‖ ≤ 1,5 × 10<sup>−6</sup></td></tr>
+      <tr><td class="n">4 · conclusión</td><td>el estadístico <i>S</i> y la decisión</td><td>la decisión no cambia</td><td>226,7173 frente a 226,7172; misma decisión</td></tr>
+      <tr><td class="n">retroproyección</td><td>la imagen completa, 61 × 91 × 951, frente al original</td><td>bit a bit</td><td>diferencia 0,0</td></tr>
+      <tr><td class="n">entre máquinas</td><td>la misma retroproyección en otra computadora</td><td>redondeo de máquina</td><td>≤ 7 × 10<sup>−11</sup></td></tr>
+      <tr><td class="n">independiente</td><td>Kikuchi y Kanamori (1991), Fortran</td><td>coherencia física del resultado</td><td>compilado y verificado con Denali 2002; comparación cuantitativa pendiente</td></tr>
+    </tbody>
+  </table>
+
+  <p>Dos detalles que conviene explicar. <strong>Por qué el nivel 3 admite más diferencia que el 2:</strong> el solver es iterativo, y una diferencia de redondeo puede hacer que se detenga una o varias iteraciones antes o después (81 frente a 69 en alguna realización); por eso el criterio no se fija en el número de iteraciones sino en las magnitudes que deciden el resultado, λ, $f$ y $S$. <strong>Las pruebas deben poder fallar:</strong> una primera prueba sintética de la retroproyección pasaba siempre, porque las señales no cubrían la ventana de cálculo y ambas versiones devolvían ceros. Se corrigió para exigir una imagen no nula. Las nueve pruebas de la suite pasan con la versión actual.</p>
+
+  <div class="callout blue"><span class="k">Lo que no se toca al acelerar</span> La selección de λ, el truncamiento por soporte, el estadístico y la decisión permanecen en el código original y se ejecutan tal cual. Acelerar es cambiar <i>dónde</i> se multiplican dos matrices, no <i>qué</i> se decide con el resultado.</div>
+
+  <h2><span class="no">4</span> Sobre el dato real: qué cambia</h2>
+  <p>La cadena anterior es la de la prueba sintética. Sobre el registro observado la inversión conserva los mismos pasos, con cuatro diferencias que se decidieron por criterios de validez del operador, no por el resultado:</p>
+  <ul>
+    <li><strong>32 estaciones y ventana de 80 s</strong> —unas 7 200 filas—, porque con funciones de Green completas la <span class="mono">PP</span> entra en el modelo pero un modelo 1-D global no la predice bien: las filas posteriores a la PP son ruido con estructura. El barrido de ventanas se hizo antes de mirar ningún estadístico de decisión.</li>
+    <li><strong>Truncamiento por soporte:</strong> los instantes de fuente cercanos al final de la ventana emiten trenes que llegan fuera de ella, y sus columnas casi vacías son funciones de base libres que la restricción $\mathbf{m}\ge 0$ no ata. Se conserva $t_k$ solo si la norma mediana de sus columnas es ≥ 90 % de la de los instantes plenamente soportados: con 80 s, $t_k \le 68$ s.</li>
+    <li><strong>Solver FISTA</strong> —gradiente acelerado con proyección sobre el ortante positivo, 3 000 iteraciones, paso fijado por la constante de Lipschitz de $G^{\mathsf T}G$— en lugar de <code>lsq_linear</code>, que tardaba más de quince minutos por cada λ. Es el mismo mínimo del mismo problema convexo, no una aproximación.</li>
+    <li><strong>λ por discrepancia generalizada</strong> con λ<sub>rel</sub> = 10, y el mismo λ para el dato observado y para los dos escenarios de control, de modo que ninguno se beneficie de una elección distinta.</li>
+  </ul>
+  <p>Con eso, el momento que cae en la ventana intermedia es $f = 0{,}0036$ en el dato observado, frente al $f = 0{,}1652 \pm 0{,}0450$ que exigiría un frente continuo; la separación, con el control calibrado a la misma bondad de ajuste, es $S = 2{,}62$. Cómo se calibró ese control y qué certifica está en la página de <a href="verificacion.html">verificación y controles</a>; el aparato estadístico que lo rodea, en la de <a href="estadistica.html">el aparato estadístico</a>.</p>
+
+  <h2><span class="no">5</span> Referencias</h2>
+  <ul class="refs">
+    <li>Ishii, M., Shearer, P. M., Houston, H., &amp; Vidale, J. E. (2005). Extent, duration and speed of the 2004 Sumatra–Andaman earthquake imaged by the Hi-Net array. <em>Nature</em>, 435, 933–936.</li>
+    <li>Rost, S., &amp; Thomas, C. (2002). Array seismology: methods and applications. <em>Reviews of Geophysics</em>, 40(3), 1008. (apilado de raíz <i>N</i>).</li>
+    <li>Kikuchi, M., &amp; Kanamori, H. (1991). Inversion of complex body waves — III. <em>Bull. Seismol. Soc. Am.</em>, 81(6), 2335–2350.</li>
+    <li>Fong, D. C.-L., &amp; Saunders, M. A. (2011). LSMR: an iterative algorithm for sparse least-squares problems. <em>SIAM J. Sci. Comput.</em>, 33(5), 2950–2971.</li>
+    <li>Branch, M. A., Coleman, T. F., &amp; Li, Y. (1999). A subspace, interior, and conjugate gradient method for large-scale bound-constrained minimization problems. <em>SIAM J. Sci. Comput.</em>, 21(1), 1–23. (método TRF de <code>lsq_linear</code>).</li>
+    <li>Beck, A., &amp; Teboulle, M. (2009). A fast iterative shrinkage-thresholding algorithm for linear inverse problems. <em>SIAM J. Imaging Sci.</em>, 2(1), 183–202. (FISTA).</li>
+    <li>Morozov, V. A. (1966). On the solution of functional equations by the method of regularization. <em>Soviet Math. Dokl.</em>, 7, 414–417. (principio de discrepancia).</li>
+    <li>Crotwell, H. P., Owens, T. J., &amp; Ritsema, J. (1999). The TauP Toolkit: flexible seismic travel-time and ray-path utilities. <em>Seismol. Res. Lett.</em>, 70, 154–160.</li>
+  </ul>
+
+  <div class="foot">
+    <span>Método · las dos cadenas de cálculo · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>

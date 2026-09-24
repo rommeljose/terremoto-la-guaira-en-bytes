@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Hereda el tema elegido en la portada (mismo localStorage que index.html).
+   Va antes del primer pintado para que no haya destello del tema contrario. */
+(function(){try{var t=localStorage.getItem('lg-theme');
+  if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>La profundidad de la fuente — método</title>
+<meta name="description" content="Tres cifras para el mismo foco y ninguna medida; por qué las fases pP y sP hacen que importe; y la prueba, sintética y sobre el dato real, de que el hueco entre las dos rupturas no depende de acertarla.">
+<meta name="author" content="Rommel Contreras">
+<link rel="canonical" href="https://bytes.sigeos.org/metodo/profundidad.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="La Guaira en bytes — AGHES">
+<meta property="og:locale" content="es_VE">
+<meta property="og:url" content="https://bytes.sigeos.org/metodo/profundidad.html">
+<meta property="og:title" content="La profundidad de la fuente">
+<meta property="og:description" content="Tres cifras para el mismo foco y ninguna medida; por qué las fases pP y sP hacen que importe; y la prueba, sintética y sobre el dato real, de que el hueco entre las dos rupturas no depende de acertarla.">
+<meta property="og:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tarjeta de bytes.sigeos.org: sobre la costa central de Venezuela, la traza del enlace San Sebastián–Morón–Boconó con las dos estrellas de los epicentros M 7,2 y M 7,5.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La profundidad de la fuente">
+<meta name="twitter:description" content="Tres cifras para el mismo foco y ninguna medida; por qué las fases pP y sP hacen que importe; y la prueba, sintética y sobre el dato real, de que el hueco entre las dos rupturas no depende de acertarla.">
+<meta name="twitter:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  td.n{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--blue); white-space:nowrap}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+<style>
+  /* Clases traídas de la portada (index.html), adaptadas a las variables de esta plantilla */
+  .note{margin:0 0 16px; color:var(--muted); font-size:1rem; line-height:1.62}
+  .note b{color:var(--ink); font-weight:600}
+  h3.sub-h{margin:32px 0 8px; font-size:1.12rem; font-weight:700; color:var(--strong)}
+  .bloque p{margin:0 0 14px}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:16px 0}
+  .box{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--paper)}
+  .box.o{border-top:3px solid var(--amber)} .box.b{border-top:3px solid var(--blue)}
+  .box .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.6rem; color:var(--strong); letter-spacing:-.02em; line-height:1.05}
+  .box .big.txt{font-size:1.02rem; letter-spacing:0}
+  .box h3{margin:2px 0 0; font-size:.9rem; font-weight:700; color:var(--ink)}
+  .box p{margin:7px 0 0; font-size:.88rem; color:var(--muted)}
+  .box p b{color:var(--ink); font-weight:600}
+  .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px; margin:18px 0;
+    border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--paper)}
+  .aside .tag{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.72rem;
+    letter-spacing:.06em; color:#fff; background:var(--blue); border-radius:5px; padding:4px 8px; margin-top:2px}
+  .aside h4{margin:0 0 5px; font-size:1rem; font-weight:700; color:var(--strong); font-family:"IBM Plex Sans",sans-serif}
+  .aside p{margin:0 0 8px; font-size:.93rem; color:var(--muted)} .aside p:last-child{margin-bottom:0}
+  .aside b{color:var(--ink); font-weight:600}
+  .aside.o{border-left-color:var(--amber)} .aside.o .tag{background:var(--amber); color:#fff}
+  .aside.g{border-left-color:var(--green)} .aside.g .tag{background:var(--green); color:#fff}
+  .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .figplate img{display:block; width:100%; height:auto}
+  .figplate figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line); background:var(--paper)}
+  .figplate.modesta{max-width:780px; margin:18px auto 0}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px; margin:14px 0}
+  .tbl-wrap table{margin:0; min-width:540px}
+  th .sub,td .sub{display:block; font-size:.75rem; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0; margin-top:2px}
+  .badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:13px; margin:18px 0}
+  .badge{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line);
+    border-left:4px solid var(--green); border-radius:8px; padding:15px 17px; background:var(--paper)}
+  .badge.b{border-left-color:var(--blue)}
+  .badge .dot{flex:none; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.85rem}
+  .badge.b .dot{background:var(--blue)}
+  .badge h4{margin:0 0 3px; font-size:.9rem; color:var(--ink); font-weight:700; font-family:"IBM Plex Sans",sans-serif}
+  .badge p{margin:0; font-size:.86rem; color:var(--muted)}
+  .box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
+  .box ol.pasos li{margin:0 0 5px}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← La Guaira en bytes</a>
+  <header>
+    <p class="eyebrow">Método · la profundidad de la fuente — La Guaira, 24-jun-2026</p>
+    <h1>La profundidad de la fuente</h1>
+    <p class="sub">Tres cifras para el mismo foco —10, 11,5 y 27,6 km— y ninguna <em class="term">medida</em>. Por qué eso importa para las fases <span class="mono">pP</span> y <span class="mono">sP</span>, y la prueba de que el hueco entre las dos rupturas no se apoya en acertarla.</p>
+  </header>
+
+    <p class="lead">Toda la inversión se apoya en la onda <b>P</b> y en las reflexiones que la siguen de cerca. El retardo de esas reflexiones depende casi solo de <b>a qué profundidad está el foco</b> — y esa profundidad, en este terremoto, <b>no es un valor medido</b>. Había que comprobar, por tanto, si el resultado depende de acertarla.</p>
+
+    <div class="bloque">
+      <h3 class="sub-h">Tres cifras para el mismo foco</h3>
+      <p>El número que se cita habitualmente, 10 km, es una <b>asignación del analista</b>, no una profundidad resuelta por los datos. Otros dos productos del mismo terremoto dan otras dos cifras:</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big">10 km</div><h3>catálogo del USGS</h3><p>El valor que acompaña a <span class="mono">us6000t7zc</span>. Asignado por el analista cuando la profundidad no queda restringida.</p></div>
+        <div class="box b"><div class="big">11,5 km</div><h3>tensor de momento</h3><p>La que devuelve la inversión del tensor, sobre los mismos registros.</p></div>
+        <div class="box b"><div class="big">27,6 km</div><h3>cabecera SAC de IRIS</h3><p>La que viaja en la cabecera de las propias formas de onda descargadas. Casi el triple que la del catálogo.</p></div>
+      </div>
+      <p style="margin-top:14px">Un ejercicio independiente con <span class="mono">FMNEAR</span> sobre la red local, dejando la profundidad libre, la lleva de 4,9 a <b>20 km</b> <b>sin mejorar el ajuste ni el índice de calidad</b>. Con el evento mar afuera y las estaciones solo en tierra, la geometría no permite constreñirla. Tres fuentes, tres respuestas, y ninguna con autoridad sobre las demás.</p>
+
+      <h3 class="sub-h">Por qué importa: las fases de profundidad</h3>
+      <p>Poco después de la P directa llegan a cada estación lejana dos ondas más que salieron del mismo foco hacia arriba, rebotaron en la superficie libre <i>encima de la fuente</i> y emprendieron el mismo camino: son <span class="mono">pP</span> y <span class="mono">sP</span>. Su retardo respecto a la P mide, casi en exclusiva, la <b>profundidad</b>: <span class="mono">d(pP−P)/dh ≈ 0,30 s/km</span>.</p>
+      <p>Ahí está el riesgo. A 10 km, <span class="mono">pP</span> llega a 3,2 s y <span class="mono">sP</span> a 4,6 s — <b>dentro del propio pulso de la fuente</b>, donde un operador que no las modele puede confundirlas con estructura temporal, es decir, con momento que nunca se liberó. Y el hueco que hay que resolver dura unos pocos segundos. Conviene subrayar el reparto de culpas: el modelo de corteza apenas influye (<b>+0,05 s</b>); la profundidad, sí.</p>
+
+      <figure class="figplate" style="margin-top:20px">
+        <img src="../assets/fig_profundidad_test_web.png" width="1500" height="884" loading="lazy"
+             alt="Tres paneles: el retardo de pP y sP frente a la profundidad del foco, el índice de separación S que crece con la profundidad, y la fuga de momento.">
+        <figcaption><b>La prueba, con dato sintético.</b> Se <b>genera</b> el dato con <span class="mono">pP</span> y <span class="mono">sP</span> a la profundidad verdadera y se <b>invierte</b> con el operador de solo-P, que es lo que se hará con el registro real. Las cuatro profundidades no son arbitrarias: son las que distintas fuentes atribuyen a este terremoto. <b>(a)</b> El mecanismo: al profundizar el foco, las fases de profundidad se <b>alejan</b> de la ventana que hay que resolver. <b>(b)</b> El índice de separación entre los dos escenarios, frente al umbral <span class="mono">S = 2</span> fijado de antemano. <b>(c)</b> La contrapartida: la fuga de momento hacia donde no lo hubo, y la energía no modelada.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_profundidad_test.png">Ver a resolución completa →</a></span></figcaption>
+      </figure>
+
+      <h3 class="sub-h">El resultado va al revés de lo previsto</h3>
+      <p>La expectativa razonable era que los 27,6 km rompieran la prueba. Ocurre lo contrario: <b>S sube de 174 a 356</b> al profundizar el foco. Ante un resultado que contradice la expectativa, el reflejo correcto es buscar el error; pero aquí la explicación es física y sencilla.</p>
+      <div class="aside" style="margin-top:16px">
+        <span class="tag">pP · sP</span>
+        <div>
+          <h4>Cuanto más profundo el foco, más lejos estorban</h4>
+          <p>A 10 km, <span class="mono">pP</span> y <span class="mono">sP</span> caen a 3,2 y 4,6 s, dentro del pulso. A 27,6 km se van a 8,3 y 11,9 s, <b>fuera de la ventana</b>: el operador las trata como energía que sencillamente no ajusta, y no como momento.</p>
+        </div>
+      </div>
+      <p style="margin-top:16px">La contrapartida aparece donde debe, y hay que decirla: la <b>fuga se duplica</b> a 27,6 km (0,112 % frente a 0,051 %) y la energía no modelada <b>se triplica</b> (145 % frente a 50 %). El ajuste empeora mucho; lo que no se degrada es la capacidad de separar los dos escenarios. Es decir: <b>el hueco no se sostiene sobre acertar la profundidad</b>.</p>
+
+      <h3 class="sub-h">Y sobre el dato real</h3>
+      <p>La misma pregunta, hecha al registro observado con el operador canónico y con las funciones de Green <b>re-descargadas a cada profundidad</b>:</p>
+
+      <figure class="figplate" style="margin-top:18px">
+        <img src="../assets/fig_profundidad_canonica_web.png" width="1500" height="597" loading="lazy"
+             alt="Dos paneles: barrido de profundidad con la varianza explicada y la fracción de momento en el hueco, y la covarianza entre profundidad y desplazamiento temporal.">
+        <figcaption><b>La profundidad como parámetro, sobre el dato real.</b> <b>(a)</b> Barrido: la varianza explicada (azul) es <b>máxima en el rango somero</b> —21–22 % entre 5 y 10 km, con el máximo en 8— y cae al profundizar: 15 % a 12 km, 11 % a 20 km. Las fases de profundidad que llevan las funciones de Green <b>sí resuelven que la fuente es somera</b>, y los 10 km del catálogo caen en la meseta alta. A la vez, <span class="mono">f</span> —la fracción de momento en el hueco de 20–32 s, en naranja— se mantiene <b>entre 0,13 y 0,85 % a todas las profundidades</b>: el hueco es insensible a ella. <b>(b)</b> Covarianza profundidad × desplazamiento temporal, para comprobar que las dos no se están compensando entre sí.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_profundidad_canonica.png">Ver a resolución completa →</a></span></figcaption>
+      </figure>
+
+      <h3 class="sub-h">No confundirla con la profundidad de las réplicas</h3>
+      <p>Son dos problemas distintos, y el segundo es peor. En el catálogo de réplicas, <b>365 eventos —el 21 %— tienen z = 5,0 km exacto</b>, y la proporción se repite en la sismicidad histórica (1 211 de 5 234). Eso no es una capa sísmica: es el <b>valor por omisión del localizador</b> cuando la profundidad no queda restringida. Por eso el visor 3-D los dibuja huecos y en gris y trae una casilla para ocultarlos, por eso no se pueden ajustar planos focales a esas profundidades, y por eso el siguiente paso es la relocalización relativa de la <b>sección 08</b> de la portada. El eje horizontal, en cambio, sí es utilizable.</p>
+
+      <div class="aside g" style="margin-top:22px">
+        <span class="tag">EN CRISTIANO</span>
+        <div>
+          <h4>Qué hay que llevarse de esta sección</h4>
+          <p>No sabíamos a qué hondura arrancó el terremoto. Tres fuentes serias daban tres cifras distintas —10, 11,5 y 27,6 km— y ninguna la había <i>medido</i>: una la puso a mano un analista, otra salió de un cálculo y la tercera venía escrita en la cabecera de los ficheros. Eso incomoda, porque de la hondura depende <b>cuándo</b> llegan a las estaciones lejanas los ecos que el terremoto rebota contra la superficie del mar, y un eco a destiempo puede confundirse con energía que el terremoto nunca liberó.</p>
+          <p>Así que se probaron todas. Y salieron <b>dos cosas</b>. La primera la dice la <b>curva azul</b> de la figura de arriba: el registro se explica mejor cuando se supone el foco <b>somero</b> —entre 5 y 10 km— y claramente peor a medida que se hunde. Es decir, el dato tiene opinión propia sobre algo que nadie había medido, y su opinión es que el terremoto fue <b>poco profundo</b>.</p>
+          <p>La segunda es la que de verdad importa, y es la <b>línea naranja</b>: se mantiene abajo y plana <b>a todas las profundidades</b>. Esa línea mide cuánta energía aparece en el tramo silencioso entre las dos rupturas. Que no se mueva significa que <b>el silencio sigue ahí se suponga la hondura que se suponga</b>. Dicho de otro modo: la conclusión central de este trabajo —que hubo dos terremotos y no uno solo estirándose— <b>no se apoya en un número que nadie midió</b>. Y esa es exactamente la clase de comprobación que hay que hacerle a un resultado antes de creérselo.</p>
+        </div>
+      </div>
+    </div>
+
+  <div class="foot">
+    <span>Método · la profundidad de la fuente · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>

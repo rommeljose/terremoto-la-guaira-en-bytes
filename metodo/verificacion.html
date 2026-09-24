@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Hereda el tema elegido en la portada (mismo localStorage que index.html).
+   Va antes del primer pintado para que no haya destello del tema contrario. */
+(function(){try{var t=localStorage.getItem('lg-theme');
+  if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>Verificación y controles — método</title>
+<meta name="description" content="La reproducción exacta del ensamblaje del operador de inversión, qué certifica y qué no, qué es la varianza explicada y por qué un 21 % no es un suspenso, y cómo se calibró el control sintético a la misma bondad de ajuste.">
+<meta name="author" content="Rommel Contreras">
+<link rel="canonical" href="https://bytes.sigeos.org/metodo/verificacion.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="La Guaira en bytes — AGHES">
+<meta property="og:locale" content="es_VE">
+<meta property="og:url" content="https://bytes.sigeos.org/metodo/verificacion.html">
+<meta property="og:title" content="Verificación y controles">
+<meta property="og:description" content="La reproducción exacta del ensamblaje del operador de inversión, qué certifica y qué no, qué es la varianza explicada y por qué un 21 % no es un suspenso, y cómo se calibró el control sintético a la misma bondad de ajuste.">
+<meta property="og:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tarjeta de bytes.sigeos.org: sobre la costa central de Venezuela, la traza del enlace San Sebastián–Morón–Boconó con las dos estrellas de los epicentros M 7,2 y M 7,5.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verificación y controles">
+<meta name="twitter:description" content="La reproducción exacta del ensamblaje del operador de inversión, qué certifica y qué no, qué es la varianza explicada y por qué un 21 % no es un suspenso, y cómo se calibró el control sintético a la misma bondad de ajuste.">
+<meta name="twitter:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  td.n{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--blue); white-space:nowrap}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+<style>
+  /* Clases traídas de la portada (index.html), adaptadas a las variables de esta plantilla */
+  .note{margin:0 0 16px; color:var(--muted); font-size:1rem; line-height:1.62}
+  .note b{color:var(--ink); font-weight:600}
+  h3.sub-h{margin:32px 0 8px; font-size:1.12rem; font-weight:700; color:var(--strong)}
+  .bloque p{margin:0 0 14px}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:16px 0}
+  .box{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--paper)}
+  .box.o{border-top:3px solid var(--amber)} .box.b{border-top:3px solid var(--blue)}
+  .box .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.6rem; color:var(--strong); letter-spacing:-.02em; line-height:1.05}
+  .box .big.txt{font-size:1.02rem; letter-spacing:0}
+  .box h3{margin:2px 0 0; font-size:.9rem; font-weight:700; color:var(--ink)}
+  .box p{margin:7px 0 0; font-size:.88rem; color:var(--muted)}
+  .box p b{color:var(--ink); font-weight:600}
+  .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px; margin:18px 0;
+    border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--paper)}
+  .aside .tag{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.72rem;
+    letter-spacing:.06em; color:#fff; background:var(--blue); border-radius:5px; padding:4px 8px; margin-top:2px}
+  .aside h4{margin:0 0 5px; font-size:1rem; font-weight:700; color:var(--strong); font-family:"IBM Plex Sans",sans-serif}
+  .aside p{margin:0 0 8px; font-size:.93rem; color:var(--muted)} .aside p:last-child{margin-bottom:0}
+  .aside b{color:var(--ink); font-weight:600}
+  .aside.o{border-left-color:var(--amber)} .aside.o .tag{background:var(--amber); color:#fff}
+  .aside.g{border-left-color:var(--green)} .aside.g .tag{background:var(--green); color:#fff}
+  .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .figplate img{display:block; width:100%; height:auto}
+  .figplate figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line); background:var(--paper)}
+  .figplate.modesta{max-width:780px; margin:18px auto 0}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px; margin:14px 0}
+  .tbl-wrap table{margin:0; min-width:540px}
+  th .sub,td .sub{display:block; font-size:.75rem; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0; margin-top:2px}
+  .badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:13px; margin:18px 0}
+  .badge{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line);
+    border-left:4px solid var(--green); border-radius:8px; padding:15px 17px; background:var(--paper)}
+  .badge.b{border-left-color:var(--blue)}
+  .badge .dot{flex:none; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.85rem}
+  .badge.b .dot{background:var(--blue)}
+  .badge h4{margin:0 0 3px; font-size:.9rem; color:var(--ink); font-weight:700; font-family:"IBM Plex Sans",sans-serif}
+  .badge p{margin:0; font-size:.86rem; color:var(--muted)}
+  .box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
+  .box ol.pasos li{margin:0 0 5px}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← La Guaira en bytes</a>
+  <header>
+    <p class="eyebrow">Método · verificación y controles — La Guaira, 24-jun-2026</p>
+    <h1>Verificación y controles</h1>
+    <p class="sub">Las cuatro comprobaciones de la portada, y la primera de ellas desarmada: qué significa <em class="term">ensamblar</em> el operador, qué prueba reproducirlo, y por qué el control sintético se calibró para ajustar <em class="term">tan mal</em> como el dato.</p>
+  </header>
+
+    <div class="badges">
+      <div class="badge"><span class="dot">✓</span><div><h4>Reproducción exacta del ensamblaje</h4><p>El operador reconstruido devuelve el mismo resultado, con <span class="mono">|m − m_l| = 0</span> y <span class="mono">VR = 21,15 %</span>.</p></div></div>
+      <div class="badge"><span class="dot">3</span><div><h4>Robustez en tres ejes independientes</h4><p>La ruptura en dos acumulaciones con hueco se mantiene al variar la <b>malla</b>, la <b>longitud de ventana</b> y la <b>profundidad</b>.</p></div></div>
+      <div class="badge"><span class="dot">↓</span><div><h4><a href="profundidad.html">Profundidad de la fuente</a></h4><p>La varianza explicada es máxima en <span class="mono">5–10 km</span>, y el hueco resulta insensible a la profundidad (<span class="mono">f = 0,13–0,85 %</span>).</p></div></div>
+      <div class="badge b"><span class="dot">⌀</span><div><h4>Un arreglo evaluado y excluido</h4><p>El arreglo del sur (Chile) se probó y se excluyó por relación señal/ruido y por geometría.</p></div></div>
+    </div>
+
+    <div class="bloque" style="margin-top:26px">
+      <h3 class="sub-h">La reproducción del ensamblaje, en detalle</h3>
+      <p>La primera de esas comprobaciones conviene desarmarla, porque es fácil confundir lo que certifica. <b>No dice nada sobre el terremoto</b>: es una prueba que el método se hace a sí mismo.</p>
+
+      <h3 class="sub-h">El problema, y qué significa «ensamblar»</h3>
+      <p>La inversión de Fase B es un problema lineal, <span class="mono">d = G·m</span>. Sus tres piezas:</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big">d</div><h3>el dato</h3><p>Los sismogramas observados, concatenados: las ventanas de onda P de las <b>32 estaciones</b> puestas una detrás de otra en un solo vector de unas <b>7 200 muestras</b>.</p></div>
+        <div class="box b"><div class="big">m</div><h3>la incógnita</h3><p>Cuánto momento libera cada nodo <span class="mono">ξ</span> de la falla en cada instante <span class="mono">t<sub>k</sub></span>. Con la malla canónica, 27 nodos × 81 instantes: <b>2 187 incógnitas</b>.</p></div>
+        <div class="box b"><div class="big">G</div><h3>el operador</h3><p><b>7 200 × 2 187</b>. Cada columna es lo que produciría en todas las estaciones <i>un</i> nodo encendido en <i>un</i> instante: una función de Green, desplazada en el tiempo lo que le corresponda.</p></div>
+      </div>
+      <p style="margin-top:14px"><b>Ensamblar</b> es construir esa matriz: recorrer los pares nodo–instante–estación, calcular el desfase que le toca a cada uno —el tiempo de viaje de la P más la corrección de estación— e insertar la traza en su sitio. Es la parte del código donde es más fácil equivocarse <b>sin que se note</b>: un índice desplazado una muestra, un signo, un origen de tiempo mal referido, y sale un resultado perfectamente verosímil y falso.</p>
+
+      <h3 class="sub-h">Qué prueba exactamente</h3>
+      <p>Se rehace el camino con el operador <b>reconstruido por separado</b>, se le entrega la <span class="mono">G</span> publicada, el mismo dato y el mismo <span class="mono">λ</span>, y se vuelve a resolver. Después se compara con el resultado que está en el expediente. Salen dos números:</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box o"><div class="big">|m − m_l| = 0</div><h3>el mismo modelo</h3><p>La comparación se hace sobre la norma <b>relativa</b> <span class="mono">‖m − m_l‖ / ‖m_l‖</span>, y da cero hasta la precisión de la máquina. No es «parecido»: es el <b>mismo vector</b>.</p></div>
+        <div class="box o"><div class="big">VR = 21,15 %</div><h3>el mismo ajuste</h3><p>La misma varianza explicada que la corrida canónica, dígito a dígito.</p></div>
+      </div>
+      <p style="margin-top:14px">La tubería es, por tanto, <b>determinista y reconstruible</b>: quien la vuelva a montar obtiene lo mismo. Nada más, pero nada menos —esta comprobación certifica el <b>procedimiento</b>, no la sismología.</p>
+
+      <h3 class="sub-h">Qué es VR, y por qué 21 % no es un suspenso</h3>
+      <p>La varianza explicada es <span class="mono">VR = 100·(1 − Σ(d−p)² / Σd²)</span>: la fracción de la energía de los sismogramas que el modelo consigue explicar. Es el complemento del error de Kikuchi, <span class="mono">VR = 1 − EROR</span>.</p>
+      <p>Un 21 % suena bajo, y conviene decir de dónde viene: un operador lineal con <b>mecanismo fijo</b> y <b>eje de ruptura fijo</b>, con la restricción <span class="mono">m ≥ 0</span>, con una regularización fuerte (<span class="mono">λ_rel = 10</span>, elegida por discrepancia generalizada), en la banda <span class="mono">0,02–0,5 Hz</span>, y con una ventana que <b>termina antes de que acabe el M 7,5</b>. Todo eso se paga en ajuste.</p>
+      <div class="aside" style="margin-top:16px">
+        <span class="tag">VR</span>
+        <div>
+          <h4>El argumento no se apoya en la bondad del ajuste</h4>
+          <p>Lo que legitima interpretar el resultado <b>no es que el ajuste sea bueno</b>, sino que el control se hizo con <b>ese mismo ajuste malo</b> y aun así separa los escenarios.</p>
+        </div>
+      </div>
+      <p style="margin-top:16px">Por eso el control sintético no se calibró para que le resultara cómodo. Se buscó por bisección la escala <span class="mono">k</span> que iguala su varianza explicada a la del dato real, y <b>el mismo</b> <span class="mono">k</span> se aplicó a los dos escenarios en competencia —calibrar cada uno por separado sería darle a cada escenario la dificultad que le conviene:</p>
+      <div class="tbl-wrap" style="margin-top:14px">
+        <table>
+          <thead><tr><th>Criterio de escala</th><th>VR sintética</th><th>S</th><th>Veredicto</th></tr></thead>
+          <tbody>
+            <tr><td>Igualar el RMS del dato<span class="sub">k = 1,000</span></td><td class="mono">48,6 / 43,7 %</td><td class="mono">2,91</td><td>demasiado fácil</td></tr>
+            <tr><td>Igualar la varianza explicada<span class="sub">k = 0,460</span></td><td class="mono">11,7 / 10,4 %</td><td class="mono">1,32</td><td>demasiado difícil</td></tr>
+            <tr><td><b>Calibrar hasta VR sintética = VR real</b><span class="sub">k = 0,584 — la elegida</span></td><td class="mono">20,7 / 18,0 %</td><td class="mono">2,62</td><td><b>la correcta</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px"><span class="mono">S</span> es la separación entre los dos escenarios, y el umbral <span class="mono">S ≥ 2</span> se fijó <b>antes</b> de mirar el resultado. Que la opción intermedia dé <span class="mono">S = 1,32</span> hay que decirlo: el margen no es holgado. Pero la elección no es discrecional, porque la condición de <b>igual bondad de ajuste</b> es la única que reproduce el problema real.</p>
+      <p>Con esa dificultad —la misma para los dos— el momento que cae en la ventana intermedia es <span class="mono">f = 0,0036</span> en el dato observado, frente a <span class="mono">f = 0,1652 ± 0,0450</span> que exigiría un frente continuo y <span class="mono">f = 0,0266 ± 0,0281</span> de la referencia en doblete.</p>
+    </div>
+
+  <div class="foot">
+    <span>Método · verificación y controles · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>

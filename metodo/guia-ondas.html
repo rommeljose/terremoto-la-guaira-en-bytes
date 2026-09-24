@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Hereda el tema elegido en la portada (mismo localStorage que index.html).
+   Va antes del primer pintado para que no haya destello del tema contrario. */
+(function(){try{var t=localStorage.getItem('lg-theme');
+  if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<title>La guía de ondas cortical — método</title>
+<meta name="description" content="Por qué un pulso de 6,5 s queda atrapado entre la superficie y el Moho y cae como 1/√R en vez de 1/R; los tres cálculos sobre el modelo cortical de FUNVISIS, y la hipótesis de guía lateral que la propia prueba descarta.">
+<meta name="author" content="Rommel Contreras">
+<link rel="canonical" href="https://bytes.sigeos.org/metodo/guia-ondas.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="La Guaira en bytes — AGHES">
+<meta property="og:locale" content="es_VE">
+<meta property="og:url" content="https://bytes.sigeos.org/metodo/guia-ondas.html">
+<meta property="og:title" content="La guía de ondas cortical">
+<meta property="og:description" content="Por qué un pulso de 6,5 s queda atrapado entre la superficie y el Moho y cae como 1/√R en vez de 1/R; los tres cálculos sobre el modelo cortical de FUNVISIS, y la hipótesis de guía lateral que la propia prueba descarta.">
+<meta property="og:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tarjeta de bytes.sigeos.org: sobre la costa central de Venezuela, la traza del enlace San Sebastián–Morón–Boconó con las dos estrellas de los epicentros M 7,2 y M 7,5.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La guía de ondas cortical">
+<meta name="twitter:description" content="Por qué un pulso de 6,5 s queda atrapado entre la superficie y el Moho y cae como 1/√R en vez de 1/R; los tres cálculos sobre el modelo cortical de FUNVISIS, y la hipótesis de guía lateral que la propia prueba descarta.">
+<meta name="twitter:image" content="https://bytes.sigeos.org/assets/og_card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap">
+<style>
+  :root{
+    --paper:#f6f8fb; --card:#ffffff; --ink:#182231; --strong:#0c1420; --muted:#5a6675;
+    --line:#dde3ec; --blue:#1f5fa8; --blue-soft:#e9f0f9; --amber:#bf6a17; --amber-soft:#faefe1;
+    --green:#1f7a46; --grid:rgba(18,34,52,.04);
+    --shadow:0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d1420; --card:#141d2b; --ink:#dde6f1; --strong:#f2f6fb; --muted:#93a2b6;
+    --line:#26313f; --blue:#6bb0e6; --blue-soft:#132436; --amber:#e2954a; --amber-soft:#2a2013;
+    --green:#5cc088; --grid:rgba(255,255,255,.03);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.66;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-font-smoothing:antialiased; }
+  .sheet{ max-width:820px; margin:26px auto; background:var(--card); border:1px solid var(--line);
+    box-shadow:var(--shadow); padding:clamp(24px,5vw,60px) clamp(20px,5vw,64px) 56px; }
+  .san{font-family:"IBM Plex Sans",system-ui,sans-serif}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+  .back{display:inline-block; font-family:"IBM Plex Sans",sans-serif; font-size:.82rem; font-weight:600;
+    color:var(--blue); text-decoration:none; margin:0 0 18px; padding:5px 12px; border:1px solid var(--line);
+    border-radius:20px; background:var(--paper)}
+  .back:hover{border-color:var(--blue)}
+  header{border-bottom:2px solid var(--strong); padding-bottom:18px; margin-bottom:8px}
+  .eyebrow{font-family:"IBM Plex Sans",sans-serif; font-size:.74rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--amber); font-weight:600; margin:0 0 10px}
+  h1{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:clamp(1.7rem,4.2vw,2.5rem);
+    line-height:1.1; letter-spacing:-.015em; color:var(--strong); margin:0; text-wrap:balance}
+  .sub{color:var(--muted); font-size:1.06rem; margin:12px 0 0}
+  h2{font-family:"IBM Plex Sans",sans-serif; font-weight:700; font-size:1.32rem; color:var(--strong);
+    margin:44px 0 10px; padding-top:8px; letter-spacing:-.01em; display:flex; gap:12px; align-items:baseline}
+  h2 .no{font-family:"IBM Plex Mono",monospace; font-size:.9rem; color:var(--blue); font-weight:600;
+    border:1.5px solid var(--blue); border-radius:6px; padding:1px 8px; flex:none}
+  h3{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:1.05rem; color:var(--ink); margin:26px 0 6px}
+  p{margin:0 0 14px} a{color:var(--blue)} strong{color:var(--strong)}
+  em.term{font-style:normal; color:var(--amber); font-weight:600}
+  .lead{font-size:1.12rem; color:var(--ink)}
+  ul,ol{margin:0 0 16px; padding-left:1.25em} li{margin:6px 0}
+  figure{margin:26px 0}
+  .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
+  figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
+  figcaption b{color:var(--ink)}
+  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
+    padding:14px 18px; margin:22px 0; font-size:1rem}
+  .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
+  .callout .k{font-family:"IBM Plex Sans",sans-serif; font-weight:700; color:var(--strong); display:block; margin-bottom:3px; font-size:.9rem; letter-spacing:.02em}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.88em; background:var(--blue-soft); color:var(--ink); padding:1px 5px; border-radius:4px}
+  table{border-collapse:collapse; width:100%; margin:16px 0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  td.n{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--blue); white-space:nowrap}
+  .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
+    font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  .refs{font-size:.92rem} .refs li{margin:8px 0}
+  mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+</style>
+<style>
+  /* Clases traídas de la portada (index.html), adaptadas a las variables de esta plantilla */
+  .note{margin:0 0 16px; color:var(--muted); font-size:1rem; line-height:1.62}
+  .note b{color:var(--ink); font-weight:600}
+  h3.sub-h{margin:32px 0 8px; font-size:1.12rem; font-weight:700; color:var(--strong)}
+  .bloque p{margin:0 0 14px}
+  .grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:16px 0}
+  .box{border:1px solid var(--line); border-radius:8px; padding:16px 18px; background:var(--paper)}
+  .box.o{border-top:3px solid var(--amber)} .box.b{border-top:3px solid var(--blue)}
+  .box .big{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.6rem; color:var(--strong); letter-spacing:-.02em; line-height:1.05}
+  .box .big.txt{font-size:1.02rem; letter-spacing:0}
+  .box h3{margin:2px 0 0; font-size:.9rem; font-weight:700; color:var(--ink)}
+  .box p{margin:7px 0 0; font-size:.88rem; color:var(--muted)}
+  .box p b{color:var(--ink); font-weight:600}
+  .aside{display:flex; gap:16px; align-items:flex-start; padding:18px 20px; margin:18px 0;
+    border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:10px; background:var(--paper)}
+  .aside .tag{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.72rem;
+    letter-spacing:.06em; color:#fff; background:var(--blue); border-radius:5px; padding:4px 8px; margin-top:2px}
+  .aside h4{margin:0 0 5px; font-size:1rem; font-weight:700; color:var(--strong); font-family:"IBM Plex Sans",sans-serif}
+  .aside p{margin:0 0 8px; font-size:.93rem; color:var(--muted)} .aside p:last-child{margin-bottom:0}
+  .aside b{color:var(--ink); font-weight:600}
+  .aside.o{border-left-color:var(--amber)} .aside.o .tag{background:var(--amber); color:#fff}
+  .aside.g{border-left-color:var(--green)} .aside.g .tag{background:var(--green); color:#fff}
+  .figplate{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .figplate img{display:block; width:100%; height:auto}
+  .figplate figcaption{margin:0; padding:13px 17px 15px; border-top:1px solid var(--line); background:var(--paper)}
+  .figplate.modesta{max-width:780px; margin:18px auto 0}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px; margin:14px 0}
+  .tbl-wrap table{margin:0; min-width:540px}
+  th .sub,td .sub{display:block; font-size:.75rem; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0; margin-top:2px}
+  .badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:13px; margin:18px 0}
+  .badge{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line);
+    border-left:4px solid var(--green); border-radius:8px; padding:15px 17px; background:var(--paper)}
+  .badge.b{border-left-color:var(--blue)}
+  .badge .dot{flex:none; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+    background:var(--green); color:#fff; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:.85rem}
+  .badge.b .dot{background:var(--blue)}
+  .badge h4{margin:0 0 3px; font-size:.9rem; color:var(--ink); font-weight:700; font-family:"IBM Plex Sans",sans-serif}
+  .badge p{margin:0; font-size:.86rem; color:var(--muted)}
+  .box ol.pasos{margin:10px 0 0; padding-left:20px; font-size:.9rem; line-height:1.5; color:var(--ink)}
+  .box ol.pasos li{margin:0 0 5px}
+</style>
+
+<div class="sheet">
+  <a class="back" href="https://bytes.sigeos.org/">← La Guaira en bytes</a>
+  <header>
+    <p class="eyebrow">Método · la guía de ondas cortical — La Guaira, 24-jun-2026</p>
+    <h1>La guía de ondas cortical</h1>
+    <p class="sub"><em class="term">Supervivencia</em> y <em class="term">puntería</em>: el pulso llega al litoral guiado en la corteza y concentrado al este por la directividad. Tres cálculos sobre el modelo cortical local, y una hipótesis que se deja escrita porque la prueba la descarta.</p>
+  </header>
+
+    <p class="lead">Hay una objeción que se hace sola al leer los resultados de la portada. Si la radiación de alta frecuencia del M 7,2 <b>no se aleja más de ~35 km</b> de su epicentro, ¿cómo alimenta el pulso que llega con fuerza al litoral, a <b>~180 km</b>? Parte de la respuesta es de <b>fuente</b> —la directividad—; la otra parte es de <b>propagación</b>, y es de la que trata esta sección.</p>
+
+    <div class="bloque">
+      <h3 class="sub-h">Dos efectos independientes, que se multiplican</h3>
+      <p>La amplitud que recibe el litoral se puede escribir como el producto de dos cosas que no tienen nada que ver entre sí:</p>
+      <p style="text-align:center; font-size:1.04rem; margin:16px 0"><span class="mono">amplitud ∝ C<sub>d</sub>(θ) × 1/√R</span></p>
+      <p>El primer factor es la <b>directividad</b>, que depende del <i>azimut</i>: la ruptura avanzando hacia el este comprime y amplifica el pulso al frente. El segundo es la <b>dispersión geométrica</b>, que depende de la <i>distancia</i> — y es aquí donde entra la corteza.</p>
+      <p>Una onda de cuerpo en un medio infinito reparte su energía sobre una <b>esfera</b> que crece, de área <span class="mono">4πR²</span>; la amplitud cae como <span class="mono">1/R</span>. Pero el pulso del M 7,2 tiene un período largo, <span class="mono">T<sub>p</sub> ≈ 6,5 s</span>, y por tanto una longitud de onda <span class="mono">λ = β·T<sub>p</sub> ≈ 22 km</span>, <b>comparable al espesor de la corteza</b>. En ese régimen la onda queda <b>atrapada</b> entre la superficie libre y el Moho: no puede crecer hacia arriba ni hacia abajo, solo hacia los lados. El frente deja de ser una esfera y pasa a ser un <b>cilindro de altura fija</b>, de área <span class="mono">2πR·H</span>. Como <span class="mono">H</span> está congelada por la guía, el área crece solo con <span class="mono">R</span>, y la amplitud cae como <span class="mono">1/√R</span>.</p>
+
+      <figure class="figplate" style="margin-top:20px">
+        <img src="../assets/lamina_dispersion_directividad_web.png" width="1500" height="664" loading="lazy"
+             alt="Tres paneles: el cilindro de la onda guiada con la energía concentrada al este, el esquema de directividad visto en planta, y la comparación de la caída de amplitud 1/R frente a 1 sobre raíz de R.">
+        <figcaption><b>Supervivencia y puntería.</b> <b>(a)</b> La onda atrapada en la corteza: el frente es un cilindro de altura fija <span class="mono">H</span>, y sobre él la ruptura concentra la energía hacia el este. <b>(b)</b> La directividad vista en planta: al frente el pulso llega <b>corto e intenso</b>, atrás <b>largo y débil</b>, con la misma energía repartida de otro modo. <b>(c)</b> Lo que está en juego con la distancia: a 180 km la onda guiada conserva del orden de <b>tres veces</b> la amplitud que tendría una onda de cuerpo. Son dos efectos <b>distintos</b> —uno de medio, otro de fuente— y conviene no confundirlos.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/lamina_dispersion_directividad.png">Ver a resolución completa →</a></span></figcaption>
+      </figure>
+
+      <h3 class="sub-h">Tres cálculos sobre el modelo cortical local</h3>
+      <p>La idea anterior es plausible, pero hay que someterla al modelo de la zona: el de FUNVISIS (<span class="mono">STATION0.HYP</span>) con el Moho a 35 km en la costa central confirmado por sísmica de gran ángulo (Schmitz <i>et al.</i>, 2021). Se hicieron tres comprobaciones, cada una capaz de desmentir a la anterior.</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box b"><div class="big">1</div><h3>el modo guiado existe</h3><p>La ecuación de dispersión de ondas Love da, a <span class="mono">T = 6,5 s</span>, un modo fundamental con velocidad de fase <b>3,45 km/s</b> y de grupo <b>3,28 km/s</b> — que coincide con los <b>~3,39 km/s</b> medidos en el arribo de la S en Cajigal. El período del pulso cae, además, cerca de la <b>fase de Airy</b>, donde la energía de una banda de períodos llega agrupada.</p></div>
+        <div class="box b"><div class="big">2</div><h3>el pulso sobrevive</h3><p>Una propagación 2-D SH por diferencias finitas, en sección E–O con el Moho engrosando de 30 a 35 km, muestra el pulso <b>atrapado en la corteza</b> —sin fugarse al manto— y llegando <b>coherente</b> al litoral, con la amplitud decayendo <span class="mono">1/√R</span> y no <span class="mono">1/R</span>.</p></div>
+        <div class="box o"><div class="big">3</div><h3>pero no canaliza</h3><p>Un modelo de onda de membrana en planta revela que a este período el modo es <b>casi insensible al espesor del Moho</b>: la velocidad varía menos del 1 % entre 22 y 42 km de corteza. La configuración cortical <b>no concentra</b> lateralmente el pulso.</p></div>
+      </div>
+
+      <figure class="figplate" style="margin-top:20px">
+        <img src="../assets/fig_guia_ondas_web.png" width="1500" height="421" loading="lazy"
+             alt="Tres paneles: curvas de dispersión de fase y grupo del modo Love, la sección de propagación 2-D SH con el pulso atrapado en la corteza, y el mapa en planta de la amplitud pico.">
+        <figcaption><b>Los tres cálculos, en orden.</b> <b>(a)</b> Dispersión del modo Love fundamental: a <span class="mono">T = 6,5 s</span> la velocidad de grupo es de 3,3 km/s, la misma que se mide en Cajigal. <b>(b)</b> La sección E–O a los 45 s de propagación: el pulso viaja confinado entre la superficie y el Moho y llega a La Guaira sin deshacerse. <b>(c)</b> La amplitud pico en planta: el haz que apunta al este aparece <b>solo cuando la fuente se mueve</b>, no cuando se varía el espesor cortical.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_guia_ondas.png">Ver a resolución completa →</a></span></figcaption>
+      </figure>
+
+      <h3 class="sub-h">Una hipótesis que la propia prueba descarta</h3>
+      <p>El punto de partida incluía un mecanismo adicional atractivo: que la <b>franja cortical costera</b> —acotada al norte por el adelgazamiento hacia el Caribe y al sur por el engrosamiento bajo la Cordillera— actuara como una <b>guía lateral</b> que canalizara la energía a lo largo de la costa, hacia La Guaira. Habría sido un segundo argumento, independiente de la directividad, para explicar el daño del litoral.</p>
+      <div class="aside" style="margin-top:16px">
+        <span class="tag">6,5 s</span>
+        <div>
+          <h4>El tercer cálculo la desmiente, y se deja escrita</h4>
+          <p>A este período el modo Love no distingue un Moho de 22 km de uno de 42. <b>La guía lateral no opera para el pulso destructor</b>, y el haz hacia el este es <b>directividad de fuente</b>, no estructura. Se conserva el planteamiento porque a períodos más cortos el mecanismo sí importaría, y porque un mecanismo descartado con una prueba es información, no un descarte silencioso.</p>
+        </div>
+      </div>
+      <p style="margin-top:16px">Queda en pie, sin explorar, una tercera vía: las <b>ondas atrapadas en zona de falla</b>, confinadas en la roca fracturada y de baja velocidad a lo largo del rumbo. No está modelada y no se afirma nada sobre ella.</p>
+      <p>En conjunto: el pulso llega al litoral <b>guiado en la corteza</b> —por eso un evento de radiación acotada alimenta un pulso destructor a 180 km— y <b>concentrado al este por la directividad de la ruptura</b>, sobre lo que actúa finalmente la amplificación de la cuenca costera. <b>Supervivencia</b> y <b>puntería</b> son efectos independientes que se multiplican.</p>
+      <p class="note" style="margin-top:16px; font-size:.88rem">Esta sección recoge material de trabajo —anexo del primer artículo y puente con el segundo— en estado de <b>preparación</b>, no de resultado publicado. El modelo de velocidades es el de FUNVISIS; el mapa de Moho, de Schmitz <i>et al.</i> (2021), revisado por pares.</p>
+    </div>
+
+  <div class="foot">
+    <span>Método · la guía de ondas cortical · La Guaira 24-jun-2026</span>
+    <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
+  </div>
+</div>
