@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="760" height="340" role="img" aria-labelledby="t d">
+  <title id="t">Para qué: del terremoto a la norma</title>
+  <desc id="d">Cuatro estaciones encadenadas: buscar la causa en la fuente, medir la consecuencia en el suelo y los edificios, mejorar la norma, y construir edificaciones más sismorresistentes; una flecha de retorno recuerda que el próximo terremoto volverá a poner a prueba la cadena.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e1410"/><stop offset="1" stop-color="#14202b"/></linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#ffffff" stroke-opacity=".045"/></pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e6d6c8"/></marker>
+    <marker id="ar-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8d8a9a"/></marker>
+  </defs>
+  <rect width="760" height="340" rx="14" fill="url(#bg)"/>
+  <rect width="760" height="340" rx="14" fill="url(#grid)"/>
+
+  <text x="40" y="48" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="24" font-weight="700" fill="#f6f1ec">Para qué: del terremoto a la norma</text>
+  <text x="40" y="72" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="12.5" fill="#b6a99c" letter-spacing=".12em">CAUSA · CONSECUENCIA · NORMA · EDIFICACIÓN</text>
+
+  <!-- flechas entre estaciones -->
+  <g stroke="#e6d6c8" stroke-width="2" fill="none" marker-end="url(#ar)">
+    <line x1="182" y1="152" x2="222" y2="152"/><line x1="362" y1="152" x2="402" y2="152"/><line x1="542" y1="152" x2="582" y2="152"/>
+  </g>
+
+  <!-- 1 · la causa: la falla, las dos estrellas, el sismograma -->
+  <g>
+    <path d="M60 128 q25 -14 50 0 t50 0" fill="none" stroke="#ff7a52" stroke-width="1.5" stroke-opacity=".7"/>
+    <path d="M62 128 l10 0 4 -22 5 40 5 -30 4 20 6 -8 8 0" fill="none" stroke="#ff7a52" stroke-width="1.6"/>
+    <path d="M62 168 L108 162" stroke="#ff7a52" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M108 162 L128 160" stroke="#8d8a9a" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 7"/>
+    <path d="M128 160 L170 155" stroke="#ff7a52" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+    <g fill="#ffd166" filter="url(#glow)">
+      <path transform="translate(80,165) scale(.8)" d="M0 -11L3.2 -3.6 11 -3.4 4.8 1.5 7 9 0 4.6 -7 9 -4.8 1.5 -11 -3.4 -3.2 -3.6z"/>
+      <path transform="translate(150,158) scale(.8)" d="M0 -11L3.2 -3.6 11 -3.4 4.8 1.5 7 9 0 4.6 -7 9 -4.8 1.5 -11 -3.4 -3.2 -3.6z"/>
+    </g>
+  </g>
+  <g font-family="IBM Plex Sans, system-ui, sans-serif" text-anchor="middle">
+    <text x="115" y="214" font-size="14" font-weight="700" fill="#ff7a52">buscar la causa</text>
+    <text x="115" y="232" font-size="10.5" fill="#d9cfc5">qué rompió, en cuántos pedazos,</text>
+    <text x="115" y="247" font-size="10.5" fill="#d9cfc5">hacia dónde apuntó</text>
+  </g>
+
+  <!-- 2 · la consecuencia: la onda entra, la cuenca la amplifica, el edificio se agrieta -->
+  <g>
+    <path d="M232 178 q20 -10 40 0 t40 0 t40 0" fill="none" stroke="#7fc0ff" stroke-width="1.5" stroke-opacity=".6"/>
+    <path d="M232 186 q20 -10 40 0 t40 0 t40 0" fill="none" stroke="#7fc0ff" stroke-width="1.5" stroke-opacity=".35"/>
+    <path d="M238 172 C260 195 330 195 352 172" fill="#1d3550" stroke="#7fc0ff" stroke-width="1.5"/>
+    <path d="M250 176 C270 190 320 190 340 176" fill="none" stroke="#7fc0ff" stroke-width="1" stroke-opacity=".7"/>
+    <rect x="270" y="112" width="50" height="60" fill="#22262e" stroke="#7fc0ff" stroke-width="1.5"/>
+    <g fill="#7fc0ff" fill-opacity=".55"><rect x="277" y="120" width="8" height="8"/><rect x="291" y="120" width="8" height="8"/><rect x="305" y="120" width="8" height="8"/><rect x="277" y="136" width="8" height="8"/><rect x="305" y="136" width="8" height="8"/><rect x="277" y="152" width="8" height="8"/><rect x="291" y="152" width="8" height="8"/><rect x="305" y="152" width="8" height="8"/></g>
+    <path d="M290 172 l6 -12 -8 -10 9 -12 -5 -14 8 -12" fill="none" stroke="#ff7a52" stroke-width="2.2" stroke-linejoin="round"/>
+  </g>
+  <g font-family="IBM Plex Sans, system-ui, sans-serif" text-anchor="middle">
+    <text x="295" y="214" font-size="14" font-weight="700" fill="#7fc0ff">medir la consecuencia</text>
+    <text x="295" y="232" font-size="10.5" fill="#d9cfc5">qué suelo recibió la onda,</text>
+    <text x="295" y="247" font-size="10.5" fill="#d9cfc5">qué edificios la sufrieron</text>
+  </g>
+
+  <!-- 3 · la norma: el documento con los tres factores por período y el sello -->
+  <g>
+    <path d="M446 108 h46 l14 14 v68 h-60 z" fill="#2a2416" stroke="#ffb454" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M492 108 v14 h14" fill="none" stroke="#ffb454" stroke-width="1.6"/>
+    <g stroke="#ffb454" stroke-opacity=".55" stroke-width="1.5"><line x1="455" y1="128" x2="484" y2="128"/><line x1="455" y1="137" x2="496" y2="137"/></g>
+    <g fill="#ffb454"><rect x="456" y="168" width="9" height="12"/><rect x="470" y="158" width="9" height="22"/><rect x="484" y="148" width="9" height="32"/></g>
+    <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="7" fill="#ffb454" text-anchor="middle"><text x="460" y="187">T·c</text><text x="474" y="187">T·i</text><text x="488" y="187">T·l</text></g>
+    <circle cx="506" cy="184" r="13" fill="#0e1410" stroke="#ffb454" stroke-width="2" filter="url(#glow)"/>
+    <text x="506" y="189" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffb454" text-anchor="middle">§</text>
+  </g>
+  <g font-family="IBM Plex Sans, system-ui, sans-serif" text-anchor="middle">
+    <text x="475" y="214" font-size="14" font-weight="700" fill="#ffb454">mejorar la norma</text>
+    <text x="475" y="232" font-size="10.5" fill="#d9cfc5">zonas por suelo y tres</text>
+    <text x="475" y="247" font-size="10.5" fill="#d9cfc5">factores por período</text>
+  </g>
+
+  <!-- 4 · la edificación: el edificio en pie sobre el suelo que tiembla, con el escudo -->
+  <g>
+    <path d="M600 192 q12 -8 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#5fd3a5" stroke-width="1.5" stroke-opacity=".6"/>
+    <rect x="628" y="108" width="54" height="80" rx="2" fill="#12261e" stroke="#5fd3a5" stroke-width="1.8"/>
+    <g fill="#5fd3a5" fill-opacity=".6"><rect x="636" y="116" width="8" height="8"/><rect x="651" y="116" width="8" height="8"/><rect x="666" y="116" width="8" height="8"/><rect x="636" y="132" width="8" height="8"/><rect x="651" y="132" width="8" height="8"/><rect x="666" y="132" width="8" height="8"/><rect x="636" y="148" width="8" height="8"/><rect x="651" y="148" width="8" height="8"/><rect x="666" y="148" width="8" height="8"/><rect x="636" y="164" width="8" height="8"/><rect x="666" y="164" width="8" height="8"/></g>
+    <rect x="650" y="166" width="10" height="22" fill="#5fd3a5" fill-opacity=".35"/>
+    <line x1="620" y1="188" x2="690" y2="188" stroke="#5fd3a5" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M696 100 l16 6 v14 c0 10 -7 17 -16 21 c-9 -4 -16 -11 -16 -21 v-14 z" fill="#0e1410" stroke="#5fd3a5" stroke-width="2" filter="url(#glow)"/>
+    <path d="M688 120 l6 6 10 -12" fill="none" stroke="#5fd3a5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g font-family="IBM Plex Sans, system-ui, sans-serif" text-anchor="middle">
+    <text x="655" y="214" font-size="14" font-weight="700" fill="#5fd3a5">construir mejor</text>
+    <text x="655" y="232" font-size="10.5" fill="#d9cfc5">que el próximo terremoto</text>
+    <text x="655" y="247" font-size="10.5" fill="#d9cfc5">halle el litoral mejor construido</text>
+  </g>
+
+  <!-- el ciclo: el próximo terremoto vuelve a poner a prueba la cadena -->
+  <path d="M655 262 v20 H115 v-2" fill="none" stroke="#8d8a9a" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#ar-dim)"/>
+  <rect x="300" y="272" width="170" height="20" rx="10" fill="#14202b"/>
+  <text x="385" y="286" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="11" fill="#b6a99c" text-anchor="middle" letter-spacing=".06em">el próximo terremoto</text>
+
+  <text x="40" y="320" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12.5" fill="#b6a99c">La sismología no es normativa, pero es el primer eslabón de la única cadena que cambia algo en la calle.</text>
+</svg>

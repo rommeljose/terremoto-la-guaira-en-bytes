@@ -102,6 +102,7 @@ volver a copiarlas a mano.
 | `fig_dcfs_mapa.png` | `coulomb_dCFS/figuras/dcfs_mapa_okada.png` | §09 · el mapa de ΔCFS del primer evento |
 | `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
 | `cadena_algoritmos.svg` | `Aira_geofisica`, `figuras/cadena_algoritmos.svg` (el mismo de la propuesta del artículo computacional) | `metodo/cadenas.html` · las dos cadenas de cálculo, retroproyección e inversión, con la verificación |
+| `lamina_norma.svg` | hecha a mano para este sitio | §16 · la cadena causa → consecuencia → norma → edificación, con la flecha de vuelta «el próximo terremoto» |
 | `teaser_coulomb.svg`, `teaser_cadenas.svg` | hechos a mano para este sitio | §09 y §13 · láminas-anzuelo de la portada: anuncian el contenido sin mostrar el mapa ni el diagrama, que solo se ven al entrar |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
