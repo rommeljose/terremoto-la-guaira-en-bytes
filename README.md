@@ -29,7 +29,7 @@ metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundid
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
 metodo/profundidad.html          · 07 · tres cifras para el foco, pP y sP, y la prueba de que el hueco no depende de ella
 metodo/relocalizacion.html       · 08 · hypoDD, con el visor 3-D de réplicas embebido
-metodo/coulomb.html              · 09 · ΔCFS: mariposa, tramo en sombra, barrera; Kelvin frente a Okada con insumos del USGS
+metodo/coulomb.html              · 09 · ΔCFS: mariposa, tramo en sombra, barrera; Kelvin frente a Okada con insumos del USGS; de dónde salen los deslizamientos (D = M₀/(μ·L·W))
 metodo/estadistica.html          · 10 · pre-registro sellado, bootstrap, jackknife, controles sintéticos, hipótesis nula
 metodo/verificacion.html         · 11 · reproducción del ensamblaje, la VR y la calibración del control
 metodo/guia-ondas.html           · 12 · el modo Love, la sección 2-D SH y la hipótesis de guía lateral descartada
