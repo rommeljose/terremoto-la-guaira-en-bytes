@@ -8,7 +8,7 @@
   if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
 <title>Sismofísica básica</title>
-<meta name="description" content="Las ideas mínimas para leer el resto: rebote elástico, ondas P y S, magnitud y momento sísmico, y el mecanismo de doble par.">
+<meta name="description" content="Las ideas mínimas para leer el resto: rebote elástico, ondas P y S, magnitud y momento sísmico, el mecanismo de doble par, la banda prohibida de velocidades de ruptura y la ley de escala.">
 <meta name="author" content="Rommel Contreras">
 <link rel="canonical" href="https://bytes.sigeos.org/metodo/sismofisica.html">
 <meta property="og:type" content="article">
@@ -16,7 +16,7 @@
 <meta property="og:locale" content="es_VE">
 <meta property="og:url" content="https://bytes.sigeos.org/metodo/sismofisica.html">
 <meta property="og:title" content="Sismofísica básica">
-<meta property="og:description" content="Las ideas mínimas para leer el resto: rebote elástico, ondas P y S, magnitud y momento sísmico, y el mecanismo de doble par.">
+<meta property="og:description" content="Las ideas mínimas para leer el resto: rebote elástico, ondas P y S, magnitud y momento sísmico, el mecanismo de doble par, la banda prohibida de velocidades de ruptura y la ley de escala.">
 <meta property="og:image" content="https://bytes.sigeos.org/assets/og_card.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
 <meta property="og:image:alt" content="Tarjeta de bytes.sigeos.org: sobre la costa central de Venezuela, la traza del enlace San Sebastián–Morón–Boconó con las dos estrellas de los epicentros M 7,2 y M 7,5.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sismofísica básica">
-<meta name="twitter:description" content="Las ideas mínimas para leer el resto: rebote elástico, ondas P y S, magnitud y momento sísmico, y el mecanismo de doble par.">
+<meta name="twitter:description" content="Las ideas mínimas para leer el resto: rebote elástico, ondas P y S, magnitud y momento sísmico, el mecanismo de doble par, la banda prohibida de velocidades de ruptura y la ley de escala.">
 <meta name="twitter:image" content="https://bytes.sigeos.org/assets/og_card.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,6 +99,13 @@
   .foot{margin-top:46px; padding-top:16px; border-top:2px solid var(--strong); font-family:"IBM Plex Sans",sans-serif;
     font-size:.82rem; color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
   .refs{font-size:.92rem} .refs li{margin:8px 0}
+  table{border-collapse:collapse; width:100%; margin:0; font-family:"IBM Plex Sans",sans-serif; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--paper)}
+  tbody tr:last-child td{border-bottom:none}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:8px; margin:14px 0}
+  .tbl-wrap table{min-width:520px}
+  blockquote{font-size:.98rem}
   mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
   .nextlinks{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0}
   .nextlinks a{font-family:"IBM Plex Sans",sans-serif; font-size:.86rem; font-weight:600; color:var(--blue);
@@ -259,17 +266,87 @@
     <li><strong>Banda prohibida</strong> (de $c_R \approx 3{,}2$ a $\sqrt{2}\,\beta \approx 4{,}9$ km/s; en la práctica se cita «entre $\beta$ y $\sqrt{2}\,\beta$»): el flujo de energía hacia la punta se anula o se invierte, y la radiación de cizalla que la grieta va dejando atrás frena la punta. <strong>Una grieta que entra aquí no se sostiene</strong>: o cae de vuelta a subshear o la salta.</li>
     <li><strong>Supershear estable</strong> ($\sqrt{2}\,\beta \le V_r < \alpha$, entre unos 4,9 y 6,3 km/s): posible, documentado en unas pocas rupturas de rumbo largas y rectas —en laboratorio por Rosakis y colaboradores (1999), en un sismo real por Bouchon y Vallée (2003)—, y siempre por encima de $\sqrt{2}\,\beta$. Es lo que la <a href="../index.html#simframe">simulación de la portada</a> dibuja al subir su control de velocidad por encima de 1, sin objeción, porque un modelo cinemático no sabe de $G$. (Cuidado con la letra: allí $\beta$ nombra el cociente $V_r/c$, y aquí la velocidad de la onda S.)</li>
   </ul>
-  <p>Por qué importa aquí: dividir los 152 km que separan en línea recta los dos epicentros de catálogo de La Guaira entre los 32,2 s que separan sus orígenes da <strong>4,7 km/s, es decir 1,37 $\beta$</strong>: dentro de la banda prohibida. No parece la velocidad de nada físico; es el cociente entre la distancia de dos sismos y la diferencia de sus relojes. El argumento completo, con la observación que lo acompaña, está en la <a href="retroproyeccion.html#frente-unico">retroproyección, sección 5</a>.</p>
+  <p>Por qué importa aquí: dividir los 152 km que separan en línea recta los dos epicentros de catálogo de La Guaira entre los 32,2 s que separan sus orígenes da <strong>4,7 km/s, es decir 1,37 $\beta$</strong>: dentro de la banda prohibida. No parece la velocidad de nada físico; es el cociente entre la distancia de dos sismos y la diferencia de sus relojes. El argumento completo, con la observación que lo acompaña, está en la <a href="retroproyeccion.html#frente-unico">retroproyección, sección 5</a>. Y hay una segunda vara, independiente de la mecánica de fractura, que mide lo mismo por otro lado: la <a href="#ley-escala">ley de escala</a> de la sección siguiente.</p>
 
-  <h2 id="8-replicas-y-secuencias"><span class="no">8</span> Réplicas y secuencias</h2>
+  <h2 id="ley-escala"><span class="no">8</span> La ley de escala: cuánto debe medir y cuánto debe durar cada magnitud</h2>
+  <p>La sección anterior acota la velocidad a la que una grieta <em>puede</em> avanzar. Esta acota lo otro: <strong>qué tamaño y qué duración le corresponden a cada magnitud</strong>. Son las <em class="term">leyes de escala</em> de similitud elástica, y sirven de vara de medir — cuando una observación se sale de ellas por un factor grande, no es que la escala falle: es que lo que se está midiendo no es una sola ruptura.</p>
+
+  <h3 id="de-donde-sale-la-escala">De dónde sale la escala</h3>
+  <p>El punto de partida es el momento sísmico de la <a href="#3-el-tamano-momento-sismico-y-magnitud">sección 3</a>, $M_0=\mu A\bar{D}$. A él se le añade una hipótesis física: la <em class="term">caída de esfuerzo</em> $\Delta\sigma$ —cuánto se relaja el esfuerzo de cizalla sobre la falla al romper— es aproximadamente <strong>la misma en terremotos de cualquier tamaño</strong>, entre 1 y 10 MPa. Como $\Delta\sigma \propto \mu\bar{D}/L$ para una ruptura de dimensión $L$, y $M_0 \propto \mu L^2\bar{D}$, mantener $\Delta\sigma$ constante obliga a que las tres dimensiones crezcan con la misma potencia:</p>
+  $$ L \;\propto\; W \;\propto\; \bar{D} \;\propto\; M_0^{1/3}. $$
+  <p>Kanamori y Anderson (1975) dieron la base teórica; Wells y Coppersmith (1994) la calibraron con centenares de rupturas medidas en campo. Para falla de rumbo, sus dos regresiones son las que este trabajo usa:</p>
+  <div style="margin:14px 0"><code>log₁₀(SRL) = −3,55 + 0,74·M</code> &nbsp;&nbsp;longitud de la ruptura <strong>en superficie</strong><br>
+  <code>log₁₀(RLD) = −2,57 + 0,62·M</code> &nbsp;&nbsp;longitud de la ruptura <strong>en profundidad</strong></div>
+  <p>Las dos acotan: la de superficie por abajo, porque el deslizamiento se pierde en los metros últimos; la de profundidad por arriba. La horquilla entre ambas es de un 25 % largo, y conviene dar siempre las dos cifras y no una sola.</p>
+
+  <h3 id="el-reloj-la-duracion-tambien-escala">El reloj: la duración también escala</h3>
+  <p>La ruptura no es instantánea. Si el frente avanza a $V_r$, la fuente tarda en emitir</p>
+  $$ \tau \;\approx\; \frac{L}{V_r} \;\propto\; M_0^{1/3}, $$
+  <p>y como <a href="#banda-prohibida">acabamos de ver</a> que $V_r$ de un terremoto ordinario está encerrada entre 0,7 y 0,9 veces la velocidad de la onda S —es decir, entre unos <strong>2,5 y 3,0 km/s</strong> en esta corteza—, la duración queda fijada por la magnitud con muy poco margen. <strong>Ésta es la propiedad útil:</strong> la magnitud se mide con el espectro y la duración se lee en el sismograma, de modo que son dos observaciones independientes que la escala obliga a ser coherentes.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>M<sub>w</sub></th><th>M<sub>0</sub> (N·m)</th><th>SRL (km)</th><th>RLD (km)</th><th>τ ≈ L/V<sub>r</sub> (s)</th></tr></thead>
+      <tbody>
+        <tr><td>6,0</td><td>1,3 × 10<sup>18</sup></td><td>7,8</td><td>14</td><td>3 – 6</td></tr>
+        <tr><td>6,4</td><td>5,0 × 10<sup>18</sup></td><td>15</td><td>25</td><td>5 – 10</td></tr>
+        <tr><td><b>6,6</b> <span class="mono" style="font-size:.85em">Caracas 1967</span></td><td>1,0 × 10<sup>19</sup></td><td>22</td><td>33</td><td><b>7 – 13</b></td></tr>
+        <tr><td><b>6,9</b> <span class="mono" style="font-size:.85em">Cariaco 1997</span></td><td>2,8 × 10<sup>19</sup></td><td>36</td><td>51</td><td>12 – 20</td></tr>
+        <tr><td><b>7,2</b> <span class="mono" style="font-size:.85em">La Guaira, 1.º</span></td><td>7,9 × 10<sup>19</sup></td><td>60</td><td>78</td><td>20 – 31</td></tr>
+        <tr><td><b>7,5</b> <span class="mono" style="font-size:.85em">La Guaira, 2.º</span></td><td>2,2 × 10<sup>20</sup></td><td>100</td><td>120</td><td>33 – 48</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>La columna de la derecha toma $L$ entre SRL y RLD y $V_r$ entre 3,0 y 2,5 km/s; supone ruptura <strong>unilateral</strong>, que es el caso más largo. Una ruptura bilateral simétrica dura la mitad.</p>
+
+  <h3 id="la-escala-funciona-en-esta-region-y-eso-importa">La escala funciona en esta región, y eso importa</h3>
+  <p>Antes de usarla como vara hay que comprobar que la vara mide. El caso de calibración es <strong>Cariaco 1997</strong> (M<sub>w</sub> 6,9, falla de El Pilar, el mismo límite de placas dextral): la ruptura superficial cartografiada en campo mide <strong>36 km</strong> entre Villa Frontado y Casanay (Audemard, 2006), y la SRL de Wells y Coppersmith para esa magnitud da <strong>36 km</strong>. No hay aquí ningún precedente de que la escala se quede corta en este sistema de fallas — de modo que cuando una cifra se sale de ella, la explicación hay que buscarla en la fuente, no en la regresión.</p>
+  <div class="callout blue"><span class="k">Trampa documentada</span> La traza cuaternaria de una falla se puede recorrer a pie mucho más allá del tramo que rompió: en El Pilar se hizo hasta Yaguaraparo, unos 75 km al este del epicentro de 1997. <strong>Recorrer la traza no es recorrer la ruptura coseísmica.</strong> Confundirlas infla la longitud por un factor de 2 a 3.</div>
+
+  <h3 id="una-duracion-larga-en-una-magnitud-moderada-dela">Una duración larga en una magnitud moderada delata una fuente múltiple</h3>
+  <p>Aquí está el uso más afilado de la escala, y conviene seguir el razonamiento paso a paso, porque la conclusión es contraintuitiva.</p>
+  <p>Supóngase un sismo de magnitud moderada cuya fuente dura <strong>un minuto entero</strong>. La escala le concede diez segundos. ¿Podría explicarse con una ruptura muy rápida? <strong>No, y por el motivo contrario al que uno esperaría:</strong> subir $V_r$ <em>acorta</em> la duración, no la alarga. Un frente supershear a 5 km/s recorre la misma falla en la mitad de tiempo que uno subshear. La velocidad de ruptura entra en el denominador. Invocar supershear para explicar una duración larga es empujar en la dirección equivocada.</p>
+  <p>Sólo queda una salida, y es la que la sismología usa desde Wyss y Brune (1967), que así leyeron el gran sismo de Alaska de 1964: la fuente <strong>no es una</strong>. Es una <em class="term">fuente múltiple</em>, una cadena de subeventos o asperezas que se activan uno tras otro con retardos entre medias. La duración que se mide no es la de una ruptura: es la de la <strong>envolvente</strong> que las contiene a todas, y esa envolvente no obedece a la escala porque la mayor parte de ella es silencio.</p>
+
+  <h3 id="el-precedente-esta-al-lado-caracas-1967">El precedente está al lado: Caracas, 1967</h3>
+  <p>No hay que ir a buscar el ejemplo lejos. El sismo de <strong>Caracas del 29 de julio de 1967</strong> (M<sub>w</sub> 6,6) ocurrió sobre <strong>la falla de San Sebastián</strong> —el mismo sistema que rompió en 2026— y es, después de éste, el evento mejor estudiado del límite de placas en Venezuela central. Suárez y Nábělek (1990) invirtieron conjuntamente las ondas $P$ y $SH$ de la red WWSSN y encontraron que</p>
+  <blockquote style="margin:16px 0 16px 18px;padding-left:16px;border-left:3px solid var(--line);color:var(--muted)">«en una ventana de 65 s se produjeron <strong>cuatro estallidos distintos de liberación de momento</strong> (subeventos), con un momento sísmico total de 8,6 × 10<sup>18</sup> N·m.»</blockquote>
+  <p>Rial (1978) ya lo había llamado <em>«un evento de fuente múltiple»</em>; lo que Suárez y Nábělek corrigen de aquel trabajo no es la multiplicidad, sino la geometría —una falla N–S rota en tres segmentos <em>en échelon</em>— que ni la distribución de daños ni la de réplicas sostienen.</p>
+  <p>Los números de su tabla 4 son los que dibuja la figura 6. Los tres primeros subeventos se dispararon <strong>de oeste a este</strong>, con una profundidad media de 14 km; el cuarto, a 21 km y unos 50 km al norte de la zona de falla, tiene mecanismo inverso y refleja la compresión del margen sur del Caribe.</p>
+  <figure>
+    <div class="fig">
+      <img src="../assets/fig_ley_escala.svg" width="760" height="700" style="width:100%;height:auto;display:block" alt="Dos paneles. Arriba, la duración de la fuente contra la magnitud: la franja verde marca lo que la ley de escala concede a una sola ruptura; los cuatro subeventos de Caracas 1967 caen dentro, pero el sismo completo, magnitud 6,6, dura de 57 a 65 segundos, de cuatro a nueve veces más. Abajo, la secuencia de 1967 en el tiempo: cuatro pulsos de 6, 9, 4 y 6 segundos separados por huecos sin radiación a lo largo de 57 segundos y 91 kilómetros.">
+    </div>
+    <figcaption><b>Figura 6.</b> <b>(a)</b> Duración de la fuente contra magnitud. La franja verde es lo que la escala concede a una sola ruptura, tomando $L$ entre SRL y RLD y $V_r$ entre 3,0 y 2,5 km/s. <b>Cada subevento de Caracas 1967 cae dentro de la franja</b>; el sismo completo, M<sub>w</sub> 6,6, dura de 57 a 65 s, de cuatro a nueve veces los 7–13 s que le tocarían. Los 20 s de radiación que la <a href="retroproyeccion.html">retroproyección</a> mide para el M 7,2 de La Guaira también caen dentro. El círculo hueco es la envolvente del par de 2026: queda poco por encima, y por eso <b>aquí la duración sola no decide</b> — lo que decide es el hueco. <b>(b)</b> La secuencia de 1967 en el tiempo, con los datos de la tabla 4 de Suárez y Nábělek (1990): cuatro pulsos de 6, 9, 4 y 6 s, repartidos por 57 s y 91 km, y entre ellos tramos sin radiación. Hecha para esta página con las cifras publicadas.</figcaption>
+  </figure>
+  <p>Lo decisivo es lo que ocurre al comparar las dos escalas de tiempo. <strong>Cada subevento, por separado, obedece la ley de escala</strong>: duran 6, 9, 4 y 6 s, que es exactamente lo que le corresponde a magnitudes de 6,0 a 6,4 —los propios autores deducen de esas duraciones longitudes de falla menores que unos 12 km—. <strong>La envolvente, en cambio, no la obedece por un factor de entre cuatro y nueve.</strong> La escala no se rompe; simplemente se aplica a cada fuente, no al conjunto. Y los autores subrayan el rasgo que aquí interesa más:</p>
+  <blockquote style="margin:16px 0 16px 18px;padding-left:16px;border-left:3px solid var(--line);color:var(--muted)">«La distancia media entre los subeventos es de unos 50 km […]. Los cuatro sismos rompen secuencialmente cuatro segmentos de falla distintos, en lugar de una falla única, larga o en <em>échelon</em>. <strong>No parece haberse radiado energía sísmica en los segmentos intermedios.</strong>»</blockquote>
+  <p>Un hueco sin radiación entre fuentes contiguas, en esta misma falla, veinte años antes de que existiera la retroproyección. Merece la pena hacer con 1967 la misma aritmética que tanto se hace con 2026: dividir la distancia entre subeventos por su retardo da <strong>2,8, 2,4 y 1,8 km/s</strong>. Son cifras cómodamente subshear, y sin embargo <strong>tampoco son velocidades de ruptura</strong> — son cocientes entre la distancia de dos nucleaciones y la diferencia de sus relojes, igual que los <a href="retroproyeccion.html#frente-unico">4,7 km/s</a> de 2026. La diferencia es que en 1967 el cociente sale dentro de lo físicamente posible y no llama la atención; en 2026 sale dentro de la <a href="#banda-prohibida">banda prohibida</a> y la delata.</p>
+
+  <h3 id="que-dice-la-escala-de-la-guaira-2026-y-que-no-di">Qué dice la escala de La Guaira 2026, y qué no dice</h3>
+  <p>Conviene separar las dos cosas, porque el argumento de la duración <strong>no</strong> se traslada sin más.</p>
+  <ul>
+    <li><strong>Lo que no dice.</strong> La envolvente del par de 2026 dura unos 70 s, y la escala le concede a un M<sub>w</sub> 7,5 entre 33 y 48 s. El exceso existe, pero es de un factor 1,5, no de uno entre cuatro y nueve: un frente único lento —230 km a los 3,3 km/s que adopta el modelo de falla finita del USGS— también daría 70 s. <strong>La duración total, por sí sola, no distingue los dos escenarios</strong>, y decir lo contrario sería pasarse de listo. Lo que los distingue es el <em>hueco</em>: cero momento entre los 20 y los 32 s, que es la hipótesis que puso a prueba la <a href="inversion.html">inversión</a>.</li>
+    <li><strong>Lo que sí dice, y es un presupuesto de longitud.</strong> Tendiendo sobre la traza cartografiada una ruptura de M 7,2 seguida de una de M 7,5, la escala predice un total de <strong>160 km</strong> (con SRL), <strong>179 km</strong> (promedio) o <strong>199 km</strong> (con RLD). Las subfallas del modelo del USGS que deslizan al menos un 20 % del máximo se extienden <strong>230 km</strong>. La escala predice entre un 14 % y un 30 % menos, y dado que en Cariaco funcionó, la diferencia no se le puede achacar a la regresión: <strong>queda como discrepancia abierta</strong>. Dicho al revés, y es la forma más nítida: una ruptura de rumbo de 230 km le correspondería a un <strong>M<sub>w</sub> ≈ 8,0</strong>, no a un 7,5. Hacerla caber en un 7,5 obliga a un deslizamiento medio anormalmente bajo — y en efecto el modelo del USGS reparte su momento en 0,59 m de media (véase <a href="coulomb.html#de-donde-salen-los-deslizamientos">de dónde salen los deslizamientos</a>).</li>
+    <li><strong>Lo que dice de cada evento por separado.</strong> Los 20 s en que la <a href="retroproyeccion.html">retroproyección</a> ve radiar al M 7,2 están justo en el extremo corto de su horquilla (20–31 s), sobre unos 35 km. Es un sismo <em>en escala</em>. Lo que no está en escala es el cociente de 4,7 km/s.</li>
+  </ul>
+
+  <h3 id="y-la-geometria-un-limite-ancho-no-una-falla-rect">Y la geometría: un límite ancho, no una falla recta</h3>
+  <p>Queda un último uso de este precedente, y no es de escala sino de estructura. Los supershear largos y sostenidos que están documentados —Kunlunshan 2001, Denali 2002— corrieron sobre <strong>fallas maduras, rectilíneas y continuas</strong>, donde la punta de la grieta no encuentra barreras que le disipen la energía. Es una condición, no un detalle: en un medio segmentado el frente encuentra reflexiones, pierde coherencia y se detiene en las barreras. La conclusión con la que Suárez y Nábělek cierran su trabajo describe justamente el medio contrario, y describe esta región:</p>
+  <blockquote style="margin:16px 0 16px 18px;padding-left:16px;border-left:3px solid var(--line);color:var(--muted)">«La complejidad del sistema de fallas que causó el terremoto de 1967 sugiere que el movimiento relativo a lo largo del límite de placas Caribe–Suramérica en Venezuela central <strong>se acomoda en una zona de deformación ancha, muy fallada y muy esforzada, y no en una falla única, mayor y continua</strong>.»</blockquote>
+  <p>Y añaden, sobre el mismo codo del límite de placas donde está el enlace de Morón: que una ruptura iniciada en Boconó o en Morón <strong>no se propagaría alrededor de esa curvatura</strong>, y que la intensa segmentación puede incluso limitar el tamaño máximo de un sismo en la zona cercana al codo. Es el mismo papel que la <a href="retroproyeccion.html#frente-unico">sección 5 de la retroproyección</a> atribuye a la <a href="coulomb.html">barrera</a> que detuvo el primer frente en 2026, y la lectura de Aki (1979) que allí se cita.</p>
+  <div class="callout"><span class="k">En una frase</span> La ley de escala le da a cada magnitud una longitud y una duración, y en esta región la vara está calibrada: Cariaco 1997 la cumple. Caracas 1967 muestra qué pasa cuando una duración la desborda —no es una ruptura rápida, son cuatro fuentes con silencio entre ellas—, y muestra que este límite de placas es una banda ancha y segmentada, que es justo donde un supershear sostenido no tiene dónde correr.</div>
+
+  <h2 id="9-replicas-y-secuencias"><span class="no">9</span> Réplicas y secuencias</h2>
   <p>Tras el sismo principal, la corteza reajusta el esfuerzo con miles de <em class="term">réplicas</em> más pequeñas, concentradas <strong>en torno a la zona que rompió</strong>. Su distribución dibuja la geometría de la ruptura: donde no rompió, hay <strong>menos réplicas</strong>. Por eso el <strong>hueco de réplicas</strong> entre los dos núcleos es una tercera evidencia independiente de la ruptura compleja (véase <a href="relocalizacion.html">relocalización</a>). La secuencia completa, en profundidad y junto a las trazas de falla, se puede girar en el <a href="https://replicas-3d-laguaira.sigeos.org/" target="_blank" rel="noopener">visor 3-D de réplicas</a>; su reparto frente al daño observado, en el <a href="https://sismolaguaira.sigeos.org/" target="_blank" rel="noopener">mapa de daños</a>.</p>
 
-  <h2 id="9-glosario-rapido"><span class="no">9</span> Glosario rápido</h2>
+  <h2 id="10-glosario-rapido"><span class="no">10</span> Glosario rápido</h2>
   <dl class="defs">
     <div class="def"><dt>Hipocentro / Epicentro</dt><dd>El <b>hipocentro</b> es el punto en profundidad donde arranca la ruptura; el <b>epicentro</b>, su proyección en la superficie.</dd></div>
     <div class="def"><dt>Magnitud vs. Intensidad</dt><dd>La <b>magnitud</b> ($M_w$) mide la <em>energía en la fuente</em> (un solo número por sismo); la <b>intensidad</b> mide los <em>efectos</em> en un lugar (varía con la distancia y el suelo).</dd></div>
     <div class="def"><dt>Ondas P y S</dt><dd><b>P</b>: compresión, rápida, primera en llegar. <b>S</b>: cizalla, más lenta y de mayor amplitud.</dd></div>
     <div class="def"><dt>Banda prohibida</dt><dd>Rango de velocidades de ruptura, de la velocidad de Rayleigh a $\sqrt{2}\,\beta$ (unos 3,2 a 4,9 km/s en esta corteza), en el que una grieta de cizalla no se propaga de forma estable porque el flujo de energía hacia su punta se anula o se invierte (Burridge, 1973; Andrews, 1976). Separa el régimen <b>subshear</b> del <b>supershear</b>.</dd></div>
+    <div class="def"><dt>Ley de escala</dt><dd>Conjunto de relaciones que fijan la longitud, el ancho, el deslizamiento y la <b>duración</b> de una ruptura a partir de su momento, bajo la hipótesis de <b>caída de esfuerzo constante</b>: $L\propto W\propto\bar{D}\propto M_0^{1/3}$ y $\tau\approx L/V_r$ (Kanamori y Anderson, 1975; Wells y Coppersmith, 1994).</dd></div>
+    <div class="def"><dt>Fuente múltiple</dt><dd>Sismo cuya radiación es la suma de <b>varios subeventos</b> separados en el espacio y en el tiempo, con tramos sin radiar entre ellos. Su duración total desborda la que la ley de escala concede a su magnitud, aunque cada subevento la cumpla. Caracas 1967 es el caso regional (Suárez y Nábělek, 1990).</dd></div>
     <div class="def"><dt>Momento sísmico $M_0$</dt><dd>Tamaño físico de la ruptura, $M_0=\mu A\bar{D}$. Su ritmo de liberación es la <b>tasa de momento</b> $\dot{M}(t)$.</dd></div>
     <div class="def"><dt>Mecanismo focal</dt><dd>Orientación de la falla y sentido del deslizamiento, resumidos en el <em>beachball</em> (cuadrantes de compresión/dilatación).</dd></div>
     <div class="def"><dt>Directividad</dt><dd>Amplificación del pulso hacia donde avanza la ruptura (efecto Doppler); explica por qué un lado siente mucho más que el otro.</dd></div>
@@ -284,7 +361,7 @@
     <a href="relocalizacion.html">Relocalización →</a>
   </div>
 
-  <h2 id="10-referencias"><span class="no">10</span> Referencias</h2>
+  <h2 id="11-referencias"><span class="no">11</span> Referencias</h2>
   <ul class="refs">
     <li>Stein, S., &amp; Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em> Blackwell.</li>
     <li>Shearer, P. M. (2019). <em>Introduction to Seismology</em> (3ª ed.). Cambridge University Press.</li>
@@ -296,6 +373,13 @@
     <li>Bouchon, M., &amp; Vallée, M. (2003). Observation of long supershear rupture during the magnitude 8.1 Kunlunshan earthquake. <em>Science</em>, 301, 824–826.</li>
     <li>Das, S. (2007). The need to study speed. <em>Science</em>, 317, 905–906.</li>
     <li>Dunham, E. M. (2007). Conditions governing the occurrence of supershear ruptures under slip-weakening friction. <em>J. Geophys. Res.</em>, 112, B07302.</li>
+    <li>Kanamori, H., &amp; Anderson, D. L. (1975). Theoretical basis of some empirical relations in seismology. <em>Bull. Seismol. Soc. Am.</em>, 65(5), 1073–1095.</li>
+    <li>Wells, D. L., &amp; Coppersmith, K. J. (1994). New empirical relationships among magnitude, rupture length, rupture width, rupture area, and surface displacement. <em>Bull. Seismol. Soc. Am.</em>, 84(4), 974–1002.</li>
+    <li>Wyss, M., &amp; Brune, J. N. (1967). The Alaska earthquake of 28 March 1964: A complex multiple rupture. <em>Bull. Seismol. Soc. Am.</em>, 57(5), 1017–1023.</li>
+    <li>Rial, J. A. (1978). The Caracas, Venezuela, earthquake of July 1967: A multiple source event. <em>J. Geophys. Res.</em>, 83(B11), 5405–5414.</li>
+    <li>Suárez, G., &amp; Nábělek, J. (1990). The 1967 Caracas earthquake: Fault geometry, direction of rupture propagation and seismotectonic implications. <em>J. Geophys. Res.</em>, 95(B11), 17.459–17.474.</li>
+    <li>Audemard, F. A. (2006). Surface rupture of the Cariaco July 09, 1997 earthquake on the El Pilar fault, northeastern Venezuela. <em>Tectonophysics</em>, 424, 19–39.</li>
+    <li>Aki, K. (1979). Characterization of barriers on an earthquake fault. <em>J. Geophys. Res.</em>, 84, 6140–6148.</li>
     <li>Reid, H. F. (1910). The mechanics of the earthquake. <em>The California Earthquake of April 18, 1906</em>, vol. 2. (teoría del rebote elástico).</li>
   </ul>
 

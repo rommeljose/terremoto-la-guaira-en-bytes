@@ -20,7 +20,7 @@ y del resultado.
 
 ```
 index.html                       · portada (HTML + CSS + un canvas, sin dependencias)
-metodo/sismofisica.html          · 02 · fundamentos: falla, P y S, momento, mecanismo focal; la banda prohibida de Burridge–Andrews (§7)
+metodo/sismofisica.html          · 02 · fundamentos: falla, P y S, momento, mecanismo focal; la banda prohibida de Burridge–Andrews (§7); la ley de escala y Caracas 1967 como fuente múltiple (§8)
 metodo/momento-torque.html       ·  ↳ ampliación: del torque al momento sísmico
 metodo/radiacion-doble-par.html  ·  ↳ ampliación avanzada: de la fuerza puntual a la esfera focal
                                       (sobre el cap. 2 de L. D. Beauperthuy Urich, 2008)
@@ -132,6 +132,7 @@ volver a copiarlas a mano.
 | `lamina_norma.svg` | hecha a mano para este sitio | §16 · la cadena causa → consecuencia → norma → edificación, con la flecha de vuelta «el próximo terremoto» |
 | `fig_frente_unico_xt.svg` | hecho a mano para este sitio | metodo/retroproyeccion.html §5 · diagrama distancia–tiempo: la radiación observada (≤ 35 km en 20 s), el frente único hipotético a 4,7 km/s y la cuña de la banda prohibida |
 | `fig_banda_prohibida.svg` | hecho a mano para este sitio | metodo/sismofisica.html §7 · los tres regímenes de una grieta de cizalla (subshear, banda prohibida, supershear) con el cociente 149 km / 32 s marcado |
+| `fig_ley_escala.svg` | `herramientas/gen_ley_escala.py` (cifras de Wells y Coppersmith 1994 y de la tabla 4 de Suárez y Nábělek 1990) | metodo/sismofisica.html §8 · (a) duración de la fuente contra magnitud con el corredor de la escala; (b) los cuatro subeventos de Caracas 1967 en el tiempo, con los huecos sin radiación |
 | `teaser_coulomb.svg`, `teaser_cadenas.svg` | hechos a mano para este sitio | §09 y §13 · láminas-anzuelo de la portada: anuncian el contenido sin mostrar el mapa ni el diagrama, que solo se ven al entrar |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del
