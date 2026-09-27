@@ -149,16 +149,16 @@
     <p class="lead">Toda la inversión se apoya en la onda <b>P</b> y en las reflexiones que la siguen de cerca. El retardo de esas reflexiones depende casi solo de <b>a qué profundidad está el foco</b> — y esa profundidad, en este terremoto, <b>no es un valor medido</b>. Había que comprobar, por tanto, si el resultado depende de acertarla.</p>
 
     <div class="bloque">
-      <h3 class="sub-h">Tres cifras para el mismo foco</h3>
+      <h3 id="tres-cifras-para-el-mismo-foco" class="sub-h">Tres cifras para el mismo foco</h3>
       <p>El número que se cita habitualmente, 10 km, es una <b>asignación del analista</b>, no una profundidad resuelta por los datos. Otros dos productos del mismo terremoto dan otras dos cifras:</p>
       <div class="grid2" style="margin-top:14px">
-        <div class="box b"><div class="big">10 km</div><h3>catálogo del USGS</h3><p>El valor que acompaña a <span class="mono">us6000t7zc</span>. Asignado por el analista cuando la profundidad no queda restringida.</p></div>
-        <div class="box b"><div class="big">11,5 km</div><h3>tensor de momento</h3><p>La que devuelve la inversión del tensor, sobre los mismos registros.</p></div>
-        <div class="box b"><div class="big">27,6 km</div><h3>cabecera SAC de IRIS</h3><p>La que viaja en la cabecera de las propias formas de onda descargadas. Casi el triple que la del catálogo.</p></div>
+        <div class="box b"><div class="big">10 km</div><h3 id="catalogo-del-usgs">catálogo del USGS</h3><p>El valor que acompaña a <span class="mono">us6000t7zc</span>. Asignado por el analista cuando la profundidad no queda restringida.</p></div>
+        <div class="box b"><div class="big">11,5 km</div><h3 id="tensor-de-momento">tensor de momento</h3><p>La que devuelve la inversión del tensor, sobre los mismos registros.</p></div>
+        <div class="box b"><div class="big">27,6 km</div><h3 id="cabecera-sac-de-iris">cabecera SAC de IRIS</h3><p>La que viaja en la cabecera de las propias formas de onda descargadas. Casi el triple que la del catálogo.</p></div>
       </div>
       <p style="margin-top:14px">Un ejercicio independiente con <span class="mono">FMNEAR</span> sobre la red local, dejando la profundidad libre, la lleva de 4,9 a <b>20 km</b> <b>sin mejorar el ajuste ni el índice de calidad</b>. Con el evento mar afuera y las estaciones solo en tierra, la geometría no permite constreñirla. Tres fuentes, tres respuestas, y ninguna con autoridad sobre las demás.</p>
 
-      <h3 class="sub-h">Por qué importa: las fases de profundidad</h3>
+      <h3 id="por-que-importa-las-fases-de-profundidad" class="sub-h">Por qué importa: las fases de profundidad</h3>
       <p>Poco después de la P directa llegan a cada estación lejana dos ondas más que salieron del mismo foco hacia arriba, rebotaron en la superficie libre <i>encima de la fuente</i> y emprendieron el mismo camino: son <span class="mono">pP</span> y <span class="mono">sP</span>. Su retardo respecto a la P mide, casi en exclusiva, la <b>profundidad</b>: <span class="mono">d(pP−P)/dh ≈ 0,30 s/km</span>.</p>
       <p>Ahí está el riesgo. A 10 km, <span class="mono">pP</span> llega a 3,2 s y <span class="mono">sP</span> a 4,6 s — <b>dentro del propio pulso de la fuente</b>, donde un operador que no las modele puede confundirlas con estructura temporal, es decir, con momento que nunca se liberó. Y el hueco que hay que resolver dura unos pocos segundos. Conviene subrayar el reparto de culpas: el modelo de corteza apenas influye (<b>+0,05 s</b>); la profundidad, sí.</p>
 
@@ -168,7 +168,7 @@
         <figcaption><b>La prueba, con dato sintético.</b> Se <b>genera</b> el dato con <span class="mono">pP</span> y <span class="mono">sP</span> a la profundidad verdadera y se <b>invierte</b> con el operador de solo-P, que es lo que se hará con el registro real. Las cuatro profundidades no son arbitrarias: son las que distintas fuentes atribuyen a este terremoto. <b>(a)</b> El mecanismo: al profundizar el foco, las fases de profundidad se <b>alejan</b> de la ventana que hay que resolver. <b>(b)</b> El índice de separación entre los dos escenarios, frente al umbral <span class="mono">S = 2</span> fijado de antemano. <b>(c)</b> La contrapartida: la fuga de momento hacia donde no lo hubo, y la energía no modelada.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_profundidad_test.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
-      <h3 class="sub-h">El resultado va al revés de lo previsto</h3>
+      <h3 id="el-resultado-va-al-reves-de-lo-previsto" class="sub-h">El resultado va al revés de lo previsto</h3>
       <p>La expectativa razonable era que los 27,6 km rompieran la prueba. Ocurre lo contrario: <b>S sube de 174 a 356</b> al profundizar el foco. Ante un resultado que contradice la expectativa, el reflejo correcto es buscar el error; pero aquí la explicación es física y sencilla.</p>
       <div class="aside" style="margin-top:16px">
         <span class="tag">pP · sP</span>
@@ -179,7 +179,7 @@
       </div>
       <p style="margin-top:16px">La contrapartida aparece donde debe, y hay que decirla: la <b>fuga se duplica</b> a 27,6 km (0,112 % frente a 0,051 %) y la energía no modelada <b>se triplica</b> (145 % frente a 50 %). El ajuste empeora mucho; lo que no se degrada es la capacidad de separar los dos escenarios. Es decir: <b>el hueco no se sostiene sobre acertar la profundidad</b>.</p>
 
-      <h3 class="sub-h">Y sobre el dato real</h3>
+      <h3 id="y-sobre-el-dato-real" class="sub-h">Y sobre el dato real</h3>
       <p>La misma pregunta, hecha al registro observado con el operador canónico y con las funciones de Green <b>re-descargadas a cada profundidad</b>:</p>
 
       <figure class="figplate" style="margin-top:18px">
@@ -188,7 +188,7 @@
         <figcaption><b>La profundidad como parámetro, sobre el dato real.</b> <b>(a)</b> Barrido: la varianza explicada (azul) es <b>máxima en el rango somero</b> —21–22 % entre 5 y 10 km, con el máximo en 8— y cae al profundizar: 15 % a 12 km, 11 % a 20 km. Las fases de profundidad que llevan las funciones de Green <b>sí resuelven que la fuente es somera</b>, y los 10 km del catálogo caen en la meseta alta. A la vez, <span class="mono">f</span> —la fracción de momento en el hueco de 20–32 s, en naranja— se mantiene <b>entre 0,13 y 0,85 % a todas las profundidades</b>: el hueco es insensible a ella. <b>(b)</b> Covarianza profundidad × desplazamiento temporal, para comprobar que las dos no se están compensando entre sí.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_profundidad_canonica.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
-      <h3 class="sub-h">No confundirla con la profundidad de las réplicas</h3>
+      <h3 id="no-confundirla-con-la-profundidad-de-las-replica" class="sub-h">No confundirla con la profundidad de las réplicas</h3>
       <p>Son dos problemas distintos, y el segundo es peor. En el catálogo de réplicas, <b>365 eventos —el 21 %— tienen z = 5,0 km exacto</b>, y la proporción se repite en la sismicidad histórica (1 211 de 5 234). Eso no es una capa sísmica: es el <b>valor por omisión del localizador</b> cuando la profundidad no queda restringida. Por eso el visor 3-D los dibuja huecos y en gris y trae una casilla para ocultarlos, por eso no se pueden ajustar planos focales a esas profundidades, y por eso el siguiente paso es la relocalización relativa de la <b>sección 08</b> de la portada. El eje horizontal, en cambio, sí es utilizable.</p>
 
       <div class="aside g" style="margin-top:22px">
@@ -207,3 +207,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

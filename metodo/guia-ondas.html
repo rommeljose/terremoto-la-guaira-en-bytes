@@ -149,7 +149,7 @@
     <p class="lead">Hay una objeción que se hace sola al leer los resultados de la portada. Si la radiación de alta frecuencia del M 7,2 <b>no se aleja más de ~35 km</b> de su epicentro, ¿cómo alimenta el pulso que llega con fuerza al litoral, a <b>~180 km</b>? Parte de la respuesta es de <b>fuente</b> —la directividad—; la otra parte es de <b>propagación</b>, y es de la que trata esta sección.</p>
 
     <div class="bloque">
-      <h3 class="sub-h">Dos efectos independientes, que se multiplican</h3>
+      <h3 id="dos-efectos-independientes-que-se-multiplican" class="sub-h">Dos efectos independientes, que se multiplican</h3>
       <p>La amplitud que recibe el litoral se puede escribir como el producto de dos cosas que no tienen nada que ver entre sí:</p>
       <p style="text-align:center; font-size:1.04rem; margin:16px 0"><span class="mono">amplitud ∝ C<sub>d</sub>(θ) × 1/√R</span></p>
       <p>El primer factor es la <b>directividad</b>, que depende del <i>azimut</i>: la ruptura avanzando hacia el este comprime y amplifica el pulso al frente. El segundo es la <b>dispersión geométrica</b>, que depende de la <i>distancia</i> — y es aquí donde entra la corteza.</p>
@@ -161,12 +161,12 @@
         <figcaption><b>Supervivencia y puntería.</b> <b>(a)</b> La onda atrapada en la corteza: el frente es un cilindro de altura fija <span class="mono">H</span>, y sobre él la ruptura concentra la energía hacia el este. <b>(b)</b> La directividad vista en planta: al frente el pulso llega <b>corto e intenso</b>, atrás <b>largo y débil</b>, con la misma energía repartida de otro modo. <b>(c)</b> Lo que está en juego con la distancia: a 180 km la onda guiada conserva del orden de <b>tres veces</b> la amplitud que tendría una onda de cuerpo. Son dos efectos <b>distintos</b> —uno de medio, otro de fuente— y conviene no confundirlos.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/lamina_dispersion_directividad.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
-      <h3 class="sub-h">Tres cálculos sobre el modelo cortical local</h3>
+      <h3 id="tres-calculos-sobre-el-modelo-cortical-local" class="sub-h">Tres cálculos sobre el modelo cortical local</h3>
       <p>La idea anterior es plausible, pero hay que someterla al modelo de la zona: el de FUNVISIS (<span class="mono">STATION0.HYP</span>) con el Moho a 35 km en la costa central confirmado por sísmica de gran ángulo (Schmitz <i>et al.</i>, 2021). Se hicieron tres comprobaciones, cada una capaz de desmentir a la anterior.</p>
       <div class="grid2" style="margin-top:14px">
-        <div class="box b"><div class="big">1</div><h3>el modo guiado existe</h3><p>La ecuación de dispersión de ondas Love da, a <span class="mono">T = 6,5 s</span>, un modo fundamental con velocidad de fase <b>3,45 km/s</b> y de grupo <b>3,28 km/s</b> — que coincide con los <b>~3,39 km/s</b> medidos en el arribo de la S en Cajigal. El período del pulso cae, además, cerca de la <b>fase de Airy</b>, donde la energía de una banda de períodos llega agrupada.</p></div>
-        <div class="box b"><div class="big">2</div><h3>el pulso sobrevive</h3><p>Una propagación 2-D SH por diferencias finitas, en sección E–O con el Moho engrosando de 30 a 35 km, muestra el pulso <b>atrapado en la corteza</b> —sin fugarse al manto— y llegando <b>coherente</b> al litoral, con la amplitud decayendo <span class="mono">1/√R</span> y no <span class="mono">1/R</span>.</p></div>
-        <div class="box o"><div class="big">3</div><h3>pero no canaliza</h3><p>Un modelo de onda de membrana en planta revela que a este período el modo es <b>casi insensible al espesor del Moho</b>: la velocidad varía menos del 1 % entre 22 y 42 km de corteza. La configuración cortical <b>no concentra</b> lateralmente el pulso.</p></div>
+        <div class="box b"><div class="big">1</div><h3 id="el-modo-guiado-existe">el modo guiado existe</h3><p>La ecuación de dispersión de ondas Love da, a <span class="mono">T = 6,5 s</span>, un modo fundamental con velocidad de fase <b>3,45 km/s</b> y de grupo <b>3,28 km/s</b> — que coincide con los <b>~3,39 km/s</b> medidos en el arribo de la S en Cajigal. El período del pulso cae, además, cerca de la <b>fase de Airy</b>, donde la energía de una banda de períodos llega agrupada.</p></div>
+        <div class="box b"><div class="big">2</div><h3 id="el-pulso-sobrevive">el pulso sobrevive</h3><p>Una propagación 2-D SH por diferencias finitas, en sección E–O con el Moho engrosando de 30 a 35 km, muestra el pulso <b>atrapado en la corteza</b> —sin fugarse al manto— y llegando <b>coherente</b> al litoral, con la amplitud decayendo <span class="mono">1/√R</span> y no <span class="mono">1/R</span>.</p></div>
+        <div class="box o"><div class="big">3</div><h3 id="pero-no-canaliza">pero no canaliza</h3><p>Un modelo de onda de membrana en planta revela que a este período el modo es <b>casi insensible al espesor del Moho</b>: la velocidad varía menos del 1 % entre 22 y 42 km de corteza. La configuración cortical <b>no concentra</b> lateralmente el pulso.</p></div>
       </div>
 
       <figure class="figplate" style="margin-top:20px">
@@ -175,7 +175,7 @@
         <figcaption><b>Los tres cálculos, en orden.</b> <b>(a)</b> Dispersión del modo Love fundamental: a <span class="mono">T = 6,5 s</span> la velocidad de grupo es de 3,3 km/s, la misma que se mide en Cajigal. <b>(b)</b> La sección E–O a los 45 s de propagación: el pulso viaja confinado entre la superficie y el Moho y llega a La Guaira sin deshacerse. <b>(c)</b> La amplitud pico en planta: el haz que apunta al este aparece <b>solo cuando la fuente se mueve</b>, no cuando se varía el espesor cortical.  <span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_guia_ondas.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
-      <h3 class="sub-h">Una hipótesis que la propia prueba descarta</h3>
+      <h3 id="una-hipotesis-que-la-propia-prueba-descarta" class="sub-h">Una hipótesis que la propia prueba descarta</h3>
       <p>El punto de partida incluía un mecanismo adicional atractivo: que la <b>franja cortical costera</b> —acotada al norte por el adelgazamiento hacia el Caribe y al sur por el engrosamiento bajo la Cordillera— actuara como una <b>guía lateral</b> que canalizara la energía a lo largo de la costa, hacia La Guaira. Habría sido un segundo argumento, independiente de la directividad, para explicar el daño del litoral.</p>
       <div class="aside" style="margin-top:16px">
         <span class="tag">6,5 s</span>
@@ -194,3 +194,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

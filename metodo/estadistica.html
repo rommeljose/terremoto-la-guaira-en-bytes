@@ -149,7 +149,7 @@
     <p class="lead">Un resultado sismológico no se sostiene por la figura que produce, sino por lo que se hizo para <b>intentar tumbarlo</b>. Esta sección reúne las herramientas con las que se pone a prueba cada afirmación de la portada, en el orden en que se aplican.</p>
 
     <div class="bloque">
-      <h3 class="sub-h">El pre-registro: escribir el criterio antes de mirar</h3>
+      <h3 id="el-pre-registro-escribir-el-criterio-antes-de-mi" class="sub-h">El pre-registro: escribir el criterio antes de mirar</h3>
       <p>Antes de ejecutar <b>ninguna</b> inversión se escribió un documento, <span class="mono">PRE_REGISTRO.md</span>, y se selló con su huella <span class="mono">SHA-256</span> en la bitácora. Una huella así es una firma digital del contenido: cambiar una coma del documento cambia la huella por completo, de modo que <b>no se puede reescribir a posteriori sin que se note</b>. La huella quedó anotada con fecha: <span class="mono">b995dfe1…7ca4f</span>.</p>
       <p>Ese documento fija cinco cosas: el <b>estadístico de decisión</b>, la <b>ventana</b> de 20–32 s sobre la que se mide, el <b>umbral</b> <span class="mono">S ≥ 2</span> para declarar que la prueba discrimina, el <b>número de realizaciones</b> de ruido, y el compromiso explícito de <b>publicar el resultado sea cual sea</b>.</p>
       <div class="aside" style="margin-top:16px">
@@ -160,15 +160,15 @@
         </div>
       </div>
 
-      <h3 class="sub-h">Las cuatro herramientas</h3>
+      <h3 id="las-cuatro-herramientas" class="sub-h">Las cuatro herramientas</h3>
       <div class="grid2" style="margin-top:14px">
-        <div class="box b"><div class="big txt">Bootstrap</div><h3>¿cuánto se movería si repitiera el experimento?</h3><p>Se vuelve a invertir muchas veces, cada vez con un <b>remuestreo</b> de las estaciones —unas entran dos veces, otras ninguna—. La dispersión de los resultados mide la incertidumbre <b>interna</b>. Con 30 remuestras: <span class="mono">f = 0,0044 ± 0,0040</span>, frente al <span class="mono">0,0036</span> observado.</p></div>
-        <div class="box b"><div class="big txt">Jackknife</div><h3>¿depende de una sola estación?</h3><p>Se repite el cálculo <b>quitando una estación cada vez</b>. Si el resultado se apoyara en un solo registro, al retirarlo se desmoronaría. En la retroproyección: <span class="mono">θ̂ = 149 km</span>, dispersión robusta ≈ 8 km, rango intercuartílico <span class="mono">[144, 153]</span>. Las exclusiones llegan a moverlo entre 95 y 242 km, pero <b>nunca vuelve al primer epicentro</b>, que es el punto.</p></div>
-        <div class="box o"><div class="big txt">Controles<br>sintéticos</div><h3>¿sabría reconocer lo contrario?</h3><p>Se fabrican datos falsos con la respuesta <b>conocida</b> —uno con dos rupturas, otro con un frente continuo— y se les aplica el mismo operador. Si el método no distingue escenarios que <i>sabemos</i> distintos, no sirve para el dato real. Los sintéticos se calibran para que se ajusten <b>tan mal como el registro</b>, no mejor.</p></div>
-        <div class="box o"><div class="big txt">Hipótesis<br>nula</div><h3>¿y si no hubiera nada?</h3><p>Un <b>control nulo</b> es el mismo análisis aplicado a datos donde, por construcción, <b>no hay</b> lo que se busca. Si aun así aparece, lo que se ha encontrado es un artefacto del método. Aquí se probaron varios, incluido uno con la forma del propio modelo de falla finita del USGS.</p></div>
+        <div class="box b"><div class="big txt">Bootstrap</div><h3 id="cuanto-se-moveria-si-repitiera-el-experimento">¿cuánto se movería si repitiera el experimento?</h3><p>Se vuelve a invertir muchas veces, cada vez con un <b>remuestreo</b> de las estaciones —unas entran dos veces, otras ninguna—. La dispersión de los resultados mide la incertidumbre <b>interna</b>. Con 30 remuestras: <span class="mono">f = 0,0044 ± 0,0040</span>, frente al <span class="mono">0,0036</span> observado.</p></div>
+        <div class="box b"><div class="big txt">Jackknife</div><h3 id="depende-de-una-sola-estacion">¿depende de una sola estación?</h3><p>Se repite el cálculo <b>quitando una estación cada vez</b>. Si el resultado se apoyara en un solo registro, al retirarlo se desmoronaría. En la retroproyección: <span class="mono">θ̂ = 149 km</span>, dispersión robusta ≈ 8 km, rango intercuartílico <span class="mono">[144, 153]</span>. Las exclusiones llegan a moverlo entre 95 y 242 km, pero <b>nunca vuelve al primer epicentro</b>, que es el punto.</p></div>
+        <div class="box o"><div class="big txt">Controles<br>sintéticos</div><h3 id="sabria-reconocer-lo-contrario">¿sabría reconocer lo contrario?</h3><p>Se fabrican datos falsos con la respuesta <b>conocida</b> —uno con dos rupturas, otro con un frente continuo— y se les aplica el mismo operador. Si el método no distingue escenarios que <i>sabemos</i> distintos, no sirve para el dato real. Los sintéticos se calibran para que se ajusten <b>tan mal como el registro</b>, no mejor.</p></div>
+        <div class="box o"><div class="big txt">Hipótesis<br>nula</div><h3 id="y-si-no-hubiera-nada">¿y si no hubiera nada?</h3><p>Un <b>control nulo</b> es el mismo análisis aplicado a datos donde, por construcción, <b>no hay</b> lo que se busca. Si aun así aparece, lo que se ha encontrado es un artefacto del método. Aquí se probaron varios, incluido uno con la forma del propio modelo de falla finita del USGS.</p></div>
       </div>
 
-      <h3 class="sub-h">Cómo se enuncia el resultado</h3>
+      <h3 id="como-se-enuncia-el-resultado" class="sub-h">Cómo se enuncia el resultado</h3>
       <p>Con esas piezas, la afirmación central no se enuncia como «la figura muestra un hueco», sino como un <b>test de conteo</b>: de las 20 realizaciones del escenario de frente continuo, <b>ninguna</b> reproduce lo observado — <span class="mono">0/20</span>, <span class="mono">p ≤ 0,048</span> — y la separación entre escenarios da <span class="mono">S = 2,62</span> sobre el umbral pre-registrado de 2. Ese enunciado sobrevive, además, a las <b>tres convenciones</b> distintas de tiempo de origen que se probaron.</p>
       <p>El hueco de réplicas se somete a lo mismo y con el mismo cuidado: los tramos que rompieron se activaron a <b>×230</b> y <b>×352</b> de su propio fondo de sismicidad, y el tramo intermedio solo a <b>×6</b>. Pero eso obliga a decir también lo contrario, y la página lo dice: <b>×6 sobre el fondo no es silencio</b>. Algo ocurrió ahí; lo que no ocurrió es una ruptura.</p>
 
@@ -186,3 +186,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

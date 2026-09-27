@@ -108,7 +108,7 @@
 
   <p class="lead">La retroproyección (<em>back-projection</em>) no necesita un modelo de fuente: <strong>sigue la energía</strong>. Se toman decenas de estaciones telesísmicas, se alinean sus ondas $P$ y, para cada punto candidato del mapa, se apilan desplazadas por el tiempo de viaje predicho. Donde el apilado es <strong>coherente</strong>, hay una fuente radiando. Barriendo en el tiempo se obtiene una película de <em>dónde</em> se radia la alta frecuencia — y así se ven <strong>las dos acumulaciones de energía y el hueco entre ellas</strong>.</p>
 
-  <h2><span class="no">1</span> El principio: alinear y apilar</h2>
+  <h2 id="1-el-principio-alinear-y-apilar"><span class="no">1</span> El principio: alinear y apilar</h2>
   <p>Para un punto del mapa $\mathbf{x}$ y un instante $t$, el <em class="term">apilado</em> de las $N$ estaciones es</p>
   $$ S(\mathbf{x},t) \;=\; \frac{1}{N}\sum_{j=1}^{N} w_j\; u_j\!\big(t + T_j(\mathbf{x}) + \Delta\tau_j\big), $$
   <p>donde $u_j$ es la traza filtrada de la estación $j$, $T_j(\mathbf{x})$ el <strong>tiempo de viaje $P$ predicho</strong> desde $\mathbf{x}$, y $\Delta\tau_j$ una <strong>corrección empírica por estación</strong>. Si $\mathbf{x}$ es la fuente real, todas las trazas se suman <strong>en fase</strong> y $S$ es grande; si no, se cancelan.</p>
@@ -148,7 +148,7 @@
     <figcaption><b>Figura 1.</b> <em>Delay-and-stack.</em> Las trazas llegan con la $P$ en instantes distintos (izq.); al desplazar cada una por el tiempo de viaje al punto candidato quedan alineadas (der.) y su suma es un <b>pulso coherente</b>. Barriendo el punto candidato por el mapa y el tiempo se construye la imagen de energía.</figcaption>
   </figure>
 
-  <h2><span class="no">2</span> El contexto y el arreglo</h2>
+  <h2 id="2-el-contexto-y-el-arreglo"><span class="no">2</span> El contexto y el arreglo</h2>
   <p>El terremoto ocurrió en el sistema dextral Caribe–Sudamérica, en el enlace de las fallas de Boconó, Morón y San Sebastián:</p>
   <figure>
     <img class="paperimg" src="img/mapa_regional.png" alt="Mapa tectónico regional: fallas de Boconó, Morón y San Sebastián con los dos epicentros del evento">
@@ -160,11 +160,11 @@
     <figcaption><b>Figura 3.</b> <b>Distribución azimutal</b> de las estaciones (azimut frente a distancia epicentral), coloreadas por la polaridad observada de la $P$. El inserto proyecta esas polaridades sobre la esfera focal del mecanismo del USGS: coinciden en 28 de 32 estaciones — el mecanismo queda verificado con dato propio.</figcaption>
   </figure>
 
-  <h2><span class="no">3</span> El modelo, sólo en relativo</h2>
+  <h2 id="3-el-modelo-solo-en-relativo"><span class="no">3</span> El modelo, sólo en relativo</h2>
   <p>Los tiempos de viaje $T_j(\mathbf{x})$ se calculan con un modelo de Tierra global (IASP91). A 1 Hz, <strong>un segundo de error es un ciclo entero</strong> y arruinaría el apilado; por eso el modelo <strong>no se usa en absoluto, sino en relativo</strong>: las trazas se alinean por correlación cruzada sobre la $P$ del M 7,2, y el desfase resultante en cada estación se guarda como <strong>corrección empírica $\Delta\tau_j$</strong>. Esa corrección absorbe la estructura 3-D bajo cada estación y la mayor parte del sesgo de trayecto. Se conservan las estaciones con $CC\ge 0{,}6$.</p>
   <div class="callout"><span class="k">Consecuencia importante</span> Como las correcciones se calibran sobre el M 7,2, la energía inicial cae sobre él <em>por construcción</em>: ese primer instante no es evidencia independiente. Lo que sí es una medida es la <strong>segunda fuente</strong>, que aparece 149 km al este y ~32 s después — y la respaldan los controles.</p>
 
-  <h2><span class="no">4</span> El resultado: dos rupturas y un hueco</h2>
+  <h2 id="4-el-resultado-dos-rupturas-y-un-hueco"><span class="no">4</span> El resultado: dos rupturas y un hueco</h2>
   <figure>
     <img class="paperimg" src="img/retroproyeccion.png" alt="Imagen de retroproyección del evento complejo: dos fuentes, controles y energía en tiempo y distancia">
     <figcaption><b>Figura 4.</b> Imagen de retroproyección. (a) primeros 15 s: la energía cae sobre el epicentro occidental (circular por construcción); (b) 20–45 s: la fuente tardía aparece a 149 km al este; (c) energía en el plano tiempo–distancia a lo largo del rumbo (dos estallidos, no una rampa); (d) control con dos fuentes separadas y (e) control nulo con ambas en el mismo sitio, que confirman que el salto al este <b>no es artefacto</b>.</figcaption>
@@ -173,14 +173,14 @@
   <h2 id="frente-unico"><span class="no">5</span> Por qué no pudo ser un solo frente</h2>
   <p>El catálogo del USGS localiza los dos eventos en 10,37° N / 68,56° O y 10,62° N / 67,19° O, ambos con la profundidad fijada por el analista en 10 km, y los origina a las 22:04:32 y 22:05:04 UTC. De ahí salen las dos cifras que interesan: <strong>152 km</strong> en línea recta entre los epicentros y <strong>32,2 s</strong> entre los orígenes. Quien las divide obtiene <strong>4,7 km/s</strong> —y <strong>4,9 km/s</strong> si se mide la separación sobre la traza, que es el rango que declara el manuscrito—, y es tentador leerlas como la velocidad de un frente único que recorrió la falla de un extremo al otro. (Conviene no confundir esa separación con los <strong>149 km</strong> que mide la retroproyección en la sección 4: aquélla es una distancia de catálogo entre epicentros, ésta una medida propia entre las dos liberaciones de energía. Coinciden razonablemente —la componente este de la separación de catálogo es de 150 km—, pero no son la misma cantidad.) Dos argumentos independientes dicen que no: uno <strong>observacional</strong>, que sale de la figura 4, y otro de <strong>mecánica de fractura</strong>, que no depende de ningún dato de este terremoto.</p>
 
-  <h3>Lo que ven las estaciones</h3>
+  <h3 id="lo-que-ven-las-estaciones">Lo que ven las estaciones</h3>
   <p>En los primeros <strong>20 s</strong> la radiación de alta frecuencia del M 7,2 no sale de los <strong>35 km</strong> en torno a su epicentro (panel a de la figura 4, y la energía en el plano tiempo–distancia del panel c). Un frente que viajara a 4,7 km/s habría recorrido <strong>85–95 km</strong> entre los 18 y los 20 s, y la retroproyección resuelve posición con $\sigma \approx 8$ km: lo habría visto avanzar a lo largo del rumbo, ventana tras ventana. No hay nada allí. Tampoco hay réplicas en ese tramo. Y la observación no discrimina por velocidad: un frente aún más rápido —supershear, a 5–5,5 km/s— estaría a los 20 s todavía más lejos, y tampoco se ve.</p>
   <figure>
     <img class="paperimg" src="../assets/fig_frente_unico_xt.svg" width="760" height="430" alt="Diagrama distancia–tiempo: la radiación observada del M 7,2 queda dentro de 35 km en los primeros 20 s; un frente único a 4,7 km/s habría estado a 85–95 km a los 18–20 s, y esa velocidad cae en la banda prohibida entre la velocidad de la onda S y raíz de dos por esa velocidad.">
     <figcaption><b>Figura 5.</b> El argumento en un diagrama distancia–tiempo a lo largo del rumbo. En ámbar, lo que el arreglo ve: la radiación del M 7,2 dentro de 35 km durante 20 s, y la del M 7,5 a 152 km desde los 32,2 s. La línea roja a trazos es el frente único hipotético a 4,7 km/s: a los 18–20 s estaría a 85–95 km, en un tramo donde no hay radiación ni réplicas. La cuña rayada es la <b>banda prohibida</b>, entre la velocidad de Rayleigh y $\sqrt{2}\,\beta$ (3,2 y 4,9 km/s para $\beta \approx 3{,}5$ km/s): la línea roja cae dentro. La línea de puntos es la exigencia sobre la traza cartografiada, 158 km, que sube al borde. Hecho a mano para esta página.</figcaption>
   </figure>
 
-  <h3>Lo que dice la mecánica de fractura: la banda prohibida</h3>
+  <h3 id="lo-que-dice-la-mecanica-de-fractura-la-banda-pro">Lo que dice la mecánica de fractura: la banda prohibida</h3>
   <p>Una falla de rumbo se modela como una <strong>grieta de cizalla en modo II</strong>: el deslizamiento es paralelo a la dirección en que avanza la punta. Para una grieta así, Burridge (1973) demostró analíticamente y Andrews (1976) confirmó con simulaciones numéricas que <strong>no puede propagarse de manera estable a cualquier velocidad</strong>. Hay tres regímenes, medidos contra la velocidad de la onda S del medio, $\beta$:</p>
   <ul>
     <li><strong>Subshear</strong>, $V_r < c_R \approx 0{,}92\,\beta \approx 3{,}2$ km/s: la inmensa mayoría de los terremotos. La velocidad de Rayleigh $c_R$ es el techo natural de este régimen.</li>
@@ -191,7 +191,7 @@
   <p>Las dos patas se complementan, y conviene decir cómo. La mecánica de fractura excluye el régimen intermedio, pero por sí sola deja una salida: un supershear por encima de 4,9 km/s, con el segundo sismo «tardando» en nuclear. Esa salida la cierra la observación, y la cierra con holgura, porque un frente supershear estaría a <b>98–110 km</b> a los 20 s y el arreglo no ve radiación fuera de los 35 km. Por eso el orden importa: la observación es la prueba, y la banda prohibida explica por qué la cifra del catálogo no podía ser una velocidad real. La lectura que queda en pie es la de una <strong>barrera</strong> en el sentido de Aki (1979): un tramo que detuvo la primera ruptura, quedó cargado por ella (véase la <a href="coulomb.html">transferencia de esfuerzo</a>) y rompió medio minuto después como un sismo aparte.</p>
   <div class="callout"><span class="k">En una frase</span> Un frente único exigiría 4,7 km/s, que es 1,37 $\beta$: dentro de la banda donde una grieta de cizalla no se propaga de forma estable. Y aunque la sostuviera, a los 20 s estaría a 90 km, donde las estaciones no ven nada. Fueron dos rupturas.</div>
 
-  <h2><span class="no">6</span> Resolución, controles y límites</h2>
+  <h2 id="6-resolucion-controles-y-limites"><span class="no">6</span> Resolución, controles y límites</h2>
   <ul>
     <li><strong>Controles sintéticos:</strong> se generan dos fuentes separadas (se recuperan) y un <em>control nulo</em> con ambas colocadas (no aparece la segunda) → el salto al este es real, no un lóbulo lateral.</li>
     <li><strong>Jackknife</strong> <em>leave-one-out</em> y prueba de <strong>ruido</strong>: la separación de 149 km es estable (σ ≈ 8 km) y sobrevive a SNR muy bajas; no depende de ninguna estación.</li>
@@ -200,7 +200,7 @@
   <div class="callout blue"><span class="k">En una frase</span> La retroproyección usa un arreglo lejano como telescopio: alineando y apilando la $P$ de alta frecuencia, mapea <strong>dónde y cuándo</strong> radía la ruptura — y muestra, con controles, que La Guaira vivió <strong>dos rupturas sucesivas separadas por un hueco</strong>, no un frente único.</div>
   <p style="margin-top:18px">El mismo resultado, para recorrerlo sobre el mapa: el <a href="https://paradojasismica.sigeos.org/" target="_blank" rel="noopener">visor del doblete</a> superpone la imagen de retroproyección, los epicentros de cada agencia y las curvas camino–tiempo.</p>
 
-  <h2><span class="no">7</span> Referencias</h2>
+  <h2 id="7-referencias"><span class="no">7</span> Referencias</h2>
   <ul class="refs">
     <li>Ishii, M., Shearer, P. M., Houston, H., &amp; Vidale, J. E. (2005). Extent, duration and speed of the 2004 Sumatra–Andaman earthquake imaged by the Hi-Net array. <em>Nature</em>, 435, 933–936.</li>
     <li>Xu, Y., Koper, K. D., Sufri, O., Zhu, L., &amp; Hutko, A. R. (2009). Rupture imaging of the Mw 7.9 12 May 2008 Wenchuan earthquake from back projection. <em>G-cubed</em>, 10, Q04006.</li>
@@ -219,3 +219,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

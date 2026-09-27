@@ -154,27 +154,27 @@
     </div>
 
     <div class="bloque" style="margin-top:26px">
-      <h3 class="sub-h">La reproducción del ensamblaje, en detalle</h3>
+      <h3 id="la-reproduccion-del-ensamblaje-en-detalle" class="sub-h">La reproducción del ensamblaje, en detalle</h3>
       <p>La primera de esas comprobaciones conviene desarmarla, porque es fácil confundir lo que certifica. <b>No dice nada sobre el terremoto</b>: es una prueba que el método se hace a sí mismo.</p>
 
-      <h3 class="sub-h">El problema, y qué significa «ensamblar»</h3>
+      <h3 id="el-problema-y-que-significa-ensamblar" class="sub-h">El problema, y qué significa «ensamblar»</h3>
       <p>La inversión de Fase B es un problema lineal, <span class="mono">d = G·m</span>. Sus tres piezas:</p>
       <div class="grid2" style="margin-top:14px">
-        <div class="box b"><div class="big">d</div><h3>el dato</h3><p>Los sismogramas observados, concatenados: las ventanas de onda P de las <b>32 estaciones</b> puestas una detrás de otra en un solo vector de unas <b>7 200 muestras</b>.</p></div>
-        <div class="box b"><div class="big">m</div><h3>la incógnita</h3><p>Cuánto momento libera cada nodo <span class="mono">ξ</span> de la falla en cada instante <span class="mono">t<sub>k</sub></span>. Con la malla canónica, 27 nodos × 81 instantes: <b>2 187 incógnitas</b>.</p></div>
-        <div class="box b"><div class="big">G</div><h3>el operador</h3><p><b>7 200 × 2 187</b>. Cada columna es lo que produciría en todas las estaciones <i>un</i> nodo encendido en <i>un</i> instante: una función de Green, desplazada en el tiempo lo que le corresponda.</p></div>
+        <div class="box b"><div class="big">d</div><h3 id="el-dato">el dato</h3><p>Los sismogramas observados, concatenados: las ventanas de onda P de las <b>32 estaciones</b> puestas una detrás de otra en un solo vector de unas <b>7 200 muestras</b>.</p></div>
+        <div class="box b"><div class="big">m</div><h3 id="la-incognita">la incógnita</h3><p>Cuánto momento libera cada nodo <span class="mono">ξ</span> de la falla en cada instante <span class="mono">t<sub>k</sub></span>. Con la malla canónica, 27 nodos × 81 instantes: <b>2 187 incógnitas</b>.</p></div>
+        <div class="box b"><div class="big">G</div><h3 id="el-operador">el operador</h3><p><b>7 200 × 2 187</b>. Cada columna es lo que produciría en todas las estaciones <i>un</i> nodo encendido en <i>un</i> instante: una función de Green, desplazada en el tiempo lo que le corresponda.</p></div>
       </div>
       <p style="margin-top:14px"><b>Ensamblar</b> es construir esa matriz: recorrer los pares nodo–instante–estación, calcular el desfase que le toca a cada uno —el tiempo de viaje de la P más la corrección de estación— e insertar la traza en su sitio. Es la parte del código donde es más fácil equivocarse <b>sin que se note</b>: un índice desplazado una muestra, un signo, un origen de tiempo mal referido, y sale un resultado perfectamente verosímil y falso.</p>
 
-      <h3 class="sub-h">Qué prueba exactamente</h3>
+      <h3 id="que-prueba-exactamente" class="sub-h">Qué prueba exactamente</h3>
       <p>Se rehace el camino con el operador <b>reconstruido por separado</b>, se le entrega la <span class="mono">G</span> publicada, el mismo dato y el mismo <span class="mono">λ</span>, y se vuelve a resolver. Después se compara con el resultado que está en el expediente. Salen dos números:</p>
       <div class="grid2" style="margin-top:14px">
-        <div class="box o"><div class="big">|m − m_l| = 0</div><h3>el mismo modelo</h3><p>La comparación se hace sobre la norma <b>relativa</b> <span class="mono">‖m − m_l‖ / ‖m_l‖</span>, y da cero hasta la precisión de la máquina. No es «parecido»: es el <b>mismo vector</b>.</p></div>
-        <div class="box o"><div class="big">VR = 21,15 %</div><h3>el mismo ajuste</h3><p>La misma varianza explicada que la corrida canónica, dígito a dígito.</p></div>
+        <div class="box o"><div class="big">|m − m_l| = 0</div><h3 id="el-mismo-modelo">el mismo modelo</h3><p>La comparación se hace sobre la norma <b>relativa</b> <span class="mono">‖m − m_l‖ / ‖m_l‖</span>, y da cero hasta la precisión de la máquina. No es «parecido»: es el <b>mismo vector</b>.</p></div>
+        <div class="box o"><div class="big">VR = 21,15 %</div><h3 id="el-mismo-ajuste">el mismo ajuste</h3><p>La misma varianza explicada que la corrida canónica, dígito a dígito.</p></div>
       </div>
       <p style="margin-top:14px">La tubería es, por tanto, <b>determinista y reconstruible</b>: quien la vuelva a montar obtiene lo mismo. Nada más, pero nada menos —esta comprobación certifica el <b>procedimiento</b>, no la sismología.</p>
 
-      <h3 class="sub-h">Qué es VR, y por qué 21 % no es un suspenso</h3>
+      <h3 id="que-es-vr-y-por-que-21-no-es-un-suspenso" class="sub-h">Qué es VR, y por qué 21 % no es un suspenso</h3>
       <p>La varianza explicada es <span class="mono">VR = 100·(1 − Σ(d−p)² / Σd²)</span>: la fracción de la energía de los sismogramas que el modelo consigue explicar. Es el complemento del error de Kikuchi, <span class="mono">VR = 1 − EROR</span>.</p>
       <p>Un 21 % suena bajo, y conviene decir de dónde viene: un operador lineal con <b>mecanismo fijo</b> y <b>eje de ruptura fijo</b>, con la restricción <span class="mono">m ≥ 0</span>, con una regularización fuerte (<span class="mono">λ_rel = 10</span>, elegida por discrepancia generalizada), en la banda <span class="mono">0,02–0,5 Hz</span>, y con una ventana que <b>termina antes de que acabe el M 7,5</b>. Todo eso se paga en ajuste.</p>
       <div class="aside" style="margin-top:16px">
@@ -204,3 +204,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

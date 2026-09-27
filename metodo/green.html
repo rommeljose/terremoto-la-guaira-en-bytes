@@ -113,12 +113,12 @@
 
   <p class="lead">Para invertir formas de onda (o retroproyectarlas) necesitamos saber qué registraría una estación si en un punto de la falla ocurriera un impulso unitario de fuente. Esa <strong>respuesta impulsional del medio</strong> es la <em class="term">función de Green</em>. No la observamos: la <strong>calculamos</strong> con un método de ondas completo (AxiSEM, vía el servicio Syngine de EarthScope) sobre un modelo de Tierra, una por cada par <strong>punto de falla — estación</strong>.</p>
 
-  <h2><span class="no">1</span> Qué es una función de Green</h2>
+  <h2 id="1-que-es-una-funcion-de-green"><span class="no">1</span> Qué es una función de Green</h2>
   <p>Formalmente, la función de Green $G(\mathbf{x},t;\boldsymbol{\xi},t')$ es el desplazamiento en el receptor $\mathbf{x}$ en el instante $t$ producido por una <strong>fuente impulsiva unitaria</strong> aplicada en $\boldsymbol{\xi}$ en $t'$. Cualquier fuente real se obtiene <strong>convolucionando</strong> su historia temporal con la Green:</p>
   $$ u(\mathbf{x},t) \;=\; G(\mathbf{x},t;\boldsymbol{\xi})\,*\,\dot{M}(\boldsymbol{\xi},t). $$
   <p>La Green <strong>contiene toda la física del camino</strong>: la propagación por el modelo de Tierra, el patrón de radiación del mecanismo, el esparcimiento geométrico, las reflexiones y la atenuación. Por eso, una vez que la tenemos, el problema de fuente se vuelve <strong>lineal</strong> (véase la página de la <a href="inversion.html">inversión</a>).</p>
 
-  <h2><span class="no">2</span> Por qué sintéticas: AxiSEM + Syngine</h2>
+  <h2 id="2-por-que-sinteticas-axisem-syngine"><span class="no">2</span> Por qué sintéticas: AxiSEM + Syngine</h2>
   <p>Necesitamos <strong>miles</strong> de Green (una por cada punto de la malla de falla y cada estación), a distancias telesísmicas y con las fases correctas. Se calculan con <strong>AxiSEM</strong> —un método de <em class="term">elementos espectrales axisimétrico</em> que resuelve el campo de ondas completo en un modelo de Tierra esférico 1-D— y se sirven ya listas por el <strong>webservice Syngine</strong> de EarthScope. Usamos el modelo <code>ak135f_2s</code> (ak135 con un período mínimo de 2 s) y un doble par de fuerzas con el mecanismo del USGS.</p>
 
   <figure>
@@ -157,7 +157,7 @@
     <figcaption><b>Figura 1.</b> Receta de una función de Green: el <b>mecanismo + profundidad</b> de la fuente y el <b>modelo 1-D</b> alimentan a <b>AxiSEM</b>, que resuelve el campo de ondas completo; el resultado es la respuesta elemental $g_j(\boldsymbol{\xi},t)$ para la estación $j$, con toda la física del camino incluida.</figcaption>
   </figure>
 
-  <h2><span class="no">3</span> Anatomía: P, pP, sP y la profundidad</h2>
+  <h2 id="3-anatomia-p-pp-sp-y-la-profundidad"><span class="no">3</span> Anatomía: P, pP, sP y la profundidad</h2>
   <p>Una Green telesísmica de onda $P$ no es un solo pulso: llega la $P$ directa y, poco después, sus <strong>fases de profundidad</strong> —la $pP$ (sube como $P$, rebota en la superficie sobre la fuente y baja como $P$) y la $sP$—. El retardo de la $pP$ respecto a la $P$ depende <strong>directamente de la profundidad</strong> $h$:</p>
   $$ \tau_{pP} \;\approx\; \frac{2h}{\alpha}\,\cos i_h , $$
   <p>con $\alpha$ la velocidad $P$ e $i_h$ el ángulo de salida. Por eso las Green completas <strong>resuelven la profundidad</strong>: es la separación $pP-P$ la que la fija (véase el <a href="relocalizacion.html">barrido de profundidad</a> del análisis). Una Green "de rayo directo" que ignorara $pP/sP$ perdería esa sensibilidad.</p>
@@ -196,7 +196,7 @@
     <figcaption><b>Figura 2.</b> Anatomía de una Green telesísmica: la $P$ directa seguida de las fases de profundidad $pP$ y $sP$, que rebotan en la superficie sobre la fuente. El <b>retardo $pP-P$</b> es proporcional a la profundidad; de ahí que las Green completas la resuelvan.</figcaption>
   </figure>
 
-  <h2><span class="no">4</span> En números</h2>
+  <h2 id="4-en-numeros"><span class="no">4</span> En números</h2>
   <p>Para este estudio se calcularon y descargaron:</p>
   <table>
     <thead><tr><th>Concepto</th><th>Cantidad</th></tr></thead>
@@ -209,10 +209,10 @@
   </table>
   <p>Cada Green se pidió individualmente al servicio, con la ventana centrada en la $P$ ($-30$ a $+150$ s). Apiladas en columnas, forman el operador $\mathbf{G}$ de la inversión.</p>
 
-  <h2><span class="no">5</span> Por qué importan tanto</h2>
+  <h2 id="5-por-que-importan-tanto"><span class="no">5</span> Por qué importan tanto</h2>
   <div class="callout blue"><span class="k">Resumen</span> La función de Green es el "traductor" entre la fuente y el sismograma. Usarlas <strong>completas</strong> —con $P+pP+sP$ y física de ondas, no un rayo simplificado— es lo que permite (i) que la <a href="inversion.html">inversión</a> sea físicamente fiel, (ii) que la profundidad quede resuelta por las fases $pP/sP$, y (iii) que los controles sintéticos usen exactamente el mismo operador que el dato. Son abiertas y reproducibles: se regeneran con un script contra el webservice.</div>
 
-  <h2><span class="no">6</span> Referencias</h2>
+  <h2 id="6-referencias"><span class="no">6</span> Referencias</h2>
   <ul class="refs">
     <li>Nissen-Meyer, T., van Driel, M., Stähler, S. C., Hosseini, K., Hempel, S., Auer, L., Colombi, A., &amp; Fournier, A. (2014). AxiSEM: broadband 3-D seismic wavefields in axisymmetric media. <em>Solid Earth</em>, 5, 425–445.</li>
     <li>van Driel, M., Krischer, L., Stähler, S. C., Hosseini, K., &amp; Nissen-Meyer, T. (2015). Instaseis: instant global seismograms based on a broadband waveform database. <em>Solid Earth</em>, 6, 701–717. (motor tras Syngine).</li>
@@ -225,3 +225,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

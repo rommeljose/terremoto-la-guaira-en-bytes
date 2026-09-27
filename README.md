@@ -39,7 +39,10 @@ sim/                             · 17 · simulación interactiva (directividad 
 assets/                          · logo AGHES, lámina de directividad, mapa de ubicación,
                                    tarjeta social og_card.png, mapa de estaciones y las cuatro
                                    figuras de §07 y §12 (ver «Las figuras traídas de otros repos»)
-herramientas/                    · generador del mapa (§01) y sus datos de entrada
+herramientas/                    · generadores: mapa (§01), tarjeta social, anclas de
+                                   encabezado e índice del buscador
+assets/buscar.js                 · buscador del sitio (JS puro, sin dependencias)
+assets/buscar.json               · índice generado; NO editar a mano
 ```
 
 Criterio de la portada (desde el 24-sep-2026): cada sección de método lleva en `index.html`
@@ -65,6 +68,29 @@ que herede el tema claro/oscuro de la página a través de las clases `.mp-*`. S
 python3 herramientas/gen_mapa_ubicacion.py     # reescribe assets/mapa_ubicacion.svg
 python3 herramientas/gen_tarjeta_og.py         # reescribe assets/og_card.png (1200x630)
 ```
+
+## El buscador
+
+El sitio se busca desde el propio navegador, sin servidor ni servicio externo: el botón
+`buscar` de la cabecera, `Ctrl/⌘ + K` desde cualquier página, o la tecla `/`. También se
+puede llegar con el ancla `#buscar`, que abre el cuadro al cargar.
+
+`assets/buscar.js` es JavaScript puro, sin dependencias, y lee `assets/buscar.json` la
+primera vez que se abre el cuadro (unos 160 KB, que el servidor comprime). La búsqueda
+ignora mayúsculas y tildes, exige que **todas** las palabras aparezcan, y puntúa más alto
+lo que coincide en el encabezado que en el cuerpo. Cada resultado enlaza al **apartado**,
+no solo a la página.
+
+**Después de tocar cualquier texto publicado hay que regenerar el índice**, o el buscador
+devolverá lo viejo:
+
+```bash
+python3 herramientas/poner_anclas.py       # da id a los encabezados nuevos (idempotente)
+python3 herramientas/generar_indice.py     # reescribe assets/buscar.json
+python3 herramientas/poner_buscador.py     # añade el <script> a páginas nuevas
+```
+
+Los tres son idempotentes y se pueden ejecutar siempre; si no hay nada que hacer, lo dicen.
 
 y después hay que **volver a pegar** el SVG resultante en `index.html` (entre `<figure class="mapa">`
 y `<figcaption>`). Sus datos de entrada están en `herramientas/datos/`:

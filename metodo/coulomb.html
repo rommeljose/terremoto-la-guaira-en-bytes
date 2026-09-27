@@ -149,7 +149,7 @@
     <p class="lead">Queda una pregunta que las demás páginas no responden: <b>¿por qué hubo un segundo?</b> Cuando una falla rompe no descarga la tensión por igual en todas partes — deja unos tramos <b>más cargados</b> y otros <b>relajados</b>. El mapa de ese reparto se llama <b>ΔCFS</b>, cambio en el esfuerzo de Coulomb, y es lo que se calcula aquí.</p>
 
     <div class="bloque">
-      <h3 class="sub-h">Rojo acerca a romper, azul aleja</h3>
+      <h3 id="rojo-acerca-a-romper-azul-aleja" class="sub-h">Rojo acerca a romper, azul aleja</h3>
       <p>La imagen que mejor funciona es <b>doblar una galleta hasta casi partirla</b>. Justo delante de la grieta, en su misma línea, el material queda <b>cargado</b>; a los lados, se <b>afloja</b>. Visto desde arriba, ese reparto dibuja cuatro pétalos — la <b>mariposa</b>. En los mapas, rojo es «lo acerca a romper» y azul, «lo aleja»; a un tramo azul se le dice que está <b>en sombra</b>. El contorno de <span class="mono">±0,01 MPa</span> es la línea de aviso convencional: el empujón mínimo que se considera capaz de contar.</p>
 
       <figure class="figplate" style="margin-top:20px">
@@ -158,7 +158,7 @@
         <figcaption><b>El empujón que dejó el primero.</b> Calculado con el método de Okada, sobre la Tierra con superficie libre. Se reconoce la mariposa: dos pétalos rojos a lo largo de la falla y dos azules a los lados. Y lo que importa: <b>el pétalo rojo que sale hacia el este llega justo hasta donde rompió el segundo</b>, medio minuto más tarde. Conviene decir de inmediato la salvedad: a 150 km de distancia el empujón <i>estático</i> es diminuto — el segundo se disparó sobre todo por las <b>vibraciones</b> del primero, no por este empujón. Lo que coincide es la <b>dirección</b>. La geometría de la fuente y los dos epicentros son los del catálogo del <b>USGS</b> (eventos <span class="mono">us6000t7zc</span> y <span class="mono">us6000t7zp</span>).<span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_dcfs_mapa.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
-      <h3 class="sub-h">El tramo tranquilo: ¿trabado, o en sombra?</h3>
+      <h3 id="el-tramo-tranquilo-trabado-o-en-sombra" class="sub-h">El tramo tranquilo: ¿trabado, o en sombra?</h3>
       <p>El hueco entre las dos rupturas admite dos lecturas opuestas, y no son inocentes: o está <b>trabado y cargado</b> —una zona que aguanta y podría soltar— o está <b>relajado</b>. Para distinguirlas se calculó el empujón sobre ese tramo <b>suponiendo que él mismo hubiera deslizado</b> —que es lo que le asigna el <b>modelo de falla finita del USGS</b> para el segundo sismo, con sus 130 parches de deslizamiento— y <b>suponiendo que no</b>, que es lo que dice nuestra inversión. El resultado no cambia: en las dos versiones queda en azul. Está en sombra <b>porque sus dos vecinos lo dejaron así</b>, como el trozo flojo de una cuerda tirada por los dos extremos.</p>
 
       <figure class="figplate" style="margin-top:20px">
@@ -167,14 +167,14 @@
         <figcaption><b>La falla vista de canto.</b> <b>(a)</b> Con el primer sismo solo: empuja el tramo que tiene por delante, hacia donde ocurrió el segundo. <b>(b)</b> Con los dos: el tramo de en medio queda <b>apretado por ambos lados</b>. Y aquí hay un matiz que conviene no aplanar — <b>depende de dónde se mire exactamente</b>: justo <i>sobre</i> la línea de falla el tramo intermedio quedó cargado, y un poco <i>hacia los lados</i>, donde se agolpan las réplicas, quedó flojo. Como una cremallera: sobre el diente está tenso, y a un centímetro, la tela se afloja. Los recuadros rayados son las zonas que rompieron, donde el cálculo no aplica. En esta figura el segundo sismo es un <b>rectángulo uniforme</b> de 100 × 18 km con ≈ 3,8 m de deslizamiento —no el modelo de falla finita del USGS, que es el que va en el mapa—; de dónde sale esa cifra se explica más abajo.<span style="display:block; margin-top:9px; font-size:.8rem"><a href="../assets/fig_dcfs_seccion.png">Ver a resolución completa →</a></span></figcaption>
       </figure>
 
-      <h3 class="sub-h">Un badén en medio de la falla</h3>
+      <h3 id="un-baden-en-medio-de-la-falla" class="sub-h">Un badén en medio de la falla</h3>
       <p>La lectura que ordena todo lo anterior es geométrica. Los tramos <b>torcidos y ramificados</b> de una falla funcionan como <b>badenes</b> capaces de frenar una ruptura en crecimiento, y quedan muy apretados; es lo mismo que se ha descrito en la falla de San Andrés. La barrera de este caso habría actuado así: <b>impidió que el primer sismo siguiera de largo en una sola ruptura gigante y obligó a que la Tierra rompiera en dos</b>. Por eso no hubo un terremoto enorme, sino dos.</p>
 
 
-      <h3 class="sub-h">Cómo se calculó, y con qué insumos</h3>
+      <h3 id="como-se-calculo-y-con-que-insumos" class="sub-h">Cómo se calculó, y con qué insumos</h3>
       <p>El cambio de esfuerzo de Coulomb sobre una falla receptora es <span class="mono">ΔCFS = Δτ + μ′·Δσ<sub>n</sub></span>: el cambio del esfuerzo de cizalla en la dirección del deslizamiento más el del esfuerzo normal, ponderado por un coeficiente de fricción aparente <span class="mono">μ′ = 0,4</span> (King, Stein y Lin, 1994; Stein, 1999). El medio es elástico, homogéneo e isótropo, con <span class="mono">μ = 33 GPa</span> y <span class="mono">ν = 0,25</span>. La falla receptora tiene rumbo 86°, buzamiento 88° y deslizamiento 180°: la geometría del enlace San Sebastián–Morón–Boconó, dextral y casi vertical.</p>
       <p><b>Las fuentes.</b> El M 7,2 se representa por un plano uniforme de 60 × 15 km con 2,67 m de deslizamiento —momento <span class="mono">7,9 × 10<sup>19</sup> N·m</span>, rumbo 79°—, coherente con la inversión de la sección 06 de la portada. El M 7,5 se toma del <b>modelo de falla finita del USGS</b> para el evento <span class="mono">us6000t7zp</span>: 130 subfallas, M<sub>w</sub> 7,54, rumbo ≈ 86°, buzamiento ≈ 77°, centrado 149 km al este y 28 km al norte del primer hipocentro; 26 parches someros se desplazaron ~1 km en profundidad para que no cortaran la superficie libre. <b>El cálculo del ΔCFS es propio</b>: del USGS entran solo los dos epicentros y ese modelo de deslizamiento, y el USGS no publica ningún ΔCFS para esta secuencia.</p>
-      <h3 class="sub-h">De dónde salen los deslizamientos</h3>
+      <h3 id="de-donde-salen-los-deslizamientos" class="sub-h">De dónde salen los deslizamientos</h3>
       <p>Ninguno de los deslizamientos que entran al cálculo se <i>midió</i>: nadie estuvo sobre la falla con una cinta métrica. Se <b>deducen</b> del momento sísmico, que sí se estima con las ondas, y de las dimensiones que se le asignan al plano. La receta tiene dos pasos y una sola fórmula.</p>
       <p><b>1 · De la magnitud al momento.</b> La magnitud de momento es una manera de escribir el momento sísmico en escala logarítmica: <span class="mono">M<sub>0</sub> = 10<sup>1,5·M<sub>w</sub> + 9,1</sup> N·m</span> (Hanks y Kanamori, 1979). Para M<sub>w</sub> 7,2 eso da <span class="mono">7,9 × 10<sup>19</sup> N·m</span>; para 7,5, <span class="mono">2,2 × 10<sup>20</sup> N·m</span>.</p>
       <p><b>2 · Del momento al deslizamiento.</b> El momento es rigidez por área por deslizamiento, <span class="mono">M<sub>0</sub> = μ · L · W · D</span>. Fijados <span class="mono">μ = 33 GPa</span> y el rectángulo <span class="mono">L × W</span>, el deslizamiento medio queda determinado: <span class="mono">D = M<sub>0</sub> / (μ · L · W)</span>. No hay nada más que ajustar.</p>
@@ -221,3 +221,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

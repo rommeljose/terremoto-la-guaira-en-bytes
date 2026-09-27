@@ -146,7 +146,7 @@
 
   <p class="lead">En la <a href="sismofisica.html">sismofísica básica</a> vimos que el tamaño físico de un sismo es su <strong>momento sísmico</strong> $M_0=\mu A\bar{D}$. Aquí respondemos una pregunta que suele quedar en el aire: <strong>¿por qué se llama «momento», si no hay ninguna palanca a la vista?</strong> La respuesta conecta el terremoto con algo cotidiano: el <em class="term">momento de fuerza</em> (torque) con que giras una llave.</p>
 
-  <h2><span class="no">1</span> El momento en física: tres sabores</h2>
+  <h2 id="1-el-momento-en-fisica-tres-sabores"><span class="no">1</span> El momento en física: tres sabores</h2>
   <p>La palabra «momento» en física designa varias cosas emparentadas. Conviene no confundirlas:</p>
   <div class="defs">
     <div class="def"><dt>Momento lineal $\;p=m\,v$</dt><dd>Mide lo difícil que es <b>detener</b> algo que se mueve. Unidad: kg·m/s.</dd></div>
@@ -183,14 +183,14 @@
     <figcaption><b>Figura 1.</b> El <b>torque</b> de una llave: una fuerza $F$ aplicada a un brazo $b$ produce un momento $\tau=F\,b$ que hace girar el tornillo. La misma unidad —el <b>N·m</b>— reaparece en el terremoto.</figcaption>
   </figure>
 
-  <h2><span class="no">2</span> El momento sísmico: μ · A · D̄</h2>
+  <h2 id="2-el-momento-sismico-a-d"><span class="no">2</span> El momento sísmico: μ · A · D̄</h2>
   <p>Cuando una falla desliza, el tamaño físico de esa ruptura es el <em class="term">momento sísmico</em>:</p>
   $$ M_0 \;=\; \mu \, A \, \bar{D}, $$
   <p>con $\mu$ la <strong>rigidez</strong> de la roca (unos $3{,}3\times10^{10}$ Pa en la corteza), $A$ el <strong>área</strong> que rompió y $\bar{D}$ el <strong>deslizamiento medio</strong>. Multiplica sus unidades y sale, otra vez, el newton-metro:</p>
   $$ [\,\mu\,][\,A\,][\,\bar D\,] \;=\; \tfrac{\text{N}}{\text{m}^2}\cdot \text{m}^2 \cdot \text{m} \;=\; \text{N·m}. $$
   <p>Ese N·m no es casualidad: $M_0$ <strong>es</strong> un momento, heredado de la mecánica de medios continuos. Pero, ¿un momento <em>de qué</em>, y con qué brazo?</p>
 
-  <h2><span class="no">3</span> No es un torque neto: es un doble par</h2>
+  <h2 id="3-no-es-un-torque-neto-es-un-doble-par"><span class="no">3</span> No es un torque neto: es un doble par</h2>
   <p>Aquí está la sutileza que casi todas las explicaciones simplifican mal. Cuando la falla desliza, las rocas a lado y lado se empujan en un <em class="term">par de fuerzas</em>. Pero un solo par <strong>haría girar</strong> el bloque… y un terremoto <strong>no pone a girar a la Tierra</strong> (el momento angular se conserva). La naturaleza resuelve esto con un <strong>doble par</strong> (<em>double couple</em>): <strong>dos</strong> pares cruzados cuyos giros <strong>se cancelan</strong>. El resultado deforma la roca (cizalla) pero <strong>no la rota</strong>.</p>
 
   <div class="callout"><span class="k">Corrección frecuente</span> El momento sísmico <strong>no</strong> es un «torque neto»: el torque neto de un doble par es <strong>cero</strong>. $M_0$ es el <strong>momento de uno</strong> de los dos pares. Por eso $M_0$ es un <em>escalar</em> (una magnitud), y la orientación completa se guarda en el <a href="sismofisica.html">mecanismo focal</a> — el «doble par» que dibuja la pelota de playa.</p>
@@ -220,7 +220,7 @@
     <figcaption><b>Figura 2.</b> Un <b>solo</b> par de fuerzas haría rotar el bloque (izquierda). La fuente sísmica es un <b>doble par</b> (derecha): dos pares cruzados cuyos giros se anulan; deforman por cizalla pero <b>no rotan</b>. El <b>momento de cada par</b> es el momento sísmico $M_0$.</figcaption>
   </figure>
 
-  <h2><span class="no">4</span> ¿Dónde está el «brazo»?</h2>
+  <h2 id="4-donde-esta-el-brazo"><span class="no">4</span> ¿Dónde está el «brazo»?</h2>
   <p>En la llave, el brazo $b$ es visible: el mango. En la falla <strong>no hay un brazo único</strong>; está <strong>repartido en la geometría de la ruptura</strong>. Se ve al reescribir $M_0=\mu A\bar D$ separando el área en largo $\times$ ancho, $A=L\cdot W$:</p>
   $$ M_0 \;=\; \underbrace{(\mu\,\bar D\,W)}_{F\ \text{— una fuerza}} \;\cdot\; \underbrace{L}_{b\ \text{— el brazo}}. $$
   <p>Comprueba las unidades: $\mu\bar D W = \tfrac{\text{N}}{\text{m}^2}\cdot\text{m}\cdot\text{m}=\text{N}$ es efectivamente una <strong>fuerza</strong>, y el <strong>brazo es el largo $L$</strong> de la falla. (Se podría agrupar al revés, $F'=\mu\bar D L$ con brazo $W$: eso confirma que el brazo <strong>no es una palanca concreta</strong>, sino <strong>el tamaño mismo del parche que rompió</strong>.) La analogía honesta:</p>
@@ -264,11 +264,11 @@
     <figcaption><b>Figura 3.</b> El «brazo» de la falla es <b>su propio tamaño</b>. Agrupando $M_0=\mu A\bar D$ como $(\mu\bar D W)\cdot L$, la <b>fuerza</b> es la cizalla liberada y el <b>brazo</b> es el largo $L$ de la ruptura. No hay palanca externa: la geometría de la falla <em>es</em> la palanca.</figcaption>
   </figure>
 
-  <h2><span class="no">5</span> El tornillo que se fractura</h2>
+  <h2 id="5-el-tornillo-que-se-fractura"><span class="no">5</span> El tornillo que se fractura</h2>
   <p>La imagen más fiel es la de una <strong>barra que se rompe por cizalla</strong>. Imagina apretar un tornillo hasta pasarte: la llave le mete <strong>torque</strong>, la barra almacena energía elástica, y al superar su resistencia <strong>se fractura de golpe</strong>. El «momento» de esa fractura —rigidez × deformación × área rota— es exactamente la forma de $M_0$. La falla hace lo mismo, pero a escala de kilómetros: acumula deformación durante años y la suelta en segundos.</p>
   <p>Esto también explica por qué <strong>dos sismos de igual $M_0$ pueden sacudir distinto</strong>. La <em class="term">caída de esfuerzo</em> $\Delta\sigma\approx\mu\,\bar D/L$ dice cuán «apretado» estaba el tramo: mucho $\bar D$ en poca área (caída alta) sacude <strong>fuerte y concentrado</strong>; poco $\bar D$ en un área grande (caída baja) libera la misma energía <strong>más repartida</strong>.</p>
 
-  <h3>Míralo en marcha: el mismo «stick-slip»</h3>
+  <h3 id="miralo-en-marcha-el-mismo-stick-slip">Míralo en marcha: el mismo «stick-slip»</h3>
   <p>Los dos <strong>cargan despacio</strong> (deformación elástica), <strong>se rompen de golpe</strong> y <strong>liberan energía</strong>. Sube la <strong>resistencia</strong> para ver saltos —y ondas— mayores.</p>
   <div class="sim">
     <div class="controls">
@@ -305,14 +305,14 @@
   </div>
   <div class="callout"><span class="k">Cómo leerlo</span> En el tornillo el <strong>brazo</strong> es el mango de la llave; en la falla, el <strong>largo $L$</strong> de la ruptura (con $F=\mu\bar DW$), así que $M_0=F\cdot b$ en los dos. Mientras carga se ven los ejes de esfuerzo de la <strong>falla de San Sebastián</strong> (transcurrente dextral): <strong style="color:var(--red)">P</strong> (compresión) NW–SE y <strong style="color:var(--blue)">T</strong> (tensión) NE–SW; al romper estallan en el <strong>mecanismo focal</strong> (pelota de playa: relleno = compresión, en NE y SW).</div>
 
-  <h2><span class="no">6</span> La Guaira en números</h2>
+  <h2 id="6-la-guaira-en-numeros"><span class="no">6</span> La Guaira en números</h2>
   <p>Pongamos cifras reales. El primer sismo del 24-jun-2026, el <strong>M 7,2</strong>, tuvo un momento</p>
   $$ M_0 = 10^{\,1{,}5\cdot 7{,}2\,+\,9{,}1}\approx 7{,}9\times10^{19}\ \text{N·m}. $$
   <p>Con una falla de $L=60$ km y $W=15$ km (área $A=9\times10^{8}$ m²) y rigidez $\mu=3{,}3\times10^{10}$ Pa, el deslizamiento medio sale</p>
   $$ \bar D = \frac{M_0}{\mu A} \approx 2{,}7\ \text{m}. $$
   <p>Y leído como «fuerza × brazo», el M 7,2 equivale a un par cuya <strong>fuerza es $\mu\bar D W\approx1{,}3\times10^{15}$ N</strong> (mil billones de newton) actuando sobre un <strong>brazo de 60 km</strong> —el largo de la falla que rompió—. El <strong>M 7,5</strong> vecino, con $M_0\approx2{,}2\times10^{20}$ N·m, es unas <strong>2,8 veces mayor</strong> en momento (la diferencia de $0{,}3$ unidades de $M_w$ equivale a $\times10^{1{,}5\cdot0{,}3}=\times10^{0{,}45}\approx2{,}8$). Los dos juntos son la <a href="inversion.html">ruptura compleja</a> que reconstruye este sitio.</p>
 
-  <h2><span class="no">7</span> Glosario rápido</h2>
+  <h2 id="7-glosario-rapido"><span class="no">7</span> Glosario rápido</h2>
   <dl class="defs">
     <div class="def"><dt>Torque (momento de fuerza) $\tau=F\,b$</dt><dd>Capacidad de una fuerza de hacer girar; fuerza por brazo de palanca. Unidad N·m.</dd></div>
     <div class="def"><dt>Momento sísmico $M_0=\mu A\bar D$</dt><dd>Tamaño físico de la ruptura. Es el <b>momento de un par</b> del doble par; escalar; unidad N·m.</dd></div>
@@ -327,7 +327,7 @@
     <a href="green.html">Funciones de Green →</a>
   </div>
 
-  <h2><span class="no">8</span> Referencias</h2>
+  <h2 id="8-referencias"><span class="no">8</span> Referencias</h2>
   <ul class="refs">
     <li>Aki, K. (1966). Generation and propagation of G waves from the Niigata earthquake. <em>Bull. Earthq. Res. Inst.</em>, 44 (introduce el momento sísmico).</li>
     <li>Aki, K., &amp; Richards, P. G. (2002). <em>Quantitative Seismology</em> (2ª ed.). University Science Books (doble par y tensor momento). <a href="https://drive.google.com/file/d/1ihOzlkkgMYG8u2VSVZYAW9e9fB4rkIVo/view?usp=sharing" target="_blank" rel="noopener">PDF libre — reimpresión corregida de 2009 →</a></li>
@@ -665,3 +665,4 @@
   document.getElementById('resist').addEventListener('input',function(e){ S.resist=parseFloat(e.target.value); });
 })();
 </script>
+<script defer src="../assets/buscar.js" data-base=".."></script>

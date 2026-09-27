@@ -154,7 +154,7 @@
 
   <p class="lead">El catálogo actual de la secuencia (localizaciones absolutas de la red nacional) tiene una dispersión de varios kilómetros que <strong>difumina</strong> justo lo que queremos medir: la separación de las dos acumulaciones de energía, la <strong>geometría del hueco</strong> intermedio (Paper 1) y las profundidades (Papers 1 y 2). Una <strong>relocalización relativa</strong> cancela los errores comunes de trayecto y resuelve la posición <em>relativa</em> de cada evento con precisión de decenas a centenas de metros, sin depender de que el modelo de velocidades absoluto sea perfecto.</p>
 
-  <h3 style="margin-top:34px">Míralas antes de leer el método</h3>
+  <h3 id="miralas-antes-de-leer-el-metodo" style="margin-top:34px">Míralas antes de leer el método</h3>
   <p>Esto es el catálogo tal como está hoy, en tres dimensiones y sin relocalizar. La dispersión
     de la que habla el párrafo anterior <strong>se ve girando la escena</strong>: en profundidad,
     la nube se estira mucho más de lo que la física de la secuencia justifica. Eso es,
@@ -196,7 +196,7 @@
   </div>
 
 
-  <h2><span class="no">1</span> Fundamento físico: cancelación de errores de camino</h2>
+  <h2 id="1-fundamento-fisico-cancelacion-de-errores-de-ca"><span class="no">1</span> Fundamento físico: cancelación de errores de camino</h2>
   <p>Para una estación $k$ y un evento $i$, el tiempo de viaje observado se descompone en</p>
   $$ T_k^i = T_0^i + \tau_{\text{geom}}(\mathbf{x}_i,\mathbf{x}_k) + \delta t_{\text{camino},k} + \delta t_{\text{sitio},k} + e_k^i, $$
   <p>donde $\tau_{\text{geom}}$ es el tiempo geométrico predicho por el modelo, $\delta t_{\text{camino},k}$ agrupa las anomalías de corteza/manto a lo largo del rayo, $\delta t_{\text{sitio},k}$ el retardo estructural bajo la estación, y $e_k^i$ el error de pique.</p>
@@ -233,7 +233,7 @@
     <figcaption><b>Figura 1.</b> Dos fuentes vecinas ($M$ e $i$) vistas desde una estación lejana $k$: sus rayos comparten casi todo el trayecto. La diferencia de tiempos de llegada elimina las anomalías de corteza/manto y de sitio, y aísla la <b>geometría relativa</b> $\Delta\mathbf{x}$.</figcaption>
   </figure>
 
-  <h2><span class="no">2</span> Del evento maestro a la doble diferencia (hypoDD)</h2>
+  <h2 id="2-del-evento-maestro-a-la-doble-diferencia-hypod"><span class="no">2</span> Del evento maestro a la doble diferencia (hypoDD)</h2>
   <p>El caso más simple es el <em class="term">método del evento maestro</em> (<i>Master Event Location</i>): se fija un evento de referencia $M$ bien calibrado y todos los demás se localizan <strong>relativos a él</strong>. Es exacto cuando todos los eventos están próximos a $M$.</p>
   <p><strong>hypoDD</strong> (Waldhauser &amp; Ellsworth, 2000) lo <strong>generaliza</strong>: en vez de un único maestro, forma <strong>dobles diferencias</strong> para <em>todos</em> los pares de eventos vecinos $(i,j)$ y en todas las estaciones comunes $k$. El residuo de doble diferencia es</p>
   $$ dr_k^{ij} \;=\; \big(T_k^i - T_k^j\big)^{\text{obs}} - \big(T_k^i - T_k^j\big)^{\text{cal}}, $$
@@ -242,7 +242,7 @@
   <p>Apilando todos los pares se obtiene un sistema grande y <strong>disperso</strong> $\;\mathbf{d}=\mathbf{G}\,\Delta\mathbf{m}\;$ que hypoDD resuelve por <strong>LSQR</strong> (matrices dispersas) o por <strong>SVD</strong> para clusters pequeños con estimación completa de covarianza. La ventaja sobre el evento maestro único: cada evento se ancla a <em>muchos</em> vecinos, el sistema es más robusto y se relocaliza <strong>todo el enjambre a la vez</strong> conservando su estructura interna.</p>
   <div class="callout blue"><span class="k">En una frase</span> El evento maestro es el caso de <em>un</em> ancla; hypoDD ancla cada evento a todos sus vecinos cercanos. Ambos cancelan el error de modelo; hypoDD lo hace de forma colectiva y estadísticamente más estable.</div>
 
-  <h2><span class="no">3</span> Flujo de trabajo con el binario nativo</h2>
+  <h2 id="3-flujo-de-trabajo-con-el-binario-nativo"><span class="no">3</span> Flujo de trabajo con el binario nativo</h2>
   <p>Usamos el <strong>hypoDD en su Fortran original</strong> (Waldhauser &amp; Ellsworth; v2.1b, compilado con <code>gfortran</code>). El paquete trae dos programas encadenados:</p>
   <figure>
     <div class="fig">
@@ -298,23 +298,23 @@
     <figcaption><b>Figura 2.</b> Cadena de proceso. <code>ph2dt</code> convierte los picks del catálogo en diferencias de tiempo por pares (<code>dt.ct</code>); opcionalmente, la <b>correlación cruzada</b> de formas de onda añade diferencias con precisión de sub-muestra (<code>dt.cc</code>). <code>hypoDD</code> combina ambas con el modelo 1-D y relocaliza todo el enjambre por doble diferencia.</figcaption>
   </figure>
 
-  <h2><span class="no">4</span> Procedimiento paso a paso</h2>
+  <h2 id="4-procedimiento-paso-a-paso"><span class="no">4</span> Procedimiento paso a paso</h2>
   <ol class="steps">
-    <li><h3>Preparar los insumos</h3>
+    <li><h3 id="preparar-los-insumos">Preparar los insumos</h3>
       <p><strong>Estaciones</strong> (<code>station.dat</code>: código, lat, lon), <strong>modelo de velocidades 1-D</strong> (extraído de <code>STATION0_FUNVISIS.HYP</code>: capas 5,7 / 6,3 / 8,3 / 8,5 km·s⁻¹ a 0 / 9,5 / 35 / 100 km; $V_p/V_s=1{,}74$) y <strong>fases P/S</strong> del catálogo en formato <code>phase.dat</code> (cabecera <code>#</code> con origen y localización aproximada, seguida de líneas <code>EST&nbsp;TT&nbsp;PESO&nbsp;FASE</code>).</p></li>
-    <li><h3>Diferencias de catálogo con <span class="mono">ph2dt</span></h3>
+    <li><h3 id="diferencias-de-catalogo-con-ph2dt">Diferencias de catálogo con <span class="mono">ph2dt</span></h3>
       <p>Forma pares de eventos vecinos y escribe <code>dt.ct</code>. Parámetros clave en <code>ph2dt.inp</code>: distancia máxima estación–evento, separación máxima entre eventos de un par, nº de vecinos, y mínimo de enlaces para definir un par.</p></li>
-    <li><h3>(Opcional) Diferencias por correlación cruzada</h3>
+    <li><h3 id="opcional-diferencias-por-correlacion-cruzada">(Opcional) Diferencias por correlación cruzada</h3>
       <p>Ventana corta alrededor del arribo ($1\text{–}2$ s para $P$, $2\text{–}4$ s para $S$) de un evento contra otro en la misma estación. Si $CC\ge 0{,}7\text{–}0{,}8$, el desfase del pico da $\Delta\tau$ con precisión de <strong>milisegundos</strong>, sin error humano de pique → <code>dt.cc</code>. Es lo que aprieta de verdad los cúmulos y da profundidades creíbles.</p></li>
-    <li><h3>Inversión con <span class="mono">hypoDD</span></h3>
+    <li><h3 id="inversion-con-hypodd">Inversión con <span class="mono">hypoDD</span></h3>
       <p>Combina <code>dt.ct</code> (y <code>dt.cc</code> si existe) con el modelo y relocaliza por doble diferencia. Se corre por <strong>conjuntos de iteraciones</strong> con re-pesado progresivo (por $CC^2$, por distancia entre pares y por umbral de residuo), descartando <em>outliers</em> y <em>airquakes</em>. Salida: <code>hypoDD.reloc</code>.</p></li>
-    <li><h3>Incertidumbre</h3>
+    <li><h3 id="incertidumbre">Incertidumbre</h3>
       <p>Errores formales por <strong>SVD</strong> (clusters pequeños) o por <strong>bootstrap</strong> de los datos diferenciales (LSQR). Se reporta la elipse de error relativa por evento y la dispersión intra-cúmulo.</p></li>
   </ol>
 
   <div class="callout"><span class="k">Detalle práctico (reproducibilidad)</span> El <code>getinp.f</code> del binario v2.1 compilado espera un formato de <code>hypoDD.inp</code> distinto al de los ejemplos del repositorio: línea de agrupamiento con <code>MINOBS_CC MINOBS_CT</code> (2 valores), control con <code>ISTART ISOLV NITER</code> (3 valores) y modelo <code>NLAY&nbsp;RATIO</code> / <code>TOP</code> / <code>VEL</code> (vp/vs fijo). Queda documentado en el depósito para evitar el tropiezo.</div>
 
-  <h2><span class="no">5</span> Estado de la maquinaria</h2>
+  <h2 id="5-estado-de-la-maquinaria"><span class="no">5</span> Estado de la maquinaria</h2>
   <p>Antes de recibir el dato real de FUNVISIS, dejamos la cadena <strong>montada y validada</strong>:</p>
   <table>
     <thead><tr><th>Componente</th><th>Estado</th></tr></thead>
@@ -327,7 +327,7 @@
   </table>
   <p>El test sintético (localizaciones perturbadas → recuperadas por hypoDD con esta red) confirma que la geometría VE resuelve muy bien la posición <strong>horizontal relativa</strong> dentro de los cúmulos. Con una salvedad honesta y esperable: la dirección <strong>perpendicular a estructuras casi lineales</strong> y la <strong>profundidad</strong> quedan peor acotadas con solo tiempos de catálogo — es exactamente lo que el <strong>Nivel 2 (correlación cruzada)</strong> viene a apretar.</p>
 
-  <h2><span class="no">6</span> Datos requeridos de FUNVISIS</h2>
+  <h2 id="6-datos-requeridos-de-funvisis"><span class="no">6</span> Datos requeridos de FUNVISIS</h2>
   <p>Se puede arrancar por niveles, sin apenas carga inicial:</p>
   <ul>
     <li><strong>Nivel 1 (empezar ya):</strong> <strong>picks P/S del catálogo</strong> de la secuencia (los que ya se usaron para localizar) + <strong>coordenadas y respuesta</strong> de las estaciones VE + <strong>confirmar el modelo</strong> de velocidades. Suficiente para un hypoDD "de catálogo".</li>
@@ -336,7 +336,7 @@
   </ul>
   <div class="callout"><span class="k">Qué reajusta</span> La relocalización cierra la <b>geometría del hueco</b> y la separación de 149 km del Paper 1, y las <b>localizaciones/perfiles</b> del Paper 2. Es la pieza que Mocquet señala como la de mayor impacto (sugerencia #6).</div>
 
-  <h2><span class="no">7</span> Referencias</h2>
+  <h2 id="7-referencias"><span class="no">7</span> Referencias</h2>
   <ul class="refs">
     <li>Waldhauser, F., &amp; Ellsworth, W. L. (2000). A double-difference earthquake location algorithm: method and application to the northern Hayward fault, California. <em>Bulletin of the Seismological Society of America</em>, 90(6), 1353–1368.</li>
     <li>Waldhauser, F. (2001). <em>HypoDD — a program to compute double-difference hypocenter locations.</em> U.S. Geological Survey Open-File Report 01-113. (código Fortran; v2.1b).</li>
@@ -348,3 +348,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>

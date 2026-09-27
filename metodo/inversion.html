@@ -119,7 +119,7 @@
 
   <p class="lead">La retroproyección resuelve <em>dónde</em> se radia la alta frecuencia. La inversión de la tasa de momento responde lo complementario: <strong><em>cuándo</em> se libera el momento sísmico</strong>. Si la ruptura fue un frente único, en la ventana entre los dos orígenes tiene que haber liberación; si fueron dos rupturas separadas, no debe haber nada. La pregunta se contesta con una <strong>inversión lineal de formas de onda telesísmicas</strong>, con un diseño <strong>pre-registrado</strong>.</p>
 
-  <h2><span class="no">1</span> Fundamento: teorema de representación y campo lejano P</h2>
+  <h2 id="1-fundamento-teorema-de-representacion-y-campo-l"><span class="no">1</span> Fundamento: teorema de representación y campo lejano P</h2>
   <p>El desplazamiento que produce una fuente sísmica se escribe, por el <em class="term">teorema de representación</em> (Aki &amp; Richards, 2002), como la convolución de la <strong>tasa de momento</strong> con la <strong>función de Green</strong> del medio. En el <strong>campo lejano</strong>, la onda $P$ de una fuente puntual con mecanismo fijo es</p>
   $$ u^{P}(\mathbf{x},t) \;=\; \frac{1}{4\pi\rho\,\alpha^{3}}\,\frac{\mathcal{R}^{P}(\theta,\phi)}{r}\;\dot{M}_{0}\!\left(t-\frac{r}{\alpha}\right), $$
   <p>donde $\dot{M}_0(t)$ es la <strong>tasa de momento</strong> (la incógnita física), $\mathcal{R}^{P}$ el patrón de radiación del mecanismo, $r$ el esparcimiento geométrico, $\rho$ la densidad y $\alpha$ la velocidad $P$. Lo esencial: <strong>la forma de onda es lineal en $\dot{M}_0(t)$</strong> — todo lo demás (radiación, camino, atenuación) entra en un operador conocido.</p>
@@ -157,7 +157,7 @@
     <figcaption><b>Figura 1.</b> Respuesta elemental (función de Green) de un elemento de fuente a una estación telesísmica $j$: la $P$ directa más las <b>fases de profundidad</b> $pP$ y $sP$ (reflexiones en la superficie), que codifican la profundidad. La tasa de momento $\dot{m}(t)$ del elemento se convoluciona con esta Green.</figcaption>
   </figure>
 
-  <h2><span class="no">2</span> Parametrización y sistema lineal</h2>
+  <h2 id="2-parametrizacion-y-sistema-lineal"><span class="no">2</span> Parametrización y sistema lineal</h2>
   <p>Se parametriza la fuente sobre la <strong>traza de la falla</strong>: nodos espaciales $\xi_a$ a lo largo del rumbo y nudos temporales $\tau_k$. La incógnita es la <strong>malla espacio-temporal</strong> $m(\xi_a,\tau_k)\ge 0$ (momento liberado en cada punto y cada instante). Discretizando la convolución,</p>
   $$ u_j(t_n)\;=\;\sum_{a}\sum_{k} m(\xi_a,\tau_k)\; g_j\!\big(\xi_a,\,t_n-\tau_k\big) \qquad\Longrightarrow\qquad \boxed{\;\mathbf{d}=\mathbf{G}\,\mathbf{m}\;} $$
   <p>donde $\mathbf{d}$ apila las formas de onda observadas de todas las estaciones, $\mathbf{m}$ es la malla $m(\xi,\tau)$ desenrollada, y $\mathbf{G}$ es el operador (grande y <strong>disperso</strong>) construido con las Green de <strong>Syngine / AxiSEM</strong> (modelo <code>ak135f_2s</code>, con $P+pP+sP$). En nuestro caso $\mathbf{G}$ es de <strong>7 200 × 2 187</strong> con ~11,4 millones de coeficientes no nulos.</p>
@@ -199,7 +199,7 @@
     <figcaption><b>Figura 2.</b> La fuente se parametriza como una malla <b>rumbo × tiempo</b> $m(\xi,\tau)\ge 0$. Cada celda radia su Green a todas las estaciones; apilando todo se obtiene el sistema lineal $\mathbf{d}=\mathbf{G}\,\mathbf{m}$. Una ruptura en dos acumulaciones corresponde a <b>dos concentraciones de momento separadas por un vacío</b> en la malla.</figcaption>
   </figure>
 
-  <h2><span class="no">3</span> La inversión: mínimos cuadrados no-negativos regularizados</h2>
+  <h2 id="3-la-inversion-minimos-cuadrados-no-negativos-re"><span class="no">3</span> La inversión: mínimos cuadrados no-negativos regularizados</h2>
   <p>El momento liberado no puede ser negativo, así que se resuelve un problema de <strong>mínimos cuadrados con la restricción $\mathbf{m}\ge 0$</strong> y una regularización que penaliza soluciones ásperas:</p>
   $$ \hat{\mathbf{m}} \;=\; \arg\min_{\mathbf{m}\,\ge\,0}\;\; \big\lVert \mathbf{W}\,(\mathbf{d}-\mathbf{G}\mathbf{m})\big\rVert_2^{2} \;+\; \lambda^{2}\,\big\lVert \mathbf{L}\,\mathbf{m}\big\rVert_2^{2}, $$
   <p>donde $\mathbf{W}$ pondera cada estación por su relación señal/ruido, $\mathbf{L}$ es un operador de suavidad y $\lambda$ se fija por <strong>discrepancia</strong>. Se resuelve con <strong>FISTA</strong> (gradiente proximal rápido, apto para el operador disperso y la no-negatividad). La calidad del ajuste se mide con la <strong>varianza explicada</strong>:</p>
@@ -207,23 +207,23 @@
   <div class="callout blue"><span class="k">Por qué la VR es "solo" ~21 %</span> Es la varianza explicada de <em>este</em> sismo visto a través de un modelo de Tierra 1-D global con mecanismo fijo — no un defecto del método (una implementación independiente y publicada aterriza en 18,3 % sobre el mismo dato). Lo que legitima la interpretación no es que el ajuste sea alto, sino que el <strong>control se hace con ese mismo ajuste</strong> (§4) y aun así separa los escenarios.</div>
   <p>La ventana de la fuente se <strong>trunca</strong> en $t\lesssim 68$ s ($k_{\max}$): más allá, el dato no restringe la solución y ésta desbordaría en el <strong>espacio nulo</strong> (verificado con una prueba de <em>padding</em>).</p>
 
-  <h2><span class="no">4</span> El estadístico de decisión y el control nulo</h2>
+  <h2 id="4-el-estadistico-de-decision-y-el-control-nulo"><span class="no">4</span> El estadístico de decisión y el control nulo</h2>
   <p>La pregunta física —¿hubo momento en el tramo intermedio?— se convierte en un <strong>estadístico escalar</strong> fijado <strong>antes</strong> de ver el dato (pre-registro con huella SHA-256):</p>
   $$ f \;=\; \frac{\displaystyle\int_{20}^{32}\dot{M}(t)\,dt}{\displaystyle\int_{0}^{T}\dot{M}(t)\,dt}, \qquad \dot{M}(t)=\sum_{a} m(\xi_a,t), $$
   <p>la fracción del momento total que cae en la <strong>ventana del hueco</strong> (20–32 s). Sobre el dato real, $f=0{,}4\,\%$, y <strong>forzarlo a cero no empeora el ajuste</strong>. Para que la comparación sea legítima pese a una VR modesta, las dos hipótesis —dos acumulaciones con hueco y frente continuo— se <strong>remiden con el mismo operador y la misma dificultad</strong> (sumándoles el residuo real del dato), y se calcula un <strong>índice de separación</strong> $S$ frente a sus distribuciones de referencia. Resultado: el dato es <strong>compatible con dos acumulaciones separadas por un hueco e incompatible con el frente continuo a 3,6 σ</strong>.</p>
   <div class="callout"><span class="k">Control calibrado, no fe en el ajuste</span> No se afirma "el modelo ajusta bien". Se afirma: <em>bajo el mismo operador y el mismo error de modelo</em>, la historia de "frente continuo" produciría un $f$ mucho mayor que el observado. Es una <strong>prueba de incompatibilidad</strong>, no una estimación puntual.</div>
 
-  <h2><span class="no">5</span> Incertidumbre y reservas</h2>
+  <h2 id="5-incertidumbre-y-reservas"><span class="no">5</span> Incertidumbre y reservas</h2>
   <ul>
     <li><strong>Bootstrap</strong> sobre estaciones (remuestreo del residuo) → incertidumbre de $f$ y estabilidad frente al ruido y a la regularización.</li>
     <li><strong>Jackknife</strong> <em>leave-one-out</em> → ninguna estación individual controla el resultado.</li>
     <li><strong>Reservas honestas:</strong> la técnica distingue muy bien <em>cuándo</em> y peor <em>dónde</em>; es ciega al deslizamiento <em>lento o asísmico</em>; y el subevento occidental queda subrepresentado por la geometría telesísmica (su momento de campo cercano se mide aparte).</li>
   </ul>
 
-  <h2><span class="no">6</span> En una frase</h2>
+  <h2 id="6-en-una-frase"><span class="no">6</span> En una frase</h2>
   <div class="callout blue"><span class="k">Resumen</span> El sismograma telesísmico es <strong>lineal en la tasa de momento</strong> (Aki &amp; Richards). Invirtiéndolo con Green completas ($P+pP+sP$), no-negatividad y un estadístico pre-registrado, se demuestra que <strong>entre los dos núcleos no hubo liberación rápida de momento</strong>: el hueco entre las dos acumulaciones no es un artefacto, sino una característica del dato.</div>
 
-  <h2><span class="no">7</span> Referencias</h2>
+  <h2 id="7-referencias"><span class="no">7</span> Referencias</h2>
   <ul class="refs">
     <li>Aki, K., &amp; Richards, P. G. (2002). <em>Quantitative Seismology</em> (2ª ed.). University Science Books. (teorema de representación; campo lejano P, ec. 4.29–4.32). <a href="https://drive.google.com/file/d/1ihOzlkkgMYG8u2VSVZYAW9e9fB4rkIVo/view?usp=sharing" target="_blank" rel="noopener">PDF libre — reimpresión corregida de 2009 →</a></li>
     <li>Hartzell, S. H., &amp; Heaton, T. H. (1983). Inversion of strong ground motion and teleseismic waveform data for the fault rupture history of the 1979 Imperial Valley earthquake. <em>BSSA</em>, 73(6), 1553–1583. (inversión lineal de la historia de ruptura).</li>
@@ -236,3 +236,4 @@
     <span class="mono">Lcdo. Físico Rommel Contreras — AGHES</span>
   </div>
 </div>
+<script defer src="../assets/buscar.js" data-base=".."></script>
