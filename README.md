@@ -71,9 +71,20 @@ python3 herramientas/gen_tarjeta_og.py         # reescribe assets/og_card.png (1
 
 ## El buscador
 
-El sitio se busca desde el propio navegador, sin servidor ni servicio externo: el botón
-`buscar` de la cabecera, `Ctrl/⌘ + K` desde cualquier página, o la tecla `/`. También se
-puede llegar con el ancla `#buscar`, que abre el cuadro al cargar.
+El sitio se busca desde el propio navegador, sin servidor ni servicio externo. Es **global**:
+el mismo índice cubre la portada y las trece páginas de método, y se llega a él desde
+cualquier punto de cualquier página.
+
+| Cómo se abre | Dónde |
+|---|---|
+| Campo de búsqueda de la portada | `index.html`, justo bajo la cabecera |
+| Pastilla fija `⌕ buscar` | todas las páginas; arriba a la derecha (junto a `◐ tema` en la portada) y abajo a la derecha en pantallas ≤ 560 px |
+| Pastilla en línea `buscar` | páginas de `metodo/`, junto al enlace de vuelta |
+| `Ctrl/⌘ + K` y la tecla `/` | todas las páginas |
+| Ancla `#buscar` | abre el cuadro al cargar; sirve para enlazar desde fuera |
+
+La pastilla fija es `position:fixed`, de modo que **no se pierde al bajar**: en la portada,
+que mide dieciocho secciones, era el único punto débil de la primera versión.
 
 `assets/buscar.js` es JavaScript puro, sin dependencias, y lee `assets/buscar.json` la
 primera vez que se abre el cuadro (unos 160 KB, que el servidor comprime). La búsqueda

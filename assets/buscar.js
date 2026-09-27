@@ -36,7 +36,30 @@
   '.bq-t mark,.bq-h mark{background:rgba(227,154,43,.22);color:inherit;padding:0 2px;' +
   'border-radius:2px;box-shadow:inset 0 -2px 0 rgba(227,154,43,.75)}' +
   '.bq-vacio{padding:22px 18px;font-size:.9rem;color:var(--muted,#5a6675)}' +
-  '@media (max-width:560px){.bq-capa{padding:4vh 10px 10px}.bq-lista{max-height:66vh}}';
+  '.bq-flot{position:fixed;top:14px;right:var(--bq-right,14px);z-index:30;display:inline-flex;align-items:center;' +
+  'gap:7px;font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink,#182231);' +
+  'background:var(--paper,#f6f8fb);border:1px solid var(--line,#dde3ec);border-radius:20px;padding:7px 13px;' +
+  'box-shadow:var(--shadow,0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07));cursor:pointer}' +
+  '.bq-flot:hover{border-color:var(--blue,#1f5fa8)}' +
+  '.bq-flot:focus-visible,.bq-hero:focus-within{outline:2px solid var(--amber,var(--orange,#bf6a17));' +
+  'outline-offset:2px}' +
+  '.bq-flot .bq-lupa,.bq-hero .bq-lupa{display:block;flex:none;margin:0}' +
+  '.bq-flot .bq-lupa{color:var(--blue,#1f5fa8)}' +
+  '.bq-hero{display:flex;align-items:center;gap:10px;width:100%;max-width:560px;margin:22px auto 6px;' +
+  'box-sizing:border-box;border:1px solid var(--line,#dde3ec);border-radius:26px;' +
+  'background:var(--paper,#f6f8fb);padding:11px 18px;cursor:text;' +
+  'box-shadow:var(--shadow,0 1px 2px rgba(16,30,50,.05),0 10px 30px rgba(16,30,50,.07))}' +
+  '.bq-hero:hover,.bq-hero:focus-within{border-color:var(--blue,#1f5fa8)}' +
+  '.bq-hero .bq-lupa{color:var(--muted,#5a6675)}' +
+  '.bq-hero input{flex:1;min-width:0;border:0;background:transparent;outline:none;color:var(--ink,#182231);' +
+  'font-family:"Source Serif 4",Georgia,serif;font-size:1rem}' +
+  '.bq-hero input::placeholder{color:var(--muted,#5a6675);opacity:.85}' +
+  '.bq-hero kbd{flex:none;font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--muted,#5a6675);' +
+  'border:1px solid var(--line,#dde3ec);border-radius:5px;padding:2px 6px;' +
+  'background:var(--card,var(--panel,#fff))}' +
+  '@media (max-width:560px){.bq-capa{padding:4vh 10px 10px}.bq-lista{max-height:66vh}' +
+  '.bq-flot{top:auto;bottom:16px;right:16px;border-radius:50%;width:46px;height:46px;padding:0;' +
+  'justify-content:center}.bq-flot .bq-txt{display:none}.bq-hero kbd{display:none}}';
 
   function norm(s) {
     return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -171,7 +194,8 @@
     }
     return cargando;
   }
-  function abrir() {
+  function abrir(texto) {
+    if (typeof texto === 'string' && texto) campo.value = texto;
     capa.setAttribute('open', '');
     document.documentElement.style.overflow = 'hidden';
     campo.focus(); campo.select();
@@ -182,20 +206,68 @@
     document.documentElement.style.overflow = '';
   }
 
-  function boton() {
+  /* Pastilla flotante: visible siempre, en todas las páginas. En escritorio se
+     sienta junto al botón de tema; en móvil baja a la esquina inferior derecha. */
+  function flotante() {
+    var f = document.createElement('button');
+    f.type = 'button'; f.className = 'bq-flot';
+    f.innerHTML = '<svg class="bq-lupa" viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">' +
+      '<circle cx="8.6" cy="8.6" r="5.4" fill="none" stroke="currentColor" stroke-width="1.9"/>' +
+      '<path d="M12.7 12.7 L17 17" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>' +
+      '<span class="bq-txt">buscar</span>';
+    f.title = 'Buscar en todo el sitio (Ctrl/⌘ + K)';
+    f.setAttribute('aria-label', 'Buscar en todo el sitio');
+    f.addEventListener('click', function () { abrir(); });
+    document.body.appendChild(f);
+    var tg = document.querySelector('.toggle');
+    if (tg) {
+      var apartar = function () {
+        var w = tg.getBoundingClientRect().width;
+        if (w) f.style.setProperty('--bq-right', (14 + w + 8) + 'px');
+      };
+      apartar();
+      window.addEventListener('resize', apartar);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(apartar);
+    }
+  }
+
+  /* Campo de búsqueda de la portada: lo primero que se ve al llegar. */
+  function campoPortada(donde) {
+    var caja = document.createElement('div');
+    caja.className = 'bq-hero';
+    caja.innerHTML = '<svg class="bq-lupa" viewBox="0 0 20 20" width="15" height="15" aria-hidden="true">' +
+      '<circle cx="8.6" cy="8.6" r="5.4" fill="none" stroke="currentColor" stroke-width="1.9"/>' +
+      '<path d="M12.7 12.7 L17 17" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>' +
+      '<input type="search" autocomplete="off" aria-label="Buscar en todo el sitio" ' +
+      'placeholder="Buscar en todo el sitio — métodos, cifras, referencias…">' +
+      '<kbd>Ctrl K</kbd>';
+    var caj = caja.querySelector('input');
+    var saltar = function () { var v = caj.value; caj.value = ''; caj.blur(); abrir(v); };
+    caj.addEventListener('focus', saltar);
+    caj.addEventListener('input', saltar);
+    caja.addEventListener('click', function (e) { if (e.target !== caj) caj.focus(); });
+    donde.insertAdjacentElement('afterend', caja);
+  }
+
+  /* Pastilla en línea, junto al enlace de vuelta de las páginas internas. */
+  function boton(back) {
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'bq-btn';
     b.innerHTML = 'buscar <kbd>Ctrl K</kbd>';
     b.setAttribute('aria-label', 'Buscar en el sitio');
-    b.addEventListener('click', abrir);
-    var back = document.querySelector('.sheet > .back');
-    if (back) { back.insertAdjacentElement('afterend', b); return; }
-    var head = document.querySelector('.sheet > header');
-    if (head) { b.style.margin = '0 0 4px'; head.insertAdjacentElement('afterend', b); return; }
-    document.body.insertBefore(b, document.body.firstChild);
+    b.addEventListener('click', function () { abrir(); });
+    back.insertAdjacentElement('afterend', b);
   }
 
-  function iniciar() { construir(); boton(); if (location.hash === '#buscar') abrir(); }
+  function controles() {
+    flotante();
+    var back = document.querySelector('.sheet > .back');
+    if (back) { boton(back); return; }
+    var head = document.querySelector('.sheet > header');
+    if (head) campoPortada(head);
+  }
+
+  function iniciar() { construir(); controles(); if (location.hash === '#buscar') abrir(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
   else iniciar();
 })();
