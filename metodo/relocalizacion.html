@@ -93,7 +93,7 @@
   .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
   figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
   figcaption b{color:var(--ink)}
-  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  svg:not(mjx-container > svg){display:block; margin:0 auto; max-width:100%; height:auto}
 
   .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
     padding:14px 18px; margin:22px 0; font-size:1rem}

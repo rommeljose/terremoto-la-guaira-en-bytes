@@ -85,7 +85,7 @@
   .fig{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; box-shadow:var(--shadow); overflow-x:auto}
   figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
   figcaption b{color:var(--ink)}
-  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  svg:not(mjx-container > svg){display:block; margin:0 auto; max-width:100%; height:auto}
   .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
     padding:14px 18px; margin:22px 0; font-size:1rem}
   .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
@@ -243,16 +243,33 @@
   <p>A distancias grandes (30°–90°, <em class="term">telesísmicas</em>) las ondas atraviesan el manto. Además de la <strong>P directa</strong> llegan sus <strong>fases de profundidad</strong>: la <strong>pP</strong> (sube, rebota en la superficie sobre la fuente y baja) y la <strong>sP</strong>. El retardo entre ellas y la P depende directamente de la <strong>profundidad</strong> del sismo, y por eso permite medirla (véase <a href="green.html">funciones de Green</a>).</p>
 
   <h2><span class="no">6</span> Directividad: por qué La Guaira sintió tan fuerte</h2>
-  <p>Si la ruptura avanza <strong>hacia</strong> un sitio, las ondas emitidas a lo largo del camino <strong>se apilan</strong> (efecto <em class="term">Doppler</em>): el pulso llega <strong>corto y de gran amplitud</strong> — es la <em class="term">directividad</em>. Hacia atrás, el mismo terremoto se estira en un tren largo y débil. La Guaira estaba <strong>al frente</strong> de la ruptura, y por eso recibió un pulso intenso. Cuando $V_r$ se acerca a la velocidad de la onda, el efecto se dispara (régimen <em>super-shear</em>). Es el tema del <strong>Paper 2</strong>.</p>
+  <p>Si la ruptura avanza <strong>hacia</strong> un sitio, las ondas emitidas a lo largo del camino <strong>se apilan</strong> (efecto <em class="term">Doppler</em>): el pulso llega <strong>corto y de gran amplitud</strong> — es la <em class="term">directividad</em>. Hacia atrás, el mismo terremoto se estira en un tren largo y débil. La Guaira estaba <strong>al frente</strong> de la ruptura, y por eso recibió un pulso intenso. Cuando $V_r$ se acerca a la velocidad de la onda, el efecto se dispara (régimen <em>super-shear</em>; pero no a cualquier velocidad: véase la sección 7). Es el tema del <strong>Paper 2</strong>.</p>
 
-  <h2><span class="no">7</span> Réplicas y secuencias</h2>
+  <h2 id="banda-prohibida"><span class="no">7</span> ¿A qué velocidad puede avanzar una ruptura? La banda prohibida</h2>
+  <p>El frente de ruptura no es una onda: es una <em class="term">grieta</em> que avanza rompiendo roca, y para avanzar necesita que el medio le entregue energía elástica en la punta. Esa cantidad, la <em class="term">tasa de liberación de energía</em> $G$, depende de la velocidad del frente $V_r$, y ahí está la sorpresa: para una <strong>grieta de cizalla en modo II</strong> —deslizamiento paralelo a la dirección de avance, que es el caso de una falla de rumbo— $G$ <strong>no es positiva a todas las velocidades</strong>. Burridge (1973) lo demostró analíticamente para una grieta autosemejante y Andrews (1976) lo confirmó con simulaciones con fricción de debilitamiento por deslizamiento; Aki y Richards (2002, cap. 11) lo deducen a partir de la energía que fluye hacia la punta.</p>
+  <figure>
+    <div class="fig">
+      <img src="../assets/fig_banda_prohibida.svg" width="760" height="330" style="width:100%;height:auto;display:block" alt="Regímenes de velocidad de ruptura de una grieta de cizalla: subshear hasta la velocidad de Rayleigh, banda prohibida hasta raíz de dos por la velocidad de la onda S, supershear estable hasta la velocidad de la onda P; el frente único hipotético de La Guaira, 4,7 kilómetros por segundo, cae dentro de la banda prohibida.">
+    </div>
+    <figcaption><b>Figura 5.</b> Los tres regímenes de una grieta de cizalla, contra la velocidad del frente. La curva azul es un esquema de $G$: positiva por debajo de la velocidad de Rayleigh $c_R$, nula o negativa entre $c_R$ y $\sqrt{2}\,V_s$, positiva otra vez hasta $V_p$. Una grieta no puede recorrer la banda rayada; Andrews mostró que puede <b>saltarla</b>: el pico de esfuerzo que viaja con la onda P rompe la roca delante del frente, nace una «grieta hija» y la ruptura reaparece ya por encima de $\sqrt{2}\,V_s$. La flecha roja es el cociente 149 km / 32 s de La Guaira, que cae en plena banda. Con $V_s$ = 3,6 y $V_p$ = 6,3 km/s.</figcaption>
+  </figure>
+  <p>Los tres regímenes, en cifras de la corteza venezolana ($V_s \approx 3{,}5$–$3{,}8$ km/s):</p>
+  <ul>
+    <li><strong>Subshear</strong> ($V_r < c_R \approx 0{,}92\,V_s$, unos 3,3 km/s): el régimen de casi todos los terremotos. La velocidad de Rayleigh es el techo, y las rupturas ordinarias corren entre 0,7 y 0,9 $V_s$.</li>
+    <li><strong>Banda prohibida</strong> (de $c_R$ a $\sqrt{2}\,V_s \approx 1{,}41\,V_s$, unos 4,9–5,4 km/s; en la práctica se cita «entre $V_s$ y $\sqrt{2}\,V_s$»): el flujo de energía hacia la punta se anula o se invierte, y la radiación de cizalla que la grieta va dejando atrás frena la punta. <strong>Una grieta que entra aquí no se sostiene</strong>: o cae de vuelta a subshear o la salta.</li>
+    <li><strong>Supershear estable</strong> ($\sqrt{2}\,V_s \le V_r < V_p$, entre unos 5 y 6 km/s): posible, documentado en unas pocas rupturas de rumbo largas y rectas, y siempre por encima de $\sqrt{2}\,V_s$. Es lo que la <a href="../index.html#simframe">simulación de la portada</a> dibuja con $\beta > 1$, sin objeción, porque un modelo cinemático no sabe de $G$.</li>
+  </ul>
+  <p>Por qué importa aquí: dividir los 149 km que separan los dos hipocentros de La Guaira entre los 32 s que separan sus orígenes da <strong>4,7 km/s, es decir 1,23–1,33 $V_s$</strong>: en plena banda prohibida. No es una velocidad a la que una grieta pueda viajar; es el cociente entre la distancia de dos sismos y la diferencia de sus relojes. El argumento completo, con la observación que lo acompaña, está en la <a href="retroproyeccion.html#frente-unico">retroproyección, sección 5</a>.</p>
+
+  <h2><span class="no">8</span> Réplicas y secuencias</h2>
   <p>Tras el sismo principal, la corteza reajusta el esfuerzo con miles de <em class="term">réplicas</em> más pequeñas, concentradas <strong>en torno a la zona que rompió</strong>. Su distribución dibuja la geometría de la ruptura: donde no rompió, hay <strong>menos réplicas</strong>. Por eso el <strong>hueco de réplicas</strong> entre los dos núcleos es una tercera evidencia independiente de la ruptura compleja (véase <a href="relocalizacion.html">relocalización</a>). La secuencia completa, en profundidad y junto a las trazas de falla, se puede girar en el <a href="https://replicas-3d-laguaira.sigeos.org/" target="_blank" rel="noopener">visor 3-D de réplicas</a>; su reparto frente al daño observado, en el <a href="https://sismolaguaira.sigeos.org/" target="_blank" rel="noopener">mapa de daños</a>.</p>
 
-  <h2><span class="no">8</span> Glosario rápido</h2>
+  <h2><span class="no">9</span> Glosario rápido</h2>
   <dl class="defs">
     <div class="def"><dt>Hipocentro / Epicentro</dt><dd>El <b>hipocentro</b> es el punto en profundidad donde arranca la ruptura; el <b>epicentro</b>, su proyección en la superficie.</dd></div>
     <div class="def"><dt>Magnitud vs. Intensidad</dt><dd>La <b>magnitud</b> ($M_w$) mide la <em>energía en la fuente</em> (un solo número por sismo); la <b>intensidad</b> mide los <em>efectos</em> en un lugar (varía con la distancia y el suelo).</dd></div>
     <div class="def"><dt>Ondas P y S</dt><dd><b>P</b>: compresión, rápida, primera en llegar. <b>S</b>: cizalla, más lenta y de mayor amplitud.</dd></div>
+    <div class="def"><dt>Banda prohibida</dt><dd>Rango de velocidades de ruptura, de la velocidad de Rayleigh a $\sqrt{2}\,V_s$, en el que una grieta de cizalla no puede sostenerse porque el flujo de energía hacia su punta se anula o se invierte (Burridge, 1973; Andrews, 1976). Separa el régimen <b>subshear</b> del <b>supershear</b>.</dd></div>
     <div class="def"><dt>Momento sísmico $M_0$</dt><dd>Tamaño físico de la ruptura, $M_0=\mu A\bar{D}$. Su ritmo de liberación es la <b>tasa de momento</b> $\dot{M}(t)$.</dd></div>
     <div class="def"><dt>Mecanismo focal</dt><dd>Orientación de la falla y sentido del deslizamiento, resumidos en el <em>beachball</em> (cuadrantes de compresión/dilatación).</dd></div>
     <div class="def"><dt>Directividad</dt><dd>Amplificación del pulso hacia donde avanza la ruptura (efecto Doppler); explica por qué un lado siente mucho más que el otro.</dd></div>
@@ -267,11 +284,14 @@
     <a href="relocalizacion.html">Relocalización →</a>
   </div>
 
-  <h2><span class="no">9</span> Referencias</h2>
+  <h2><span class="no">10</span> Referencias</h2>
   <ul class="refs">
     <li>Stein, S., &amp; Wysession, M. (2003). <em>An Introduction to Seismology, Earthquakes, and Earth Structure.</em> Blackwell.</li>
     <li>Shearer, P. M. (2019). <em>Introduction to Seismology</em> (3ª ed.). Cambridge University Press.</li>
     <li>Lay, T., &amp; Wallace, T. C. (1995). <em>Modern Global Seismology.</em> Academic Press.</li>
+    <li>Burridge, R. (1973). Admissible speeds for plane-strain self-similar shear cracks with friction but lacking cohesion. <em>Geophys. J. R. astr. Soc.</em>, 35, 439–455.</li>
+    <li>Andrews, D. J. (1976). Rupture velocity of plane strain shear cracks. <em>J. Geophys. Res.</em>, 81, 5679–5687.</li>
+    <li>Aki, K., &amp; Richards, P. G. (2002). <em>Quantitative Seismology</em> (2ª ed.), cap. 11, <em>The seismic source: dynamics</em>. University Science Books.</li>
     <li>Reid, H. F. (1910). The mechanics of the earthquake. <em>The California Earthquake of April 18, 1906</em>, vol. 2. (teoría del rebote elástico).</li>
   </ul>
 

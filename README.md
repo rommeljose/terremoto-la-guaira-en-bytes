@@ -20,11 +20,11 @@ y del resultado.
 
 ```
 index.html                       · portada (HTML + CSS + un canvas, sin dependencias)
-metodo/sismofisica.html          · 02 · fundamentos: falla, P y S, momento, mecanismo focal
+metodo/sismofisica.html          · 02 · fundamentos: falla, P y S, momento, mecanismo focal; la banda prohibida de Burridge–Andrews (§7)
 metodo/momento-torque.html       ·  ↳ ampliación: del torque al momento sísmico
 metodo/radiacion-doble-par.html  ·  ↳ ampliación avanzada: de la fuerza puntual a la esfera focal
                                       (sobre el cap. 2 de L. D. Beauperthuy Urich, 2008)
-metodo/retroproyeccion.html      · 04 · delay-and-stack: dónde y cuándo radía la ruptura
+metodo/retroproyeccion.html      · 04 · delay-and-stack: dónde y cuándo radía la ruptura; por qué no pudo ser un solo frente (§5)
 metodo/green.html                · 05 · AxiSEM/Syngine, P+pP+sP y la profundidad
 metodo/inversion.html            · 06 · de Aki & Richards a d = G m
 metodo/profundidad.html          · 07 · tres cifras para el foco, pP y sP, y la prueba de que el hueco no depende de ella
@@ -104,6 +104,8 @@ volver a copiarlas a mano.
 | `fig_dcfs_seccion.png` | `coulomb_dCFS/figuras/dcfs_seccion_okada.png` | §09 · la falla vista de canto |
 | `cadena_algoritmos.svg` | `Aira_geofisica`, `figuras/cadena_algoritmos.svg` (el mismo de la propuesta del artículo computacional) | `metodo/cadenas.html` · las dos cadenas de cálculo, retroproyección e inversión, con la verificación |
 | `lamina_norma.svg` | hecha a mano para este sitio | §16 · la cadena causa → consecuencia → norma → edificación, con la flecha de vuelta «el próximo terremoto» |
+| `fig_frente_unico_xt.svg` | hecho a mano para este sitio | metodo/retroproyeccion.html §5 · diagrama distancia–tiempo: la radiación observada (≤ 35 km en 20 s), el frente único hipotético a 4,7 km/s y la cuña de la banda prohibida |
+| `fig_banda_prohibida.svg` | hecho a mano para este sitio | metodo/sismofisica.html §7 · los tres regímenes de una grieta de cizalla (subshear, banda prohibida, supershear) con el cociente 149 km / 32 s marcado |
 | `teaser_coulomb.svg`, `teaser_cadenas.svg` | hechos a mano para este sitio | §09 y §13 · láminas-anzuelo de la portada: anuncian el contenido sin mostrar el mapa ni el diagrama, que solo se ven al entrar |
 
 Las dos últimas vienen de `guia_ondas_cortical/`, que es material **en preparación** —anexo del

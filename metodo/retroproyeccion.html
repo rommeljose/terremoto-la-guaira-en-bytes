@@ -86,7 +86,7 @@
   .paperimg{width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:var(--shadow)}
   figcaption{font-family:"IBM Plex Sans",sans-serif; font-size:.85rem; color:var(--muted); margin:10px 4px 0; line-height:1.5}
   figcaption b{color:var(--ink)}
-  svg{display:block; margin:0 auto; max-width:100%; height:auto}
+  svg:not(mjx-container > svg){display:block; margin:0 auto; max-width:100%; height:auto}
   .callout{border-left:4px solid var(--amber); background:var(--amber-soft); border-radius:0 10px 10px 0;
     padding:14px 18px; margin:22px 0; font-size:1rem}
   .callout.blue{border-left-color:var(--blue); background:var(--blue-soft)}
@@ -170,7 +170,28 @@
     <figcaption><b>Figura 4.</b> Imagen de retroproyección. (a) primeros 15 s: la energía cae sobre el epicentro occidental (circular por construcción); (b) 20–45 s: la fuente tardía aparece a 149 km al este; (c) energía en el plano tiempo–distancia a lo largo del rumbo (dos estallidos, no una rampa); (d) control con dos fuentes separadas y (e) control nulo con ambas en el mismo sitio, que confirman que el salto al este <b>no es artefacto</b>.</figcaption>
   </figure>
 
-  <h2><span class="no">5</span> Resolución, controles y límites</h2>
+  <h2 id="frente-unico"><span class="no">5</span> Por qué no pudo ser un solo frente</h2>
+  <p>El catálogo da dos cifras: <strong>149 km</strong> entre los hipocentros y <strong>32 s</strong> entre los orígenes. Quien las divide obtiene <strong>4,7 km/s</strong>, y es tentador leerlas como la velocidad de un frente único que recorrió la falla de un extremo al otro. Dos argumentos independientes dicen que no: uno <strong>observacional</strong>, que sale de la figura 4, y otro de <strong>mecánica de fractura</strong>, que no depende de ningún dato de este terremoto.</p>
+
+  <h3>Lo que ven las estaciones</h3>
+  <p>En los primeros <strong>20 s</strong> la radiación de alta frecuencia del M 7,2 no sale de los <strong>35 km</strong> en torno a su epicentro (panel a de la figura 4, y la energía en el plano tiempo–distancia del panel c). Un frente que viajara a 4,7 km/s habría recorrido <strong>85–94 km</strong> entre los 18 y los 20 s, y la retroproyección resuelve posición con $\sigma \approx 8$ km: lo habría visto avanzar a lo largo del rumbo, ventana tras ventana. No hay nada allí. Tampoco hay réplicas en ese tramo. Y la observación no discrimina por velocidad: un frente aún más rápido —supershear, a 5–6 km/s— estaría a los 20 s todavía más lejos, y tampoco se ve.</p>
+  <figure>
+    <img class="paperimg" src="../assets/fig_frente_unico_xt.svg" width="760" height="430" alt="Diagrama distancia–tiempo: la radiación observada del M 7,2 queda dentro de 35 km en los primeros 20 s; un frente único a 4,7 km/s habría estado a 85–94 km a los 18–20 s, y esa velocidad cae en la banda prohibida entre la velocidad de la onda S y raíz de dos por esa velocidad.">
+    <figcaption><b>Figura 5.</b> El argumento en un diagrama distancia–tiempo a lo largo del rumbo. En ámbar, lo que el arreglo ve: la radiación del M 7,2 dentro de 35 km durante 20 s, y la del M 7,5 a 149 km desde los 32 s. La línea roja a trazos es el frente único hipotético a 4,7 km/s: a los 18–20 s estaría a 85–94 km, en un tramo donde no hay radiación ni réplicas. La cuña rayada es la <b>banda prohibida</b> entre $V_s$ y $\sqrt{2}\,V_s$ (3,6 y 5,1 km/s): la línea roja cae dentro. Hecho a mano para esta página; los números son los de la sección 4.</figcaption>
+  </figure>
+
+  <h3>Lo que dice la mecánica de fractura: la banda prohibida</h3>
+  <p>Una falla de rumbo se modela como una <strong>grieta de cizalla en modo II</strong>: el deslizamiento es paralelo a la dirección en que avanza la punta. Para una grieta así, Burridge (1973) demostró analíticamente y Andrews (1976) confirmó con simulaciones numéricas que <strong>no puede propagarse de manera estable a cualquier velocidad</strong>. Hay tres regímenes, medidos contra la velocidad de la onda S del medio, $V_s$:</p>
+  <ul>
+    <li><strong>Subshear</strong>, $V_r < c_R \approx 0{,}92\,V_s$: la inmensa mayoría de los terremotos. La velocidad de Rayleigh $c_R$ es el techo natural de este régimen.</li>
+    <li><strong>La banda prohibida</strong>, en sentido estricto entre $c_R$ y $\sqrt{2}\,V_s$, y en la práctica citada entre $V_s$ y $\sqrt{2}\,V_s \approx 1{,}41\,V_s$: aquí el flujo de energía elástica hacia la punta, la <em>tasa de liberación de energía</em> $G$, se anula o se hace negativo. El medio no puede alimentar la fractura; la propia radiación S que la grieta deja atrás actúa como freno sobre la punta. Una grieta que entra en esta ventana <strong>no se sostiene</strong>: cae de vuelta al régimen subshear o la salta.</li>
+    <li><strong>Supershear estable</strong>, $\sqrt{2}\,V_s \le V_r < V_p$: Andrews mostró cómo se cruza la banda sin recorrerla. Delante de la punta viaja un pico de esfuerzo transportado por la onda P; si la falla está bastante cargada, ese pico rompe la roca antes de que llegue la grieta principal, nace una <em>grieta hija</em> y la ruptura reaparece ya por encima de $\sqrt{2}\,V_s$. Es el mecanismo de Burridge–Andrews, y los pocos supershear documentados corren en ese rango.</li>
+  </ul>
+  <p>La deducción, con la tasa de liberación de energía y su dependencia de la velocidad de la punta, está en Aki y Richards (2002, cap. 11) y se resume en la <a href="sismofisica.html#banda-prohibida">sismofísica básica</a>. Lo que interesa aquí es el número: con $V_s$ entre 3,5 y 3,8 km/s en la corteza venezolana, 4,7 km/s es <strong>1,23–1,33 $V_s$</strong>, en el centro de la banda prohibida con cualquier $V_s$ razonable. Con la distancia en línea recta entre epicentros, 152 km, sale 4,72 km/s y no cambia nada. De modo que <strong>4,7 km/s no es una velocidad física</strong>: es el cociente entre la distancia de dos sismos distintos y la diferencia entre sus relojes de nucleación.</p>
+  <p>Las dos patas se complementan, y conviene decir cómo. La mecánica de fractura excluye que 4,7 km/s haya sido una velocidad sostenida, pero por sí sola deja abierta una salida: un supershear a más de 4,9 km/s que hubiera llegado antes al segundo hipocentro, con el segundo sismo «tardando» en nuclear. Esa salida la cierra la observación, porque un frente así estaría a más de 100 km a los 20 s y el arreglo no ve radiación fuera de los 35 km. La lectura que queda en pie es la de una <strong>barrera</strong> en el sentido de Aki (1979): un tramo que detuvo la primera ruptura, quedó cargado por ella (véase la <a href="coulomb.html">transferencia de esfuerzo</a>) y rompió medio minuto después como un sismo aparte.</p>
+  <div class="callout"><span class="k">En una frase</span> Un frente único exigiría 4,7 km/s, que es 1,3 $V_s$: dentro de la banda donde una grieta de cizalla no puede sostenerse. Y aunque pudiera, a los 20 s estaría a 90 km, donde las estaciones no ven nada. Fueron dos rupturas.</div>
+
+  <h2><span class="no">6</span> Resolución, controles y límites</h2>
   <ul>
     <li><strong>Controles sintéticos:</strong> se generan dos fuentes separadas (se recuperan) y un <em>control nulo</em> con ambas colocadas (no aparece la segunda) → el salto al este es real, no un lóbulo lateral.</li>
     <li><strong>Jackknife</strong> <em>leave-one-out</em> y prueba de <strong>ruido</strong>: la separación de 149 km es estable (σ ≈ 8 km) y sobrevive a SNR muy bajas; no depende de ninguna estación.</li>
@@ -179,11 +200,15 @@
   <div class="callout blue"><span class="k">En una frase</span> La retroproyección usa un arreglo lejano como telescopio: alineando y apilando la $P$ de alta frecuencia, mapea <strong>dónde y cuándo</strong> radía la ruptura — y muestra, con controles, que La Guaira vivió <strong>dos rupturas sucesivas separadas por un hueco</strong>, no un frente único.</div>
   <p style="margin-top:18px">El mismo resultado, para recorrerlo sobre el mapa: el <a href="https://paradojasismica.sigeos.org/" target="_blank" rel="noopener">visor del doblete</a> superpone la imagen de retroproyección, los epicentros de cada agencia y las curvas camino–tiempo.</p>
 
-  <h2><span class="no">6</span> Referencias</h2>
+  <h2><span class="no">7</span> Referencias</h2>
   <ul class="refs">
     <li>Ishii, M., Shearer, P. M., Houston, H., &amp; Vidale, J. E. (2005). Extent, duration and speed of the 2004 Sumatra–Andaman earthquake imaged by the Hi-Net array. <em>Nature</em>, 435, 933–936.</li>
     <li>Xu, Y., Koper, K. D., Sufri, O., Zhu, L., &amp; Hutko, A. R. (2009). Rupture imaging of the Mw 7.9 12 May 2008 Wenchuan earthquake from back projection. <em>G-cubed</em>, 10, Q04006.</li>
     <li>Kiser, E., &amp; Ishii, M. (2017). Back-projection imaging of earthquakes. <em>Annual Review of Earth and Planetary Sciences</em>, 45, 271–299.</li>
+    <li>Burridge, R. (1973). Admissible speeds for plane-strain self-similar shear cracks with friction but lacking cohesion. <em>Geophys. J. R. astr. Soc.</em>, 35, 439–455.</li>
+    <li>Andrews, D. J. (1976). Rupture velocity of plane strain shear cracks. <em>J. Geophys. Res.</em>, 81, 5679–5687.</li>
+    <li>Aki, K., &amp; Richards, P. G. (2002). <em>Quantitative Seismology</em> (2ª ed.), cap. 11, <em>The seismic source: dynamics</em>. University Science Books.</li>
+    <li>Aki, K. (1979). Characterization of barriers on an earthquake fault. <em>J. Geophys. Res.</em>, 84, 6140–6148.</li>
     <li>Kennett, B. L. N., &amp; Engdahl, E. R. (1991). Traveltimes for global earthquake location and phase identification. <em>Geophys. J. Int.</em>, 105, 429–465. (IASP91).</li>
   </ul>
 
